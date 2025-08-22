@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Зеленый магазин</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #E8F5E8 0%, #F1F8E9 100%);
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            max-width: 428px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 20px rgba(129, 199, 132, 0.1);
+        }
+
+        .main-content {
+            width: 100%;
+        }
+
+        /* Адаптация под планшеты и ПК */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 1200px;
+                display: flex;
+                flex-direction: row;
+                position: relative;
+            }
+
+            .main-content {
+                flex: 1;
+                margin-left: 200px;
+            }
+
+            .header {
+                border-radius: 0 30px 30px 0;
+                padding: 30px;
+            }
+
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .page {
+                padding: 40px;
+                padding-bottom: 40px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 24px;
+            }
+
+            .product-card {
+                padding: 24px;
+            }
+
+            .product-image {
+                height: 140px;
+                font-size: 48px;
+            }
+
+            .product-title {
+                font-size: 16px;
+            }
+
+            .product-price {
+                font-size: 18px;
+            }
+
+            .promo-carousel {
+                height: 200px;
+                margin-bottom: 40px;
+            }
+
+            .promo-slide {
+                font-size: 24px;
+                padding: 40px;
+            }
+
+            .search-box {
+                padding: 20px 24px;
+                font-size: 18px;
+            }
+
+            .search-result {
+                padding: 20px;
+            }
+
+            /* Боковая навигация для ПК */
+            .navigation {
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: 200px;
+                max-width: none;
+                height: 100vh;
+                transform: none;
+                flex-direction: column;
+                background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(248, 255, 248, 0.95));
+                backdrop-filter: blur(20px);
+                border-top: none;
+                border-right: 1px solid rgba(200, 230, 201, 0.3);
+                box-shadow: 8px 0 32px rgba(129, 199, 132, 0.1);
+                padding: 30px 0;
+            }
+
+            .nav-button {
+                flex: none;
+                width: 100%;
+                padding: 20px 30px;
+                flex-direction: row;
+                justify-content: flex-start;
+                gap: 16px;
+                margin-bottom: 8px;
+            }
+
+            .nav-button::before {
+                top: 50%;
+                left: 0;
+                width: 4px;
+                height: 0;
+                transform: translateY(-50%);
+                border-radius: 0 2px 2px 0;
+            }
+
+            .nav-button.active::before {
+                height: 60%;
+            }
+
+            .nav-button.active {
+                transform: translateX(4px);
+            }
+
+            .nav-icon {
+                width: 24px;
+                height: 24px;
+            }
+
+            .nav-text {
+                font-size: 14px;
+                text-transform: none;
+                letter-spacing: normal;
+                font-weight: 500;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .products-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+
+            .page {
+                padding: 50px 60px;
+            }
+
+            .promo-carousel {
+                height: 240px;
+            }
+
+            .promo-slide {
+                font-size: 28px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .products-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #C8E6C9 0%, #A5D6A7 100%);
+            padding: 20px;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .header h1 {
+            color: #2E7D32;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .page {
+            display: none;
+            padding: 20px;
+            padding-bottom: 100px;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Карусель акций */
+        .promo-carousel {
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            height: 160px;
+        }
+
+        .promo-slides {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 100%;
+        }
+
+        .promo-slide {
+            min-width: 100%;
+            background: linear-gradient(135deg, #81C784 0%, #66BB6A 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .promo-slide:nth-child(2) {
+            background: linear-gradient(135deg, #A5D6A7 0%, #81C784 100%);
+        }
+
+        .promo-slide:nth-child(3) {
+            background: linear-gradient(135deg, #66BB6A 0%, #4CAF50 100%);
+        }
+
+        .promo-indicators {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+
+        .indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .indicator.active {
+            background: white;
+        }
+
+        /* Карточки товаров */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 4px 12px rgba(129, 199, 132, 0.15);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid #E8F5E8;
+        }
+
+        .product-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(129, 199, 132, 0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 120px;
+            background: #F1F8E9;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+
+        .product-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2E7D32;
+            margin-bottom: 8px;
+        }
+
+        .product-price {
+            font-size: 16px;
+            font-weight: 700;
+            color: #388E3C;
+        }
+
+        /* Поиск */
+        .search-container {
+            margin-bottom: 30px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #E8F5E8;
+            border-radius: 16px;
+            font-size: 16px;
+            background: white;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #81C784;
+        }
+
+        .search-results {
+            margin-top: 20px;
+        }
+
+        .search-result {
+            padding: 16px;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(129, 199, 132, 0.1);
+            border: 1px solid #E8F5E8;
+        }
+
+        .result-title {
+            font-weight: 600;
+            color: #2E7D32;
+            margin-bottom: 4px;
+        }
+
+        .result-description {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Навигация */
+        .navigation {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 428px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(200, 230, 201, 0.3);
+            display: flex;
+            box-shadow: 0 -8px 32px rgba(129, 199, 132, 0.15);
+            z-index: 1000;
+        }
+
+        .nav-button {
+            flex: 1;
+            padding: 12px 16px;
+            border: none;
+            background: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #81C784;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #66BB6A, #4CAF50);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(-50%);
+            border-radius: 0 0 2px 2px;
+        }
+
+        .nav-button.active {
+            color: #2E7D32;
+            background: linear-gradient(135deg, rgba(232, 245, 232, 0.8), rgba(241, 248, 233, 0.8));
+            transform: translateY(-2px);
+        }
+
+        .nav-button.active::before {
+            width: 60%;
+        }
+
+        .nav-button:hover:not(.active) {
+            color: #4CAF50;
+            background: rgba(232, 245, 232, 0.5);
+        }
+
+        .nav-icon {
+            width: 26px;
+            height: 26px;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-button.active .nav-icon {
+            transform: scale(1.1);
+        }
+
+        .nav-text {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Боковая/нижняя навигация -->
+        <div class="navigation">
+            <button class="nav-button active" onclick="switchPage('home')">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                </svg>
+                <span class="nav-text">Главная</span>
+            </button>
+            <button class="nav-button" onclick="switchPage('search')">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                </svg>
+                <span class="nav-text">Поиск</span>
+            </button>
+        </div>
+
+        <div class="main-content">
+            <div class="header">
+                <h1>Зеленый магазин</h1>
+            </div>
+
+            <!-- Главная страница -->
+            <div class="page active" id="home-page">
+                <!-- Карусель акций -->
+                <div class="promo-carousel">
+                    <div class="promo-slides" id="promo-slides">
+                        <div class="promo-slide">
+                            <div>
+                                <div>🌿 Скидка 30%</div>
+                                <div style="font-size: 14px; margin-top: 8px;">на эко-товары</div>
+                            </div>
+                        </div>
+                        <div class="promo-slide">
+                            <div>
+                                <div>🚚 Бесплатная доставка</div>
+                                <div style="font-size: 14px; margin-top: 8px;">от 2000 рублей</div>
+                            </div>
+                        </div>
+                        <div class="promo-slide">
+                            <div>
+                                <div>💚 Новинки недели</div>
+                                <div style="font-size: 14px; margin-top: 8px;">свежие поступления</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="promo-indicators">
+                        <div class="indicator active" onclick="goToSlide(0)"></div>
+                        <div class="indicator" onclick="goToSlide(1)"></div>
+                        <div class="indicator" onclick="goToSlide(2)"></div>
+                    </div>
+                </div>
+
+                <!-- Карточки товаров -->
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div class="product-image">🌱</div>
+                        <div class="product-title">Органический чай</div>
+                        <div class="product-price">350 ₽</div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">🥑</div>
+                        <div class="product-title">Авокадо эко</div>
+                        <div class="product-price">150 ₽</div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">🍯</div>
+                        <div class="product-title">Мед натуральный</div>
+                        <div class="product-price">890 ₽</div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">🌿</div>
+                        <div class="product-title">Травяной сбор</div>
+                        <div class="product-price">420 ₽</div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">🥬</div>
+                        <div class="product-title">Салат органик</div>
+                        <div class="product-price">180 ₽</div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">🌾</div>
+                        <div class="product-title">Хлеб цельнозерновой</div>
+                        <div class="product-price">120 ₽</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Страница поиска -->
+            <div class="page" id="search-page">
+                <div class="search-container">
+                    <input 
+                        type="text" 
+                        class="search-box" 
+                        placeholder="Поиск товаров..."
+                        id="search-input"
+                        oninput="performSearch()"
+                    >
+                </div>
+                
+                <div class="search-results" id="search-results">
+                    <div style="text-align: center; color: #666; padding: 40px 20px;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">🔍</div>
+                        <div>Введите запрос для поиска товаров</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const totalSlides = 3;
+
+        // Функция переключения страниц
+        function switchPage(page) {
+            const pages = document.querySelectorAll('.page');
+            const buttons = document.querySelectorAll('.nav-button');
+            
+            pages.forEach(p => p.classList.remove('active'));
+            buttons.forEach(b => b.classList.remove('active'));
+            
+            if (page === 'home') {
+                document.getElementById('home-page').classList.add('active');
+                buttons[0].classList.add('active');
+            } else if (page === 'search') {
+                document.getElementById('search-page').classList.add('active');
+                buttons[1].classList.add('active');
+            }
+        }
+
+        // Функция карусели
+        function goToSlide(index) {
+            currentSlide = index;
+            const slidesContainer = document.getElementById('promo-slides');
+            const indicators = document.querySelectorAll('.indicator');
+            
+            slidesContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            indicators.forEach(ind => ind.classList.remove('active'));
+            indicators[currentSlide].classList.add('active');
+        }
+
+        // Автопрокрутка карусели
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            goToSlide(currentSlide);
+        }, 4000);
+
+        // База данных товаров для поиска
+        const products = [
+            { name: 'Органический чай', description: 'Натуральный зеленый чай без добавок', price: '350 ₽' },
+            { name: 'Авокадо эко', description: 'Свежие авокадо из органических хозяйств', price: '150 ₽' },
+            { name: 'Мед натуральный', description: 'Цветочный мед с пасеки', price: '890 ₽' },
+            { name: 'Травяной сбор', description: 'Смесь целебных трав для здоровья', price: '420 ₽' },
+            { name: 'Салат органик', description: 'Свежий листовой салат без химии', price: '180 ₽' },
+            { name: 'Хлеб цельнозерновой', description: 'Хлеб из муки грубого помола', price: '120 ₽' },
+            { name: 'Молоко фермерское', description: 'Натуральное коровье молоко', price: '85 ₽' },
+            { name: 'Яйца деревенские', description: 'Домашние куриные яйца', price: '120 ₽' },
+            { name: 'Овсянка органическая', description: 'Цельные овсяные хлопья', price: '180 ₽' },
+            { name: 'Масло оливковое', description: 'Холодного отжима extra virgin', price: '650 ₽' }
+        ];
+
+        // Функция поиска
+        function performSearch() {
+            const searchInput = document.getElementById('search-input');
+            const searchResults = document.getElementById('search-results');
+            const query = searchInput.value.toLowerCase().trim();
+
+            if (query === '') {
+                searchResults.innerHTML = `
+                    <div style="text-align: center; color: #666; padding: 40px 20px;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">🔍</div>
+                        <div>Введите запрос для поиска товаров</div>
+                    </div>
+                `;
+                return;
+            }
+
+            const filteredProducts = products.filter(product => 
+                product.name.toLowerCase().includes(query) || 
+                product.description.toLowerCase().includes(query)
+            );
+
+            if (filteredProducts.length === 0) {
+                searchResults.innerHTML = `
+                    <div style="text-align: center; color: #666; padding: 40px 20px;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">😕</div>
+                        <div>Ничего не найдено</div>
+                        <div style="font-size: 14px; margin-top: 8px;">Попробуйте изменить запрос</div>
+                    </div>
+                `;
+                return;
+            }
+
+            searchResults.innerHTML = filteredProducts.map(product => `
+                <div class="search-result">
+                    <div class="result-title">${product.name} — ${product.price}</div>
+                    <div class="result-description">${product.description}</div>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html>
