@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Зеленый магазин</title>
+    <title>Времятелу!</title>
     <style>
         * {
             margin: 0;
@@ -13,9 +13,10 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #E8F5E8 0%, #F1F8E9 100%);
+            background: white;
             min-height: 100vh;
-            padding-bottom: 80px;
+            padding-bottom: 0;
+            margin: 0;
         }
 
         .container {
@@ -24,162 +25,12 @@
             background: white;
             min-height: 100vh;
             box-shadow: 0 0 20px rgba(129, 199, 132, 0.1);
+            position: relative;
         }
 
         .main-content {
             width: 100%;
-        }
-
-        /* Адаптация под планшеты и ПК */
-        @media (min-width: 768px) {
-            .container {
-                max-width: 1200px;
-                display: flex;
-                flex-direction: row;
-                position: relative;
-            }
-
-            .main-content {
-                flex: 1;
-                margin-left: 200px;
-            }
-
-            .header {
-                border-radius: 0 30px 30px 0;
-                padding: 30px;
-            }
-
-            .header h1 {
-                font-size: 32px;
-            }
-
-            .page {
-                padding: 40px;
-                padding-bottom: 40px;
-            }
-
-            .products-grid {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 24px;
-            }
-
-            .product-card {
-                padding: 24px;
-            }
-
-            .product-image {
-                height: 140px;
-                font-size: 48px;
-            }
-
-            .product-title {
-                font-size: 16px;
-            }
-
-            .product-price {
-                font-size: 18px;
-            }
-
-            .promo-carousel {
-                height: 200px;
-                margin-bottom: 40px;
-            }
-
-            .promo-slide {
-                font-size: 24px;
-                padding: 40px;
-            }
-
-            .search-box {
-                padding: 20px 24px;
-                font-size: 18px;
-            }
-
-            .search-result {
-                padding: 20px;
-            }
-
-            /* Боковая навигация для ПК */
-            .navigation {
-                position: fixed;
-                top: 0;
-                left: 0;
-                bottom: 0;
-                width: 200px;
-                max-width: none;
-                height: 100vh;
-                transform: none;
-                flex-direction: column;
-                background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(248, 255, 248, 0.95));
-                backdrop-filter: blur(20px);
-                border-top: none;
-                border-right: 1px solid rgba(200, 230, 201, 0.3);
-                box-shadow: 8px 0 32px rgba(129, 199, 132, 0.1);
-                padding: 30px 0;
-            }
-
-            .nav-button {
-                flex: none;
-                width: 100%;
-                padding: 20px 30px;
-                flex-direction: row;
-                justify-content: flex-start;
-                gap: 16px;
-                margin-bottom: 8px;
-            }
-
-            .nav-button::before {
-                top: 50%;
-                left: 0;
-                width: 4px;
-                height: 0;
-                transform: translateY(-50%);
-                border-radius: 0 2px 2px 0;
-            }
-
-            .nav-button.active::before {
-                height: 60%;
-            }
-
-            .nav-button.active {
-                transform: translateX(4px);
-            }
-
-            .nav-icon {
-                width: 24px;
-                height: 24px;
-            }
-
-            .nav-text {
-                font-size: 14px;
-                text-transform: none;
-                letter-spacing: normal;
-                font-weight: 500;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .products-grid {
-                grid-template-columns: repeat(5, 1fr);
-            }
-
-            .page {
-                padding: 50px 60px;
-            }
-
-            .promo-carousel {
-                height: 240px;
-            }
-
-            .promo-slide {
-                font-size: 28px;
-            }
-        }
-
-        @media (min-width: 1200px) {
-            .products-grid {
-                grid-template-columns: repeat(6, 1fr);
-            }
+            min-height: calc(100vh - 100px);
         }
 
         .header {
@@ -198,7 +49,8 @@
         .page {
             display: none;
             padding: 20px;
-            padding-bottom: 100px;
+            padding-bottom: 120px;
+            min-height: 800px;
         }
 
         .page.active {
@@ -277,11 +129,16 @@
             box-shadow: 0 4px 12px rgba(129, 199, 132, 0.15);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             border: 1px solid #E8F5E8;
+            cursor: pointer;
         }
 
         .product-card:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(129, 199, 132, 0.2);
+        }
+
+        .product-card:active {
+            transform: translateY(0);
         }
 
         .product-image {
@@ -290,10 +147,19 @@
             background: #F1F8E9;
             border-radius: 12px;
             margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
         }
 
         .product-title {
@@ -340,6 +206,18 @@
             margin-bottom: 12px;
             box-shadow: 0 2px 8px rgba(129, 199, 132, 0.1);
             border: 1px solid #E8F5E8;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .search-result:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(129, 199, 132, 0.15);
+            border-color: #C8E6C9;
+        }
+
+        .search-result:active {
+            transform: translateY(0);
         }
 
         .result-title {
@@ -429,6 +307,176 @@
             letter-spacing: 0.5px;
             text-transform: uppercase;
         }
+
+        /* Страница товара */
+        .product-page {
+            padding: 20px;
+            padding-bottom: 100px;
+        }
+
+        .back-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: none;
+            border: none;
+            color: #2E7D32;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 12px 0;
+            margin-bottom: 20px;
+            transition: color 0.2s ease;
+        }
+
+        .back-button:hover {
+            color: #1B5E20;
+        }
+
+        .back-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .product-detail {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(129, 199, 132, 0.15);
+        }
+
+        .product-detail-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #F1F8E9 0%, #E8F5E8 100%);
+            border-bottom: 1px solid #E8F5E8;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-detail-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-detail-info {
+            padding: 24px;
+        }
+
+        .product-detail-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2E7D32;
+            margin-bottom: 8px;
+        }
+
+        .product-detail-price {
+            font-size: 28px;
+            font-weight: 800;
+            color: #388E3C;
+            margin-bottom: 16px;
+        }
+
+        .product-detail-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            font-size: 16px;
+        }
+
+        .product-features {
+            margin-bottom: 24px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+            color: #2E7D32;
+        }
+
+        .feature-icon {
+            width: 20px;
+            height: 20px;
+            color: #4CAF50;
+        }
+
+        /* Секция отзывов */
+        .reviews-section {
+            margin-top: 32px;
+        }
+
+        .reviews-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2E7D32;
+            margin-bottom: 20px;
+            padding-left: 4px;
+        }
+
+        .review-card {
+            background: white;
+            border: 1px solid #E8F5E8;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(129, 199, 132, 0.08);
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .review-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #C8E6C9 0%, #A5D6A7 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: #2E7D32;
+        }
+
+        .review-info {
+            flex: 1;
+        }
+
+        .review-name {
+            font-weight: 600;
+            color: #2E7D32;
+            margin-bottom: 2px;
+        }
+
+        .review-rating {
+            display: flex;
+            gap: 2px;
+            margin-bottom: 8px;
+        }
+
+        .star {
+            color: #FFB300;
+            font-size: 14px;
+        }
+
+        .review-text {
+            color: #666;
+            line-height: 1.5;
+            font-size: 15px;
+        }
+
+        .review-date {
+            color: #999;
+            font-size: 12px;
+            text-align: right;
+        }
     </style>
 </head>
 <body>
@@ -451,7 +499,7 @@
 
         <div class="main-content">
             <div class="header">
-                <h1>Зеленый магазин</h1>
+                <h1>Времятелу!</h1>
             </div>
 
             <!-- Главная страница -->
@@ -487,33 +535,45 @@
 
                 <!-- Карточки товаров -->
                 <div class="products-grid">
-                    <div class="product-card">
-                        <div class="product-image">🌱</div>
+                    <div class="product-card" onclick="openProductPage('tea', 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=300&h=200&fit=crop', 'Органический чай', '350 ₽', 'Натуральный зеленый чай высшего качества из экологически чистых регионов. Собран вручную на высокогорных плантациях.')">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=300&h=200&fit=crop" alt="Органический чай">
+                        </div>
                         <div class="product-title">Органический чай</div>
                         <div class="product-price">350 ₽</div>
                     </div>
-                    <div class="product-card">
-                        <div class="product-image">🥑</div>
+                    <div class="product-card" onclick="openProductPage('avocado', 'https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=300&h=200&fit=crop', 'Авокадо эко', '150 ₽', 'Спелые авокадо из органических хозяйств. Богаты полезными жирами и витаминами. Идеально для здорового питания.')">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=300&h=200&fit=crop" alt="Авокадо эко">
+                        </div>
                         <div class="product-title">Авокадо эко</div>
                         <div class="product-price">150 ₽</div>
                     </div>
-                    <div class="product-card">
-                        <div class="product-image">🍯</div>
+                    <div class="product-card" onclick="openProductPage('honey', 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=300&h=200&fit=crop', 'Мед натуральный', '890 ₽', 'Цветочный мед с собственной пасеки. Собран в экологически чистых районах. Не подвергался термической обработке.')">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=300&h=200&fit=crop" alt="Мед натуральный">
+                        </div>
                         <div class="product-title">Мед натуральный</div>
                         <div class="product-price">890 ₽</div>
                     </div>
-                    <div class="product-card">
-                        <div class="product-image">🌿</div>
+                    <div class="product-card" onclick="openProductPage('herbs', 'https://images.unsplash.com/photo-1515277877510-b8ec2eaef82a?w=300&h=200&fit=crop', 'Травяной сбор', '420 ₽', 'Целебный сбор из горных трав. Помогает укрепить иммунитет и улучшить общее самочувствие.')">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1515277877510-b8ec2eaef82a?w=300&h=200&fit=crop" alt="Травяной сбор">
+                        </div>
                         <div class="product-title">Травяной сбор</div>
                         <div class="product-price">420 ₽</div>
                     </div>
-                    <div class="product-card">
-                        <div class="product-image">🥬</div>
+                    <div class="product-card" onclick="openProductPage('salad', 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&h=200&fit=crop', 'Салат органик', '180 ₽', 'Свежий листовой салат, выращенный без использования химических удобрений. Хрустящий и полезный.')">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&h=200&fit=crop" alt="Салат органик">
+                        </div>
                         <div class="product-title">Салат органик</div>
                         <div class="product-price">180 ₽</div>
                     </div>
-                    <div class="product-card">
-                        <div class="product-image">🌾</div>
+                    <div class="product-card" onclick="openProductPage('bread', 'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=300&h=200&fit=crop', 'Хлеб цельнозерновой', '120 ₽', 'Хлеб из муки грубого помола. Выпечен по традиционным рецептам без консервантов и улучшителей.')">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=300&h=200&fit=crop" alt="Хлеб цельнозерновой">
+                        </div>
                         <div class="product-title">Хлеб цельнозерновой</div>
                         <div class="product-price">120 ₽</div>
                     </div>
@@ -534,8 +594,125 @@
                 
                 <div class="search-results" id="search-results">
                     <div style="text-align: center; color: #666; padding: 40px 20px;">
-                        <div style="font-size: 48px; margin-bottom: 16px;">🔍</div>
+                        <svg style="width: 48px; height: 48px; margin-bottom: 16px; color: #81C784;" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                        </svg>
                         <div>Введите запрос для поиска товаров</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Страница товара -->
+            <div class="page" id="product-page">
+                <div class="product-page">
+                    <button class="back-button" onclick="goBack()">
+                        <svg class="back-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                        </svg>
+                        Назад
+                    </button>
+
+                    <div class="product-detail">
+                        <div class="product-detail-image" id="product-detail-image">
+                            <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=500&h=400&fit=crop" alt="Товар" id="product-detail-img">
+                        </div>
+                        <div class="product-detail-info">
+                            <div class="product-detail-title" id="product-detail-title">
+                                Органический чай
+                            </div>
+                            <div class="product-detail-price" id="product-detail-price">
+                                350 ₽
+                            </div>
+                            <div class="product-detail-description" id="product-detail-description">
+                                Натуральный зеленый чай высшего качества из экологически чистых регионов.
+                            </div>
+                            
+                            <div class="product-features">
+                                <div class="feature-item">
+                                    <svg class="feature-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                    </svg>
+                                    Премиум качество
+                                </div>
+                                <div class="feature-item">
+                                    <svg class="feature-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                    </svg>
+                                    Эко-сертификат
+                                </div>
+                                <div class="feature-item">
+                                    <svg class="feature-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
+                                    </svg>
+                                    Бесплатная доставка
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Отзывы -->
+                    <div class="reviews-section">
+                        <h3 class="reviews-title">Отзывы покупателей</h3>
+                        
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="review-avatar">А</div>
+                                <div class="review-info">
+                                    <div class="review-name">Анна К.</div>
+                                    <div class="review-rating">
+                                        <span class="star">★</span>
+                                        <span class="star">★</span>
+                                        <span class="star">★</span>
+                                        <span class="star">★</span>
+                                        <span class="star">★</span>
+                                    </div>
+                                </div>
+                                <div class="review-date">2 дня назад</div>
+                            </div>
+                            <div class="review-text">
+                                Отличный товар! Качество превзошло ожидания. Обязательно буду заказывать ещё.
+                            </div>
+                        </div>
+
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="review-avatar">М</div>
+                                <div class="review-info">
+                                    <div class="review-name">Михаил П.</div>
+                                    <div class="review-rating">
+                                        <span class="star">★</span>
+                                        <span class="star">★</span>
+                                        <span class="star">★</span>
+                                        <span class="star">★</span>
+                                        <span class="star">☆</span>
+                                    </div>
+                                </div>
+                                <div class="review-date">5 дней назад</div>
+                            </div>
+                            <div class="review-text">
+                                Хорошее качество, быстрая доставка. Рекомендую этот магазин!
+                            </div>
+                        </div>
+
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="review-avatar">Е</div>
+                                <div class="review-info">
+                                    <div class="review-name">Елена С.</div>
+                                    <div class="review-rating">
+                                        <span class="star">★</span>
+                                        <span class="star">★</span>
+                                        <span class="star">★</span>
+                                        <span class="star">★</span>
+                                        <span class="star">★</span>
+                                    </div>
+                                </div>
+                                <div class="review-date">1 неделя назад</div>
+                            </div>
+                            <div class="review-text">
+                                Очень довольна покупкой. Товар соответствует описанию. Спасибо за качественный сервис!
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -545,11 +722,15 @@
     <script>
         let currentSlide = 0;
         const totalSlides = 3;
+        let previousPage = 'home'; // Для отслеживания предыдущей страницы
 
         // Функция переключения страниц
         function switchPage(page) {
             const pages = document.querySelectorAll('.page');
             const buttons = document.querySelectorAll('.nav-button');
+            
+            // Сохраняем текущую позицию прокрутки
+            const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
             
             pages.forEach(p => p.classList.remove('active'));
             buttons.forEach(b => b.classList.remove('active'));
@@ -557,10 +738,42 @@
             if (page === 'home') {
                 document.getElementById('home-page').classList.add('active');
                 buttons[0].classList.add('active');
+                previousPage = 'home';
             } else if (page === 'search') {
                 document.getElementById('search-page').classList.add('active');
                 buttons[1].classList.add('active');
+                previousPage = 'search';
             }
+            
+            // Восстанавливаем позицию прокрутки если она была небольшой
+            if (currentScrollPosition < 100) {
+                window.scrollTo(0, 0);
+            }
+        }
+
+        // Функция открытия страницы товара
+        function openProductPage(id, imageUrl, title, price, description) {
+            const pages = document.querySelectorAll('.page');
+            const buttons = document.querySelectorAll('.nav-button');
+            
+            // Скрываем все страницы и убираем активные состояния навигации
+            pages.forEach(p => p.classList.remove('active'));
+            buttons.forEach(b => b.classList.remove('active'));
+            
+            // Заполняем данными страницу товара
+            document.getElementById('product-detail-img').src = imageUrl;
+            document.getElementById('product-detail-img').alt = title;
+            document.getElementById('product-detail-title').textContent = title;
+            document.getElementById('product-detail-price').textContent = price;
+            document.getElementById('product-detail-description').textContent = description;
+            
+            // Показываем страницу товара
+            document.getElementById('product-page').classList.add('active');
+        }
+
+        // Функция возврата назад
+        function goBack() {
+            switchPage(previousPage);
         }
 
         // Функция карусели
@@ -583,17 +796,95 @@
 
         // База данных товаров для поиска
         const products = [
-            { name: 'Органический чай', description: 'Натуральный зеленый чай без добавок', price: '350 ₽' },
-            { name: 'Авокадо эко', description: 'Свежие авокадо из органических хозяйств', price: '150 ₽' },
-            { name: 'Мед натуральный', description: 'Цветочный мед с пасеки', price: '890 ₽' },
-            { name: 'Травяной сбор', description: 'Смесь целебных трав для здоровья', price: '420 ₽' },
-            { name: 'Салат органик', description: 'Свежий листовой салат без химии', price: '180 ₽' },
-            { name: 'Хлеб цельнозерновой', description: 'Хлеб из муки грубого помола', price: '120 ₽' },
-            { name: 'Молоко фермерское', description: 'Натуральное коровье молоко', price: '85 ₽' },
-            { name: 'Яйца деревенские', description: 'Домашние куриные яйца', price: '120 ₽' },
-            { name: 'Овсянка органическая', description: 'Цельные овсяные хлопья', price: '180 ₽' },
-            { name: 'Масло оливковое', description: 'Холодного отжима extra virgin', price: '650 ₽' }
+            { 
+                id: 'tea',
+                name: 'Органический чай', 
+                description: 'Натуральный зеленый чай без добавок', 
+                price: '350 ₽',
+                image: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=300&h=200&fit=crop',
+                fullDescription: 'Натуральный зеленый чай высшего качества из экологически чистых регионов. Собран вручную на высокогорных плантациях.'
+            },
+            { 
+                id: 'avocado',
+                name: 'Авокадо эко', 
+                description: 'Свежие авокадо из органических хозяйств', 
+                price: '150 ₽',
+                image: 'https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=300&h=200&fit=crop',
+                fullDescription: 'Спелые авокадо из органических хозяйств. Богаты полезными жирами и витаминами. Идеально для здорового питания.'
+            },
+            { 
+                id: 'honey',
+                name: 'Мед натуральный', 
+                description: 'Цветочный мед с пасеки', 
+                price: '890 ₽',
+                image: 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=300&h=200&fit=crop',
+                fullDescription: 'Цветочный мед с собственной пасеки. Собран в экологически чистых районах. Не подвергался термической обработке.'
+            },
+            { 
+                id: 'herbs',
+                name: 'Травяной сбор', 
+                description: 'Смесь целебных трав для здоровья', 
+                price: '420 ₽',
+                image: 'https://images.unsplash.com/photo-1515277877510-b8ec2eaef82a?w=300&h=200&fit=crop',
+                fullDescription: 'Целебный сбор из горных трав. Помогает укрепить иммунитет и улучшить общее самочувствие.'
+            },
+            { 
+                id: 'salad',
+                name: 'Салат органик', 
+                description: 'Свежий листовой салат без химии', 
+                price: '180 ₽',
+                image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&h=200&fit=crop',
+                fullDescription: 'Свежий листовой салат, выращенный без использования химических удобрений. Хрустящий и полезный.'
+            },
+            { 
+                id: 'bread',
+                name: 'Хлеб цельнозерновой', 
+                description: 'Хлеб из муки грубого помола', 
+                price: '120 ₽',
+                image: 'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=300&h=200&fit=crop',
+                fullDescription: 'Хлеб из муки грубого помола. Выпечен по традиционным рецептам без консервантов и улучшителей.'
+            },
+            { 
+                id: 'milk',
+                name: 'Молоко фермерское', 
+                description: 'Натуральное коровье молоко', 
+                price: '85 ₽',
+                image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=300&h=200&fit=crop',
+                fullDescription: 'Натуральное фермерское молоко от коров, пасущихся на экологически чистых лугах.'
+            },
+            { 
+                id: 'eggs',
+                name: 'Яйца деревенские', 
+                description: 'Домашние куриные яйца', 
+                price: '120 ₽',
+                image: 'https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?w=300&h=200&fit=crop',
+                fullDescription: 'Свежие деревенские яйца от кур свободного выгула. Богаты витаминами и полезными веществами.'
+            },
+            { 
+                id: 'oats',
+                name: 'Овсянка органическая', 
+                description: 'Цельные овсяные хлопья', 
+                price: '180 ₽',
+                image: 'https://images.unsplash.com/photo-1517685352821-92cf88aee5a5?w=300&h=200&fit=crop',
+                fullDescription: 'Органические овсяные хлопья из цельного зерна. Идеальный выбор для здорового завтрака.'
+            },
+            { 
+                id: 'oil',
+                name: 'Масло оливковое', 
+                description: 'Холодного отжима extra virgin', 
+                price: '650 ₽',
+                image: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=300&h=200&fit=crop',
+                fullDescription: 'Оливковое масло первого холодного отжима Extra Virgin. Произведено в Средиземноморье по традиционным технологиям.'
+            }
         ];
+
+        // Функция открытия товара из поиска
+        function openProductFromSearch(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                openProductPage(product.id, product.image, product.name, product.price, product.fullDescription);
+            }
+        }
 
         // Функция поиска
         function performSearch() {
@@ -604,7 +895,9 @@
             if (query === '') {
                 searchResults.innerHTML = `
                     <div style="text-align: center; color: #666; padding: 40px 20px;">
-                        <div style="font-size: 48px; margin-bottom: 16px;">🔍</div>
+                        <svg style="width: 48px; height: 48px; margin-bottom: 16px; color: #81C784;" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                        </svg>
                         <div>Введите запрос для поиска товаров</div>
                     </div>
                 `;
@@ -619,7 +912,11 @@
             if (filteredProducts.length === 0) {
                 searchResults.innerHTML = `
                     <div style="text-align: center; color: #666; padding: 40px 20px;">
-                        <div style="font-size: 48px; margin-bottom: 16px;">😕</div>
+                        <svg style="width: 48px; height: 48px; margin-bottom: 16px; color: #999;" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                            <circle cx="12" cy="12" r="3" fill="white"/>
+                            <path d="M10.5 12h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
                         <div>Ничего не найдено</div>
                         <div style="font-size: 14px; margin-top: 8px;">Попробуйте изменить запрос</div>
                     </div>
@@ -628,7 +925,7 @@
             }
 
             searchResults.innerHTML = filteredProducts.map(product => `
-                <div class="search-result">
+                <div class="search-result" onclick="openProductFromSearch('${product.id}')">
                     <div class="result-title">${product.name} — ${product.price}</div>
                     <div class="result-description">${product.description}</div>
                 </div>
