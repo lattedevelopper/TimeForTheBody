@@ -28,7 +28,7 @@
             margin: 0 auto;
             background: white;
             min-height: 100vh;
-            box-shadow: 0 0 20px rgba(129, 199, 132, 0.1);
+            box-shadow: 0 0 20px rgba(27, 164, 134, 0.1);
             position: relative;
         }
 
@@ -38,14 +38,14 @@
         }
 
         .header {
-            background: #A9D8AB;
+            background: #1BA486;
             padding: 20px;
             text-align: center;
             border-radius: 0 0 20px 20px;
         }
 
         .header h1 {
-            color: #2E7D32;
+            color: white;
             font-size: 24px;
             font-weight: 600;
         }
@@ -78,7 +78,7 @@
 
         .promo-slide {
             min-width: 100%;
-            background: linear-gradient(135deg, #81C784 0%, #66BB6A 100%);
+            background: linear-gradient(135deg, #1BA486 0%, #159A73 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -90,11 +90,11 @@
         }
 
         .promo-slide:nth-child(2) {
-            background: linear-gradient(135deg, #A5D6A7 0%, #81C784 100%);
+            background: linear-gradient(135deg, #22C899 0%, #1BA486 100%);
         }
 
         .promo-slide:nth-child(3) {
-            background: linear-gradient(135deg, #66BB6A 0%, #4CAF50 100%);
+            background: linear-gradient(135deg, #159A73 0%, #0F7A5B 100%);
         }
 
         .promo-indicators {
@@ -130,15 +130,15 @@
             background: white;
             border-radius: 16px;
             padding: 16px;
-            box-shadow: 0 4px 12px rgba(129, 199, 132, 0.15);
+            box-shadow: 0 4px 12px rgba(27, 164, 134, 0.15);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
-            border: 1px solid #E8F5E8;
+            border: 1px solid #E8F8F5;
             cursor: pointer;
         }
 
         .product-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(129, 199, 132, 0.2);
+            box-shadow: 0 8px 20px rgba(27, 164, 134, 0.2);
         }
 
         .product-card:active {
@@ -148,7 +148,7 @@
         .product-image {
             width: 100%;
             height: 120px;
-            background: #F1F8E9;
+            background: #F0FDF9;
             border-radius: 12px;
             margin-bottom: 12px;
             overflow: hidden;
@@ -169,14 +169,14 @@
         .product-title {
             font-size: 14px;
             font-weight: 600;
-            color: #2E7D32;
+            color: #0F7A5B;
             margin-bottom: 8px;
         }
 
         .product-price {
             font-size: 16px;
             font-weight: 700;
-            color: #388E3C;
+            color: #1BA486;
         }
 
         /* Поиск */
@@ -187,7 +187,7 @@
         .search-box {
             width: 100%;
             padding: 16px 20px;
-            border: 2px solid #E8F5E8;
+            border: 2px solid #E8F8F5;
             border-radius: 16px;
             font-size: 16px;
             background: white;
@@ -196,7 +196,7 @@
 
         .search-box:focus {
             outline: none;
-            border-color: #81C784;
+            border-color: #1BA486;
         }
 
         .search-results {
@@ -208,16 +208,16 @@
             background: white;
             border-radius: 12px;
             margin-bottom: 12px;
-            box-shadow: 0 2px 8px rgba(129, 199, 132, 0.1);
-            border: 1px solid #E8F5E8;
+            box-shadow: 0 2px 8px rgba(27, 164, 134, 0.1);
+            border: 1px solid #E8F8F5;
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
         .search-result:hover {
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(129, 199, 132, 0.15);
-            border-color: #C8E6C9;
+            box-shadow: 0 4px 12px rgba(27, 164, 134, 0.15);
+            border-color: #B8F2E6;
         }
 
         .search-result:active {
@@ -226,7 +226,7 @@
 
         .result-title {
             font-weight: 600;
-            color: #2E7D32;
+            color: #0F7A5B;
             margin-bottom: 4px;
         }
 
@@ -245,9 +245,9 @@
             max-width: 428px;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(200, 230, 201, 0.3);
+            border-top: 1px solid rgba(184, 242, 230, 0.3);
             display: flex;
-            box-shadow: 0 -8px 32px rgba(129, 199, 132, 0.15);
+            box-shadow: 0 -8px 32px rgba(27, 164, 134, 0.15);
             z-index: 1000;
         }
 
@@ -262,7 +262,7 @@
             gap: 6px;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            color: #81C784;
+            color: #1BA486;
             position: relative;
             overflow: hidden;
         }
@@ -274,15 +274,15 @@
             left: 50%;
             width: 0;
             height: 3px;
-            background: linear-gradient(90deg, #66BB6A, #4CAF50);
+            background: linear-gradient(90deg, #1BA486, #0F7A5B);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             transform: translateX(-50%);
             border-radius: 0 0 2px 2px;
         }
 
         .nav-button.active {
-            color: #2E7D32;
-            background: linear-gradient(135deg, rgba(232, 245, 232, 0.8), rgba(241, 248, 233, 0.8));
+            color: #0F7A5B;
+            background: linear-gradient(135deg, rgba(240, 253, 249, 0.8), rgba(232, 248, 245, 0.8));
             transform: translateY(-2px);
         }
 
@@ -291,8 +291,8 @@
         }
 
         .nav-button:hover:not(.active) {
-            color: #4CAF50;
-            background: rgba(232, 245, 232, 0.5);
+            color: #0F7A5B;
+            background: rgba(240, 253, 249, 0.5);
         }
 
         .nav-icon {
@@ -324,7 +324,7 @@
             gap: 8px;
             background: none;
             border: none;
-            color: #2E7D32;
+            color: #0F7A5B;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
@@ -334,7 +334,7 @@
         }
 
         .back-button:hover {
-            color: #1B5E20;
+            color: #1BA486;
         }
 
         .back-icon {
@@ -346,14 +346,14 @@
             background: white;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 8px 24px rgba(129, 199, 132, 0.15);
+            box-shadow: 0 8px 24px rgba(27, 164, 134, 0.15);
         }
 
         .product-detail-image {
             width: 100%;
             height: 300px;
-            background: linear-gradient(135deg, #F1F8E9 0%, #E8F5E8 100%);
-            border-bottom: 1px solid #E8F5E8;
+            background: linear-gradient(135deg, #F0FDF9 0%, #E8F8F5 100%);
+            border-bottom: 1px solid #E8F8F5;
             overflow: hidden;
             position: relative;
         }
@@ -371,14 +371,14 @@
         .product-detail-title {
             font-size: 24px;
             font-weight: 700;
-            color: #2E7D32;
+            color: #0F7A5B;
             margin-bottom: 8px;
         }
 
         .product-detail-price {
             font-size: 28px;
             font-weight: 800;
-            color: #388E3C;
+            color: #1BA486;
             margin-bottom: 16px;
         }
 
@@ -398,13 +398,13 @@
             align-items: center;
             gap: 12px;
             padding: 8px 0;
-            color: #2E7D32;
+            color: #0F7A5B;
         }
 
         .feature-icon {
             width: 20px;
             height: 20px;
-            color: #4CAF50;
+            color: #1BA486;
         }
 
         /* Секция отзывов */
@@ -415,18 +415,18 @@
         .reviews-title {
             font-size: 20px;
             font-weight: 700;
-            color: #2E7D32;
+            color: #0F7A5B;
             margin-bottom: 20px;
             padding-left: 4px;
         }
 
         .review-card {
             background: white;
-            border: 1px solid #E8F5E8;
+            border: 1px solid #E8F8F5;
             border-radius: 16px;
             padding: 20px;
             margin-bottom: 16px;
-            box-shadow: 0 2px 8px rgba(129, 199, 132, 0.08);
+            box-shadow: 0 2px 8px rgba(27, 164, 134, 0.08);
         }
 
         .review-header {
@@ -439,14 +439,14 @@
         .review-avatar {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, #C8E6C9 0%, #A5D6A7 100%);
+            background: linear-gradient(135deg, #B8F2E6 0%, #22C899 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 18px;
             font-weight: 600;
-            color: #2E7D32;
+            color: #0F7A5B;
         }
 
         .review-info {
@@ -455,7 +455,7 @@
 
         .review-name {
             font-weight: 600;
-            color: #2E7D32;
+            color: #0F7A5B;
             margin-bottom: 2px;
         }
 
@@ -502,8 +502,8 @@
 
         .category-button {
             background: white;
-            border: 2px solid #E8F5E8;
-            color: #81C784;
+            border: 2px solid #E8F8F5;
+            color: #1BA486;
             padding: 8px 16px;
             border-radius: 20px;
             font-size: 13px;
@@ -516,16 +516,16 @@
         }
 
         .category-button.active {
-            background: #A9D8AB;
+            background: #1BA486;
             color: white;
-            border-color: #A9D8AB;
+            border-color: #1BA486;
             transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(169, 216, 171, 0.3);
+            box-shadow: 0 4px 8px rgba(27, 164, 134, 0.3);
         }
 
         .category-button:hover:not(.active) {
-            border-color: #A9D8AB;
-            background: #F8FDF8;
+            border-color: #1BA486;
+            background: #F0FDF9;
         }
 
         /* Страница сертификатов */
@@ -538,14 +538,14 @@
             background: white;
             border-radius: 20px;
             padding: 24px;
-            box-shadow: 0 8px 24px rgba(129, 199, 132, 0.15);
+            box-shadow: 0 8px 24px rgba(27, 164, 134, 0.15);
             margin-bottom: 30px;
         }
 
         .form-title {
             font-size: 20px;
             font-weight: 700;
-            color: #2E7D32;
+            color: #0F7A5B;
             margin-bottom: 8px;
             text-align: center;
         }
@@ -564,7 +564,7 @@
         .form-label {
             display: block;
             font-weight: 600;
-            color: #2E7D32;
+            color: #0F7A5B;
             margin-bottom: 8px;
             font-size: 14px;
         }
@@ -572,7 +572,7 @@
         .form-input, .form-select, .form-textarea {
             width: 100%;
             padding: 12px 16px;
-            border: 2px solid #E8F5E8;
+            border: 2px solid #E8F8F5;
             border-radius: 12px;
             font-size: 16px;
             transition: border-color 0.3s ease;
@@ -581,8 +581,8 @@
 
         .form-input:focus, .form-select:focus, .form-textarea:focus {
             outline: none;
-            border-color: #A9D8AB;
-            box-shadow: 0 0 0 3px rgba(169, 216, 171, 0.1);
+            border-color: #1BA486;
+            box-shadow: 0 0 0 3px rgba(27, 164, 134, 0.1);
         }
 
         .form-textarea {
@@ -597,7 +597,7 @@
         }
 
         .certificate-preview {
-            background: linear-gradient(135deg, #A9D8AB 0%, #81C784 100%);
+            background: linear-gradient(135deg, #1BA486 0%, #159A73 100%);
             border-radius: 16px;
             padding: 20px;
             color: white;
@@ -622,7 +622,7 @@
         }
 
         .price-display {
-            background: #F1F8E9;
+            background: #F0FDF9;
             padding: 16px;
             border-radius: 12px;
             text-align: center;
@@ -638,13 +638,13 @@
         .price-amount {
             font-size: 24px;
             font-weight: 700;
-            color: #2E7D32;
+            color: #0F7A5B;
         }
 
         .buy-button {
             width: 100%;
             padding: 16px;
-            background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
+            background: linear-gradient(135deg, #1BA486 0%, #22C899 100%);
             color: white;
             border: none;
             border-radius: 12px;
@@ -652,12 +652,12 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+            box-shadow: 0 4px 12px rgba(27, 164, 134, 0.3);
         }
 
         .buy-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+            box-shadow: 0 8px 20px rgba(27, 164, 134, 0.4);
         }
 
         .buy-button:disabled {
@@ -699,7 +699,7 @@
             width: 64px;
             height: 64px;
             margin: 0 auto 16px;
-            background: #A9D8AB;
+            background: #1BA486;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -710,7 +710,7 @@
         .modal-title {
             font-size: 20px;
             font-weight: 700;
-            color: #2E7D32;
+            color: #0F7A5B;
             margin-bottom: 12px;
         }
 
@@ -721,7 +721,7 @@
         }
 
         .modal-button {
-            background: #A9D8AB;
+            background: #1BA486;
             color: white;
             border: none;
             padding: 12px 24px;
@@ -732,7 +732,7 @@
         }
 
         .modal-button:hover {
-            background: #81C784;
+            background: #159A73;
         }
 
         /* Модальные окна для выбора */
@@ -775,7 +775,7 @@
         }
 
         .selection-modal-header {
-            background: linear-gradient(135deg, #A9D8AB 0%, #81C784 100%);
+            background: linear-gradient(135deg, #1BA486 0%, #159A73 100%);
             color: white;
             padding: 24px;
             text-align: center;
@@ -833,18 +833,18 @@
         }
 
         .service-option:hover {
-            background: linear-gradient(135deg, #F1F8E9 0%, #E8F5E8 100%);
+            background: linear-gradient(135deg, #F0FDF9 0%, #E8F8F5 100%);
         }
 
         .service-option.selected {
-            background: linear-gradient(135deg, #E8F5E8 0%, #C8E6C9 100%);
-            border-left: 4px solid #4CAF50;
+            background: linear-gradient(135deg, #E8F8F5 0%, #B8F2E6 100%);
+            border-left: 4px solid #1BA486;
         }
 
         .service-icon {
             width: 48px;
             height: 48px;
-            background: linear-gradient(135deg, #A9D8AB 0%, #81C784 100%);
+            background: linear-gradient(135deg, #1BA486 0%, #159A73 100%);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -861,7 +861,7 @@
         .service-name {
             font-size: 16px;
             font-weight: 600;
-            color: #2E7D32;
+            color: #0F7A5B;
             margin-bottom: 4px;
         }
 
@@ -874,7 +874,7 @@
         .service-price {
             font-size: 18px;
             font-weight: 700;
-            color: #388E3C;
+            color: #1BA486;
         }
 
         .service-duration {
@@ -899,12 +899,12 @@
         }
 
         .duration-option:hover {
-            background: linear-gradient(135deg, #F1F8E9 0%, #E8F5E8 100%);
+            background: linear-gradient(135deg, #F0FDF9 0%, #E8F8F5 100%);
         }
 
         .duration-option.selected {
-            background: linear-gradient(135deg, #E8F5E8 0%, #C8E6C9 100%);
-            border-left: 4px solid #4CAF50;
+            background: linear-gradient(135deg, #E8F8F5 0%, #B8F2E6 100%);
+            border-left: 4px solid #1BA486;
         }
 
         .duration-info {
@@ -916,17 +916,17 @@
         .duration-icon {
             width: 24px;
             height: 24px;
-            color: #4CAF50;
+            color: #1BA486;
         }
 
         .duration-text {
             font-size: 16px;
             font-weight: 600;
-            color: #2E7D32;
+            color: #0F7A5B;
         }
 
         .duration-badge {
-            background: #4CAF50;
+            background: #1BA486;
             color: white;
             padding: 4px 8px;
             border-radius: 12px;
@@ -947,7 +947,7 @@
         .select-button {
             width: 100%;
             padding: 16px 20px;
-            border: 2px solid #E8F5E8;
+            border: 2px solid #E8F8F5;
             border-radius: 12px;
             background: white;
             cursor: pointer;
@@ -960,17 +960,17 @@
         }
 
         .select-button:hover {
-            border-color: #A9D8AB;
-            background: #FAFFFE;
+            border-color: #1BA486;
+            background: #FDFFFE;
         }
 
         .select-button.selected {
-            border-color: #4CAF50;
-            background: linear-gradient(135deg, #F1F8E9 0%, #E8F5E8 100%);
+            border-color: #1BA486;
+            background: linear-gradient(135deg, #F0FDF9 0%, #E8F8F5 100%);
         }
 
         .select-button-text {
-            color: #2E7D32;
+            color: #0F7A5B;
             font-weight: 500;
         }
 
@@ -982,12 +982,12 @@
         .select-button-arrow {
             width: 20px;
             height: 20px;
-            color: #81C784;
+            color: #1BA486;
             transition: transform 0.2s ease;
         }
 
         .select-button:hover .select-button-arrow {
-            color: #4CAF50;
+            color: #0F7A5B;
         }
 
         /* Уведомления */
@@ -1005,7 +1005,7 @@
             animation: slideInRight 0.3s ease;
         }
 
-        .notification.success { background: #4CAF50; }
+        .notification.success { background: #1BA486; }
         .notification.error { background: #f44336; }
         .notification.info { background: #2196F3; }
 
@@ -1162,7 +1162,7 @@
                             <div class="form-group">
                                 <label class="form-label">Выберите услугу</label>
                                 <button type="button" class="select-button placeholder" id="service-button" onclick="openServiceModal()">
-                                    <span class="select-button-text">-- Выберите услугу --</span>
+                                    <span class="select-button-text">Выберите услугу</span>
                                     <svg class="select-button-arrow" viewBox="0 0 24 24" fill="currentColor">
                                         <path d="M7 10l5 5 5-5z"/>
                                     </svg>
@@ -1172,7 +1172,7 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label class="form-label">Кому сертификат</label>
-                                    <input type="text" class="form-input" id="recipient-name" placeholder="Имя получателя" onchange="updatePreview()" required>
+                                    <input type="text" class="form-input" id="recipient-name" placeholder="Получатель" onchange="updatePreview()" required>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">От кого</label>
@@ -1324,7 +1324,6 @@
                                 </svg>
                                 <span class="duration-text">60 дней</span>
                             </div>
-                            <div class="duration-badge popular-badge">Популярный</div>
                         </div>
 
                         <div class="duration-option" onclick="selectDuration('90', '90 дней')">
@@ -1343,7 +1342,6 @@
                                 </svg>
                                 <span class="duration-text">6 месяцев</span>
                             </div>
-                            <div class="duration-badge extended-badge">Выгодно</div>
                         </div>
 
                         <div class="duration-option" onclick="selectDuration('365', '1 год')">
@@ -1353,7 +1351,6 @@
                                 </svg>
                                 <span class="duration-text">1 год</span>
                             </div>
-                            <div class="duration-badge extended-badge">Максимум</div>
                         </div>
                     </div>
                 </div>
@@ -1373,7 +1370,7 @@
                 
                 <div class="search-results" id="search-results">
                     <div style="text-align: center; color: #666; padding: 40px 20px;">
-                        <svg style="width: 48px; height: 48px; margin-bottom: 16px; color: #81C784;" viewBox="0 0 24 24" fill="currentColor">
+                        <svg style="width: 48px; height: 48px; margin-bottom: 16px; color: #1BA486;" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
                         </svg>
                         <div>Введите запрос для поиска товаров</div>
@@ -1504,12 +1501,12 @@
         // ============================================
         
         // Инициализация EmailJS (ОБЯЗАТЕЛЬНО ЗАМЕНИ НА СВОИ КЛЮЧИ!)
-        emailjs.init("DAw23G92N0aW3F17E"); // Замени на свой Public Key из EmailJS
+        emailjs.init("YOUR_PUBLIC_KEY"); // Замени на свой Public Key из EmailJS
         
         // Конфигурация (ОБЯЗАТЕЛЬНО ЗАМЕНИ НА СВОИ КЛЮЧИ!)
         const EMAILJS_CONFIG = {
-            serviceId: "service_3w01ixd",    // ID сервиса из EmailJS
-            templateId: "template_vrs45er",  // ID шаблона из EmailJS
+            serviceId: "YOUR_SERVICE_ID",    // ID сервиса из EmailJS
+            templateId: "YOUR_TEMPLATE_ID",  // ID шаблона из EmailJS
         };
 
         // ============================================
@@ -1665,7 +1662,7 @@
             if (query === '') {
                 searchResults.innerHTML = `
                     <div style="text-align: center; color: #666; padding: 40px 20px;">
-                        <svg style="width: 48px; height: 48px; margin-bottom: 16px; color: #81C784;" viewBox="0 0 24 24" fill="currentColor">
+                        <svg style="width: 48px; height: 48px; margin-bottom: 16px; color: #1BA486;" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
                         </svg>
                         <div>Введите запрос для поиска товаров</div>
@@ -1808,14 +1805,12 @@
                 return;
             }
 
-            // Проверяем заполненность email
             const emailInput = document.getElementById('email').value.trim();
             if (!emailInput) {
                 showNotification('Пожалуйста, укажите email для получения сертификата', 'error');
                 return;
             }
 
-            // Валидация email
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(emailInput)) {
                 showNotification('Пожалуйста, укажите корректный email адрес', 'error');
@@ -1827,10 +1822,8 @@
             buyButton.disabled = true;
 
             try {
-                // Генерируем номер сертификата
                 const certificateNumber = generateCertificateNumber();
                 
-                // Собираем данные формы
                 const formData = {
                     service: selectedService.value,
                     serviceName: selectedService.name,
@@ -1845,26 +1838,17 @@
 
                 console.log('📧 Отправка сертификата через Outlook...', formData);
 
-                // Обновляем статус
                 buyButton.textContent = 'Отправляем на почту...';
                 
-                // ИСПРАВЛЕННЫЕ параметры для EmailJS шаблона (для Outlook)
                 const templateParams = {
-                    // Обязательное поле для получателя (должно совпадать с {{to_email}} в настройках шаблона)
                     to_email: formData.email,
-                    
-                    // Все остальные параметры
                     recipient_name: formData.recipientName,
                     sender_name: formData.senderName,
                     service_name: formData.serviceName,
                     certificate_number: certificateNumber,
                     price: formData.price,
                     validity_days: formData.validityPeriod,
-                    
-                    // Персональное сообщение (если есть)
                     personal_message: formData.message || 'Поздравляем с получением сертификата!',
-                    
-                    // Дополнительные поля для красоты письма
                     service_description: selectedService.description,
                     service_duration: selectedService.duration,
                     valid_until: getValidityDate(formData.validityPeriod)
@@ -1872,29 +1856,24 @@
 
                 console.log('📤 Параметры для отправки:', templateParams);
 
-                // Отправляем email через EmailJS
                 const response = await emailjs.send(
-                    EMAILJS_CONFIG.serviceId,    // твой Service ID
-                    EMAILJS_CONFIG.templateId,   // твой Template ID
-                    templateParams               // параметры
+                    EMAILJS_CONFIG.serviceId,
+                    EMAILJS_CONFIG.templateId,
+                    templateParams
                 );
 
                 console.log('✅ Email отправлен успешно через Outlook!', response);
 
-                // Показываем модальное окно с подтверждением
                 document.getElementById('certificate-number').textContent = certificateNumber;
                 document.getElementById('confirmation-modal').style.display = 'flex';
                 
-                // Показываем уведомление об успехе
                 showNotification('🎉 Сертификат успешно отправлен на ' + formData.email + '!', 'success');
 
-                // Сбрасываем форму
                 resetCertificateForm();
                 
             } catch (error) {
                 console.error('❌ Ошибка отправки сертификата:', error);
                 
-                // Детальная обработка ошибок
                 let errorMessage = 'Неизвестная ошибка';
                 
                 if (error.text) {
@@ -1911,65 +1890,22 @@
                     errorMessage = error.message;
                 }
                 
-                // Показываем ошибку пользователю
                 showNotification(`❌ ${errorMessage}`, 'error');
                 
-                // Возвращаем кнопку в исходное состояние
                 buyButton.textContent = 'Получить сертификат';
                 buyButton.disabled = false;
             }
         }
 
-        // Вспомогательная функция для расчета даты окончания
-        function getValidityDate(days) {
-            const date = new Date();
-            date.setDate(date.getDate() + parseInt(days));
-            return date.toLocaleDateString('ru-RU', {
-                year: 'numeric',
-                month: 'long', 
-                day: 'numeric'
-            });
-        }
-
-        // Функция для тестирования подключения EmailJS
-        async function testEmailJS() {
-            try {
-                console.log('🧪 Тестируем подключение к EmailJS...');
-                
-                const testParams = {
-                    to_email: 'test@example.com',
-                    recipient_name: 'Тест',
-                    sender_name: 'Система',
-                    service_name: 'Тестовая услуга',
-                    certificate_number: 'TEST-2025-0000',
-                    price: '1000',
-                    validity_days: '60',
-                    personal_message: 'Это тестовое сообщение'
-                };
-                
-                // НЕ отправляем, просто проверяем параметры
-                console.log('✅ Параметры корректны:', testParams);
-                console.log('📋 Настройки EmailJS:', EMAILJS_CONFIG);
-                
-                return true;
-            } catch (error) {
-                console.error('❌ Ошибка тестирования:', error);
-                return false;
-            }
-        }
-
         function resetCertificateForm() {
-            // Сбрасываем форму
             document.getElementById('certificate-form').reset();
             
-            // Сбрасываем выбранные значения
             selectedService = null;
             selectedDuration = { value: '60', text: '60 дней' };
             
-            // Сбрасываем кнопку выбора услуги
             const serviceButton = document.getElementById('service-button');
             serviceButton.innerHTML = `
-                <span class="select-button-text">-- Выберите услугу --</span>
+                <span class="select-button-text">Выберите услугу</span>
                 <svg class="select-button-arrow" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M7 10l5 5 5-5z"/>
                 </svg>
@@ -1977,7 +1913,6 @@
             serviceButton.classList.add('placeholder');
             serviceButton.classList.remove('selected');
 
-            // Сбрасываем кнопку выбора срока
             const durationButton = document.getElementById('duration-button');
             durationButton.innerHTML = `
                 <span class="select-button-text">60 дней</span>
@@ -1986,10 +1921,19 @@
                 </svg>
             `;
 
-            // Обновляем превью и кнопку
             updatePreview();
             document.getElementById('buy-button').textContent = 'Получить сертификат';
             document.getElementById('buy-button').disabled = false;
+        }
+
+        function getValidityDate(days) {
+            const date = new Date();
+            date.setDate(date.getDate() + parseInt(days));
+            return date.toLocaleDateString('ru-RU', {
+                year: 'numeric',
+                month: 'long', 
+                day: 'numeric'
+            });
         }
 
         function generateCertificateNumber() {
@@ -2007,21 +1951,17 @@
         // ============================================
 
         function showNotification(message, type = 'info') {
-            // Удаляем предыдущие уведомления
             const existingNotifications = document.querySelectorAll('.notification');
             existingNotifications.forEach(notification => {
                 notification.remove();
             });
 
-            // Создаем новое уведомление
             const notification = document.createElement('div');
             notification.className = `notification ${type}`;
             notification.textContent = message;
             
-            // Добавляем на страницу
             document.body.appendChild(notification);
             
-            // Удаляем через 5 секунд
             setTimeout(() => {
                 notification.style.animation = 'slideOutRight 0.3s ease';
                 setTimeout(() => {
