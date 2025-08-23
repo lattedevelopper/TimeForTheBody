@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Времятелу!</title>
+    
+    <!-- EmailJS библиотека -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
     <style>
         * {
             margin: 0;
@@ -730,6 +734,290 @@
         .modal-button:hover {
             background: #81C784;
         }
+
+        /* Модальные окна для выбора */
+        .selection-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            backdrop-filter: blur(4px);
+        }
+
+        .selection-modal-content {
+            background: white;
+            border-radius: 24px;
+            padding: 0;
+            margin: 20px;
+            max-width: 400px;
+            width: 90%;
+            max-height: 80vh;
+            overflow: hidden;
+            animation: modalSlideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes modalSlideUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(60px) scale(0.95); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
+        }
+
+        .selection-modal-header {
+            background: linear-gradient(135deg, #A9D8AB 0%, #81C784 100%);
+            color: white;
+            padding: 24px;
+            text-align: center;
+            position: relative;
+        }
+
+        .selection-modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .selection-modal-close {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease;
+        }
+
+        .selection-modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .selection-modal-body {
+            padding: 0;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        /* Карточки услуг */
+        .service-option {
+            border-bottom: 1px solid #F0F0F0;
+            padding: 20px 24px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .service-option:last-child {
+            border-bottom: none;
+        }
+
+        .service-option:hover {
+            background: linear-gradient(135deg, #F1F8E9 0%, #E8F5E8 100%);
+        }
+
+        .service-option.selected {
+            background: linear-gradient(135deg, #E8F5E8 0%, #C8E6C9 100%);
+            border-left: 4px solid #4CAF50;
+        }
+
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #A9D8AB 0%, #81C784 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .service-info {
+            flex: 1;
+        }
+
+        .service-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2E7D32;
+            margin-bottom: 4px;
+        }
+
+        .service-description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .service-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #388E3C;
+        }
+
+        .service-duration {
+            font-size: 12px;
+            color: #999;
+            margin-left: 8px;
+        }
+
+        /* Опции срока действия */
+        .duration-option {
+            border-bottom: 1px solid #F0F0F0;
+            padding: 18px 24px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .duration-option:last-child {
+            border-bottom: none;
+        }
+
+        .duration-option:hover {
+            background: linear-gradient(135deg, #F1F8E9 0%, #E8F5E8 100%);
+        }
+
+        .duration-option.selected {
+            background: linear-gradient(135deg, #E8F5E8 0%, #C8E6C9 100%);
+            border-left: 4px solid #4CAF50;
+        }
+
+        .duration-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .duration-icon {
+            width: 24px;
+            height: 24px;
+            color: #4CAF50;
+        }
+
+        .duration-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2E7D32;
+        }
+
+        .duration-badge {
+            background: #4CAF50;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .popular-badge {
+            background: #FF9800;
+        }
+
+        .extended-badge {
+            background: #9C27B0;
+        }
+
+        /* Кнопки выбора */
+        .select-button {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #E8F5E8;
+            border-radius: 12px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 16px;
+            text-align: left;
+        }
+
+        .select-button:hover {
+            border-color: #A9D8AB;
+            background: #FAFFFE;
+        }
+
+        .select-button.selected {
+            border-color: #4CAF50;
+            background: linear-gradient(135deg, #F1F8E9 0%, #E8F5E8 100%);
+        }
+
+        .select-button-text {
+            color: #2E7D32;
+            font-weight: 500;
+        }
+
+        .select-button.placeholder .select-button-text {
+            color: #999;
+            font-weight: 400;
+        }
+
+        .select-button-arrow {
+            width: 20px;
+            height: 20px;
+            color: #81C784;
+            transition: transform 0.2s ease;
+        }
+
+        .select-button:hover .select-button-arrow {
+            color: #4CAF50;
+        }
+
+        /* Уведомления */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 16px 24px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            z-index: 9999;
+            max-width: 350px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            animation: slideInRight 0.3s ease;
+        }
+
+        .notification.success { background: #4CAF50; }
+        .notification.error { background: #f44336; }
+        .notification.info { background: #2196F3; }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideOutRight {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
     </style>
 </head>
 <body>
@@ -750,7 +1038,7 @@
             </button>
             <button class="nav-button" onclick="switchPage('certificates')">
                 <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                 </svg>
                 <span class="nav-text">Сертификаты</span>
             </button>
@@ -873,15 +1161,12 @@
                         <form id="certificate-form" onsubmit="processCertificate(event)">
                             <div class="form-group">
                                 <label class="form-label">Выберите услугу</label>
-                                <select class="form-select" id="service-select" onchange="updatePreview()" required>
-                                    <option value="">-- Выберите услугу --</option>
-                                    <option value="massage" data-price="3500">Массаж релакс (60 мин) - 3500₽</option>
-                                    <option value="facial" data-price="4200">Уход за лицом - 4200₽</option>
-                                    <option value="manicure" data-price="2800">Маникюр с покрытием - 2800₽</option>
-                                    <option value="haircut" data-price="3200">Стрижка + укладка - 3200₽</option>
-                                    <option value="spa" data-price="5500">SPA-процедуры (90 мин) - 5500₽</option>
-                                    <option value="yoga" data-price="1500">Занятие йогой - 1500₽</option>
-                                </select>
+                                <button type="button" class="select-button placeholder" id="service-button" onclick="openServiceModal()">
+                                    <span class="select-button-text">-- Выберите услугу --</span>
+                                    <svg class="select-button-arrow" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M7 10l5 5 5-5z"/>
+                                    </svg>
+                                </button>
                             </div>
 
                             <div class="form-row">
@@ -897,13 +1182,12 @@
 
                             <div class="form-group">
                                 <label class="form-label">Срок действия</label>
-                                <select class="form-select" id="validity-period" required>
-                                    <option value="30">30 дней</option>
-                                    <option value="60" selected>60 дней</option>
-                                    <option value="90">90 дней</option>
-                                    <option value="180">6 месяцев</option>
-                                    <option value="365">1 год</option>
-                                </select>
+                                <button type="button" class="select-button selected" id="duration-button" onclick="openDurationModal()">
+                                    <span class="select-button-text">60 дней</span>
+                                    <svg class="select-button-arrow" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M7 10l5 5 5-5z"/>
+                                    </svg>
+                                </button>
                             </div>
 
                             <div class="form-group">
@@ -929,7 +1213,7 @@
                             </div>
 
                             <button type="submit" class="buy-button" id="buy-button" disabled>
-                                Получить
+                                Получить сертификат
                             </button>
                         </form>
                     </div>
@@ -940,14 +1224,138 @@
             <div class="confirmation-modal" id="confirmation-modal">
                 <div class="modal-content">
                     <div class="modal-icon">✅</div>
-                    <h3 class="modal-title">Сертификат создан!</h3>
+                    <h3 class="modal-title">Сертификат отправлен!</h3>
                     <p class="modal-text">
-                        Ваш подарочный сертификат успешно оплачен и отправлен на указанный email. 
+                        Ваш подарочный сертификат успешно отправлен на указанный email. 
                         <br><br>
                         <strong>Номер сертификата:</strong><br>
                         <span id="certificate-number">CERT-2025-XXXX</span>
                     </p>
-                    <button class="modal-button" onclick="closeModal()">Понятно</button>
+                    <button class="modal-button" onclick="closeModal()">Отлично!</button>
+                </div>
+            </div>
+
+            <!-- Модальное окно выбора услуги -->
+            <div class="selection-modal" id="service-modal">
+                <div class="selection-modal-content">
+                    <div class="selection-modal-header">
+                        <h3 class="selection-modal-title">Выберите услугу</h3>
+                        <button class="selection-modal-close" onclick="closeServiceModal()">&times;</button>
+                    </div>
+                    <div class="selection-modal-body">
+                        <div class="service-option" onclick="selectService('massage', '💆‍♀️', 'Массаж релакс', 'Расслабляющий массаж всего тела', '3500', '60 мин')">
+                            <div class="service-icon">💆‍♀️</div>
+                            <div class="service-info">
+                                <div class="service-name">Массаж релакс</div>
+                                <div class="service-description">Расслабляющий массаж всего тела</div>
+                                <div class="service-price">3500 ₽<span class="service-duration">60 мин</span></div>
+                            </div>
+                        </div>
+
+                        <div class="service-option" onclick="selectService('facial', '🧴', 'Уход за лицом', 'Комплексная процедура для лица', '4200', '90 мин')">
+                            <div class="service-icon">🧴</div>
+                            <div class="service-info">
+                                <div class="service-name">Уход за лицом</div>
+                                <div class="service-description">Комплексная процедура для лица</div>
+                                <div class="service-price">4200 ₽<span class="service-duration">90 мин</span></div>
+                            </div>
+                        </div>
+
+                        <div class="service-option" onclick="selectService('manicure', '💅', 'Маникюр с покрытием', 'Классический маникюр + гель-лак', '2800', '75 мин')">
+                            <div class="service-icon">💅</div>
+                            <div class="service-info">
+                                <div class="service-name">Маникюр с покрытием</div>
+                                <div class="service-description">Классический маникюр + гель-лак</div>
+                                <div class="service-price">2800 ₽<span class="service-duration">75 мин</span></div>
+                            </div>
+                        </div>
+
+                        <div class="service-option" onclick="selectService('haircut', '✂️', 'Стрижка + укладка', 'Профессиональная стрижка и укладка', '3200', '90 мин')">
+                            <div class="service-icon">✂️</div>
+                            <div class="service-info">
+                                <div class="service-name">Стрижка + укладка</div>
+                                <div class="service-description">Профессиональная стрижка и укладка</div>
+                                <div class="service-price">3200 ₽<span class="service-duration">90 мин</span></div>
+                            </div>
+                        </div>
+
+                        <div class="service-option" onclick="selectService('spa', '🌿', 'SPA-процедуры', 'Комплекс расслабляющих процедур', '5500', '120 мин')">
+                            <div class="service-icon">🌿</div>
+                            <div class="service-info">
+                                <div class="service-name">SPA-процедуры</div>
+                                <div class="service-description">Комплекс расслабляющих процедур</div>
+                                <div class="service-price">5500 ₽<span class="service-duration">120 мин</span></div>
+                            </div>
+                        </div>
+
+                        <div class="service-option" onclick="selectService('yoga', '🧘‍♀️', 'Занятие йогой', 'Индивидуальное занятие йогой', '1500', '60 мин')">
+                            <div class="service-icon">🧘‍♀️</div>
+                            <div class="service-info">
+                                <div class="service-name">Занятие йогой</div>
+                                <div class="service-description">Индивидуальное занятие йогой</div>
+                                <div class="service-price">1500 ₽<span class="service-duration">60 мин</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Модальное окно выбора срока действия -->
+            <div class="selection-modal" id="duration-modal">
+                <div class="selection-modal-content">
+                    <div class="selection-modal-header">
+                        <h3 class="selection-modal-title">Срок действия</h3>
+                        <button class="selection-modal-close" onclick="closeDurationModal()">&times;</button>
+                    </div>
+                    <div class="selection-modal-body">
+                        <div class="duration-option" onclick="selectDuration('30', '30 дней')">
+                            <div class="duration-info">
+                                <svg class="duration-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z"/>
+                                </svg>
+                                <span class="duration-text">30 дней</span>
+                            </div>
+                        </div>
+
+                        <div class="duration-option selected" onclick="selectDuration('60', '60 дней')">
+                            <div class="duration-info">
+                                <svg class="duration-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z"/>
+                                </svg>
+                                <span class="duration-text">60 дней</span>
+                            </div>
+                            <div class="duration-badge popular-badge">Популярный</div>
+                        </div>
+
+                        <div class="duration-option" onclick="selectDuration('90', '90 дней')">
+                            <div class="duration-info">
+                                <svg class="duration-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z"/>
+                                </svg>
+                                <span class="duration-text">90 дней</span>
+                            </div>
+                        </div>
+
+                        <div class="duration-option" onclick="selectDuration('180', '6 месяцев')">
+                            <div class="duration-info">
+                                <svg class="duration-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z"/>
+                                </svg>
+                                <span class="duration-text">6 месяцев</span>
+                            </div>
+                            <div class="duration-badge extended-badge">Выгодно</div>
+                        </div>
+
+                        <div class="duration-option" onclick="selectDuration('365', '1 год')">
+                            <div class="duration-info">
+                                <svg class="duration-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z"/>
+                                </svg>
+                                <span class="duration-text">1 год</span>
+                            </div>
+                            <div class="duration-badge extended-badge">Максимум</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -1091,16 +1499,37 @@
     </div>
 
     <script>
+        // ============================================
+        // НАСТРОЙКИ EMAILJS - ЗАМЕНИ НА СВОИ КЛЮЧИ!
+        // ============================================
+        
+        // Инициализация EmailJS (ОБЯЗАТЕЛЬНО ЗАМЕНИ НА СВОИ КЛЮЧИ!)
+        emailjs.init("DAw23G92N0aW3F17E"); // Замени на свой Public Key из EmailJS
+        
+        // Конфигурация (ОБЯЗАТЕЛЬНО ЗАМЕНИ НА СВОИ КЛЮЧИ!)
+        const EMAILJS_CONFIG = {
+            serviceId: "service_3w01ixd",    // ID сервиса из EmailJS
+            templateId: "template_vrs45er",  // ID шаблона из EmailJS
+        };
+
+        // ============================================
+        // ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ
+        // ============================================
+        
         let currentSlide = 0;
         const totalSlides = 3;
-        let previousPage = 'home'; // Для отслеживания предыдущей страницы
+        let previousPage = 'home';
+        let selectedService = null;
+        let selectedDuration = { value: '60', text: '60 дней' };
 
-        // Функция переключения страниц
+        // ============================================
+        // ОСНОВНЫЕ ФУНКЦИИ САЙТА
+        // ============================================
+
         function switchPage(page) {
             const pages = document.querySelectorAll('.page');
             const buttons = document.querySelectorAll('.nav-button');
             
-            // Сохраняем текущую позицию прокрутки
             const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
             
             pages.forEach(p => p.classList.remove('active'));
@@ -1120,38 +1549,31 @@
                 previousPage = 'certificates';
             }
             
-            // Восстанавливаем позицию прокрутки если она была небольшой
             if (currentScrollPosition < 100) {
                 window.scrollTo(0, 0);
             }
         }
 
-        // Функция открытия страницы товара
         function openProductPage(id, imageUrl, title, price, description) {
             const pages = document.querySelectorAll('.page');
             const buttons = document.querySelectorAll('.nav-button');
             
-            // Скрываем все страницы и убираем активные состояния навигации
             pages.forEach(p => p.classList.remove('active'));
             buttons.forEach(b => b.classList.remove('active'));
             
-            // Заполняем данными страницу товара
             document.getElementById('product-detail-img').src = imageUrl;
             document.getElementById('product-detail-img').alt = title;
             document.getElementById('product-detail-title').textContent = title;
             document.getElementById('product-detail-price').textContent = price;
             document.getElementById('product-detail-description').textContent = description;
             
-            // Показываем страницу товара
             document.getElementById('product-page').classList.add('active');
         }
 
-        // Функция возврата назад
         function goBack() {
             switchPage(previousPage);
         }
 
-        // Функция карусели
         function goToSlide(index) {
             currentSlide = index;
             const slidesContainer = document.getElementById('promo-slides');
@@ -1163,119 +1585,63 @@
             indicators[currentSlide].classList.add('active');
         }
 
-        // Автопрокрутка карусели
         setInterval(() => {
             currentSlide = (currentSlide + 1) % totalSlides;
             goToSlide(currentSlide);
         }, 4000);
 
-        // База данных товаров для поиска
+        // ============================================
+        // ПОИСК И ФИЛЬТРАЦИЯ ТОВАРОВ
+        // ============================================
+
         const products = [
             { 
-                id: 'tea',
-                name: 'Органический чай', 
-                description: 'Натуральный зеленый чай без добавок', 
-                price: '350 ₽',
-                image: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=300&h=200&fit=crop',
+                id: 'tea', name: 'Органический чай', description: 'Натуральный зеленый чай без добавок', 
+                price: '350 ₽', image: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=300&h=200&fit=crop',
                 fullDescription: 'Натуральный зеленый чай высшего качества из экологически чистых регионов. Собран вручную на высокогорных плантациях.',
                 category: 'drinks'
             },
             { 
-                id: 'avocado',
-                name: 'Авокадо эко', 
-                description: 'Свежие авокадо из органических хозяйств', 
-                price: '150 ₽',
-                image: 'https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=300&h=200&fit=crop',
+                id: 'avocado', name: 'Авокадо эко', description: 'Свежие авокадо из органических хозяйств', 
+                price: '150 ₽', image: 'https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=300&h=200&fit=crop',
                 fullDescription: 'Спелые авокадо из органических хозяйств. Богаты полезными жирами и витаминами. Идеально для здорового питания.',
                 category: 'fruits'
             },
             { 
-                id: 'honey',
-                name: 'Мед натуральный', 
-                description: 'Цветочный мед с пасеки', 
-                price: '890 ₽',
-                image: 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=300&h=200&fit=crop',
+                id: 'honey', name: 'Мед натуральный', description: 'Цветочный мед с пасеки', 
+                price: '890 ₽', image: 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=300&h=200&fit=crop',
                 fullDescription: 'Цветочный мед с собственной пасеки. Собран в экологически чистых районах. Не подвергался термической обработке.',
                 category: 'other'
             },
             { 
-                id: 'herbs',
-                name: 'Травяной сбор', 
-                description: 'Смесь целебных трав для здоровья', 
-                price: '420 ₽',
-                image: 'https://images.unsplash.com/photo-1515277877510-b8ec2eaef82a?w=300&h=200&fit=crop',
+                id: 'herbs', name: 'Травяной сбор', description: 'Смесь целебных трав для здоровья', 
+                price: '420 ₽', image: 'https://images.unsplash.com/photo-1515277877510-b8ec2eaef82a?w=300&h=200&fit=crop',
                 fullDescription: 'Целебный сбор из горных трав. Помогает укрепить иммунитет и улучшить общее самочувствие.',
                 category: 'drinks'
             },
             { 
-                id: 'salad',
-                name: 'Салат органик', 
-                description: 'Свежий листовой салат без химии', 
-                price: '180 ₽',
-                image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&h=200&fit=crop',
+                id: 'salad', name: 'Салат органик', description: 'Свежий листовой салат без химии', 
+                price: '180 ₽', image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&h=200&fit=crop',
                 fullDescription: 'Свежий листовой салат, выращенный без использования химических удобрений. Хрустящий и полезный.',
                 category: 'fruits'
             },
             { 
-                id: 'bread',
-                name: 'Хлеб цельнозерновой', 
-                description: 'Хлеб из муки грубого помола', 
-                price: '120 ₽',
-                image: 'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=300&h=200&fit=crop',
+                id: 'bread', name: 'Хлеб цельнозерновой', description: 'Хлеб из муки грубого помола', 
+                price: '120 ₽', image: 'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=300&h=200&fit=crop',
                 fullDescription: 'Хлеб из муки грубого помола. Выпечен по традиционным рецептам без консервантов и улучшителей.',
                 category: 'bakery'
-            },
-            { 
-                id: 'milk',
-                name: 'Молоко фермерское', 
-                description: 'Натуральное коровье молоко', 
-                price: '85 ₽',
-                image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=300&h=200&fit=crop',
-                fullDescription: 'Натуральное фермерское молоко от коров, пасущихся на экологически чистых лугах.',
-                category: 'dairy'
-            },
-            { 
-                id: 'eggs',
-                name: 'Яйца деревенские', 
-                description: 'Домашние куриные яйца', 
-                price: '120 ₽',
-                image: 'https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?w=300&h=200&fit=crop',
-                fullDescription: 'Свежие деревенские яйца от кур свободного выгула. Богаты витаминами и полезными веществами.',
-                category: 'dairy'
-            },
-            { 
-                id: 'oats',
-                name: 'Овсянка органическая', 
-                description: 'Цельные овсяные хлопья', 
-                price: '180 ₽',
-                image: 'https://images.unsplash.com/photo-1517685352821-92cf88aee5a5?w=300&h=200&fit=crop',
-                fullDescription: 'Органические овсяные хлопья из цельного зерна. Идеальный выбор для здорового завтрака.',
-                category: 'bakery'
-            },
-            { 
-                id: 'oil',
-                name: 'Масло оливковое', 
-                description: 'Холодного отжима extra virgin', 
-                price: '650 ₽',
-                image: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=300&h=200&fit=crop',
-                fullDescription: 'Оливковое масло первого холодного отжима Extra Virgin. Произведено в Средиземноморье по традиционным технологиям.',
-                category: 'other'
             }
         ];
 
-        // Функция фильтрации товаров по категории
         function filterByCategory(category) {
             const productCards = document.querySelectorAll('.product-card');
             const categoryButtons = document.querySelectorAll('.category-button');
 
-            // Обновляем активную кнопку
             categoryButtons.forEach(btn => btn.classList.remove('active'));
             document.getElementById(`category-${category}`).classList.add('active');
 
-            // Показываем/скрываем товары без анимации
             productCards.forEach(card => {
                 const cardCategory = card.getAttribute('data-category');
-                
                 if (category === 'all' || cardCategory === category) {
                     card.style.display = 'block';
                 } else {
@@ -1284,7 +1650,6 @@
             });
         }
 
-        // Функция открытия товара из поиска
         function openProductFromSearch(productId) {
             const product = products.find(p => p.id === productId);
             if (product) {
@@ -1292,7 +1657,6 @@
             }
         }
 
-        // Функция поиска
         function performSearch() {
             const searchInput = document.getElementById('search-input');
             const searchResults = document.getElementById('search-results');
@@ -1320,8 +1684,6 @@
                     <div style="text-align: center; color: #666; padding: 40px 20px;">
                         <svg style="width: 48px; height: 48px; margin-bottom: 16px; color: #999;" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                            <circle cx="12" cy="12" r="3" fill="white"/>
-                            <path d="M10.5 12h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                         </svg>
                         <div>Ничего не найдено</div>
                         <div style="font-size: 14px; margin-top: 8px;">Попробуйте изменить запрос</div>
@@ -1338,9 +1700,79 @@
             `).join('');
         }
 
-        // Функции для сертификатов
+        // ============================================
+        // МОДАЛЬНЫЕ ОКНА ДЛЯ ВЫБОРА УСЛУГ
+        // ============================================
+
+        function openServiceModal() {
+            document.getElementById('service-modal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function openDurationModal() {
+            document.getElementById('duration-modal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeServiceModal() {
+            document.getElementById('service-modal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function closeDurationModal() {
+            document.getElementById('duration-modal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function selectService(value, icon, name, description, price, duration) {
+            selectedService = {
+                value: value,
+                icon: icon,
+                name: name,
+                description: description,
+                price: price,
+                duration: duration
+            };
+
+            const serviceButton = document.getElementById('service-button');
+            serviceButton.innerHTML = `
+                <span class="select-button-text">${name} - ${price}₽</span>
+                <svg class="select-button-arrow" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 10l5 5 5-5z"/>
+                </svg>
+            `;
+            serviceButton.classList.remove('placeholder');
+            serviceButton.classList.add('selected');
+
+            document.querySelectorAll('.service-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            event.target.closest('.service-option').classList.add('selected');
+
+            closeServiceModal();
+            updatePreview();
+        }
+
+        function selectDuration(value, text) {
+            selectedDuration = { value: value, text: text };
+
+            const durationButton = document.getElementById('duration-button');
+            durationButton.innerHTML = `
+                <span class="select-button-text">${text}</span>
+                <svg class="select-button-arrow" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 10l5 5 5-5z"/>
+                </svg>
+            `;
+
+            document.querySelectorAll('.duration-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            event.target.closest('.duration-option').classList.add('selected');
+
+            closeDurationModal();
+        }
+
         function updatePreview() {
-            const serviceSelect = document.getElementById('service-select');
             const recipientName = document.getElementById('recipient-name').value;
             const preview = document.getElementById('certificate-preview');
             const previewService = document.getElementById('preview-service');
@@ -1349,14 +1781,10 @@
             const priceAmount = document.getElementById('price-amount');
             const buyButton = document.getElementById('buy-button');
 
-            if (serviceSelect.value) {
-                const selectedOption = serviceSelect.options[serviceSelect.selectedIndex];
-                const serviceName = selectedOption.text.split(' - ')[0];
-                const price = selectedOption.getAttribute('data-price');
-
-                previewService.textContent = serviceName;
+            if (selectedService) {
+                previewService.textContent = selectedService.name;
                 previewRecipient.textContent = recipientName || 'Получатель';
-                priceAmount.textContent = price + ' ₽';
+                priceAmount.textContent = selectedService.price + ' ₽';
 
                 preview.style.display = 'block';
                 priceDisplay.style.display = 'block';
@@ -1368,43 +1796,200 @@
             }
         }
 
-        function processCertificate(event) {
+        // ============================================
+        // ОТПРАВКА СЕРТИФИКАТОВ ЧЕРЕЗ EMAILJS
+        // ============================================
+
+        async function processCertificate(event) {
             event.preventDefault();
 
-            const formData = {
-                service: document.getElementById('service-select').value,
-                serviceName: document.getElementById('service-select').options[document.getElementById('service-select').selectedIndex].text.split(' - ')[0],
-                recipientName: document.getElementById('recipient-name').value,
-                senderName: document.getElementById('sender-name').value,
-                validityPeriod: document.getElementById('validity-period').value,
-                email: document.getElementById('email').value,
-                message: document.getElementById('message').value,
-                price: document.getElementById('service-select').options[document.getElementById('service-select').selectedIndex].getAttribute('data-price')
-            };
+            if (!selectedService) {
+                showNotification('Пожалуйста, выберите услугу', 'error');
+                return;
+            }
 
-            // Имитация процесса оплаты
+            // Проверяем заполненность email
+            const emailInput = document.getElementById('email').value.trim();
+            if (!emailInput) {
+                showNotification('Пожалуйста, укажите email для получения сертификата', 'error');
+                return;
+            }
+
+            // Валидация email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailInput)) {
+                showNotification('Пожалуйста, укажите корректный email адрес', 'error');
+                return;
+            }
+
             const buyButton = document.getElementById('buy-button');
-            buyButton.textContent = 'Обработка платежа...';
+            buyButton.textContent = 'Создаем сертификат...';
             buyButton.disabled = true;
 
-            setTimeout(() => {
-                // Генерация номера сертификата
+            try {
+                // Генерируем номер сертификата
                 const certificateNumber = generateCertificateNumber();
                 
+                // Собираем данные формы
+                const formData = {
+                    service: selectedService.value,
+                    serviceName: selectedService.name,
+                    recipientName: document.getElementById('recipient-name').value.trim() || 'Получатель',
+                    senderName: document.getElementById('sender-name').value.trim() || 'Отправитель',
+                    validityPeriod: selectedDuration.value,
+                    email: emailInput,
+                    message: document.getElementById('message').value.trim(),
+                    price: selectedService.price,
+                    certificateNumber: certificateNumber
+                };
+
+                console.log('📧 Отправка сертификата через Outlook...', formData);
+
+                // Обновляем статус
+                buyButton.textContent = 'Отправляем на почту...';
+                
+                // ИСПРАВЛЕННЫЕ параметры для EmailJS шаблона (для Outlook)
+                const templateParams = {
+                    // Обязательное поле для получателя (должно совпадать с {{to_email}} в настройках шаблона)
+                    to_email: formData.email,
+                    
+                    // Все остальные параметры
+                    recipient_name: formData.recipientName,
+                    sender_name: formData.senderName,
+                    service_name: formData.serviceName,
+                    certificate_number: certificateNumber,
+                    price: formData.price,
+                    validity_days: formData.validityPeriod,
+                    
+                    // Персональное сообщение (если есть)
+                    personal_message: formData.message || 'Поздравляем с получением сертификата!',
+                    
+                    // Дополнительные поля для красоты письма
+                    service_description: selectedService.description,
+                    service_duration: selectedService.duration,
+                    valid_until: getValidityDate(formData.validityPeriod)
+                };
+
+                console.log('📤 Параметры для отправки:', templateParams);
+
+                // Отправляем email через EmailJS
+                const response = await emailjs.send(
+                    EMAILJS_CONFIG.serviceId,    // твой Service ID
+                    EMAILJS_CONFIG.templateId,   // твой Template ID
+                    templateParams               // параметры
+                );
+
+                console.log('✅ Email отправлен успешно через Outlook!', response);
+
                 // Показываем модальное окно с подтверждением
                 document.getElementById('certificate-number').textContent = certificateNumber;
                 document.getElementById('confirmation-modal').style.display = 'flex';
+                
+                // Показываем уведомление об успехе
+                showNotification('🎉 Сертификат успешно отправлен на ' + formData.email + '!', 'success');
 
-                // Имитация отправки email
-                console.log('Отправка email на:', formData.email);
-                console.log('Данные сертификата:', formData);
-                console.log('Номер сертификата:', certificateNumber);
+                // Сбрасываем форму
+                resetCertificateForm();
+                
+            } catch (error) {
+                console.error('❌ Ошибка отправки сертификата:', error);
+                
+                // Детальная обработка ошибок
+                let errorMessage = 'Неизвестная ошибка';
+                
+                if (error.text) {
+                    if (error.text.includes('recipients address is empty')) {
+                        errorMessage = 'Ошибка настройки шаблона. Проверьте поле "To email" в настройках шаблона EmailJS';
+                    } else if (error.text.includes('service')) {
+                        errorMessage = 'Проблема с подключением Outlook. Проверьте Service ID';
+                    } else if (error.text.includes('template')) {
+                        errorMessage = 'Шаблон не найден. Проверьте Template ID';
+                    } else {
+                        errorMessage = error.text;
+                    }
+                } else if (error.message) {
+                    errorMessage = error.message;
+                }
+                
+                // Показываем ошибку пользователю
+                showNotification(`❌ ${errorMessage}`, 'error');
+                
+                // Возвращаем кнопку в исходное состояние
+                buyButton.textContent = 'Получить сертификат';
+                buyButton.disabled = false;
+            }
+        }
 
-                // Сброс формы
-                document.getElementById('certificate-form').reset();
-                updatePreview();
-                buyButton.textContent = 'Оплатить и получить сертификат';
-            }, 2000);
+        // Вспомогательная функция для расчета даты окончания
+        function getValidityDate(days) {
+            const date = new Date();
+            date.setDate(date.getDate() + parseInt(days));
+            return date.toLocaleDateString('ru-RU', {
+                year: 'numeric',
+                month: 'long', 
+                day: 'numeric'
+            });
+        }
+
+        // Функция для тестирования подключения EmailJS
+        async function testEmailJS() {
+            try {
+                console.log('🧪 Тестируем подключение к EmailJS...');
+                
+                const testParams = {
+                    to_email: 'test@example.com',
+                    recipient_name: 'Тест',
+                    sender_name: 'Система',
+                    service_name: 'Тестовая услуга',
+                    certificate_number: 'TEST-2025-0000',
+                    price: '1000',
+                    validity_days: '60',
+                    personal_message: 'Это тестовое сообщение'
+                };
+                
+                // НЕ отправляем, просто проверяем параметры
+                console.log('✅ Параметры корректны:', testParams);
+                console.log('📋 Настройки EmailJS:', EMAILJS_CONFIG);
+                
+                return true;
+            } catch (error) {
+                console.error('❌ Ошибка тестирования:', error);
+                return false;
+            }
+        }
+
+        function resetCertificateForm() {
+            // Сбрасываем форму
+            document.getElementById('certificate-form').reset();
+            
+            // Сбрасываем выбранные значения
+            selectedService = null;
+            selectedDuration = { value: '60', text: '60 дней' };
+            
+            // Сбрасываем кнопку выбора услуги
+            const serviceButton = document.getElementById('service-button');
+            serviceButton.innerHTML = `
+                <span class="select-button-text">-- Выберите услугу --</span>
+                <svg class="select-button-arrow" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 10l5 5 5-5z"/>
+                </svg>
+            `;
+            serviceButton.classList.add('placeholder');
+            serviceButton.classList.remove('selected');
+
+            // Сбрасываем кнопку выбора срока
+            const durationButton = document.getElementById('duration-button');
+            durationButton.innerHTML = `
+                <span class="select-button-text">60 дней</span>
+                <svg class="select-button-arrow" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 10l5 5 5-5z"/>
+                </svg>
+            `;
+
+            // Обновляем превью и кнопку
+            updatePreview();
+            document.getElementById('buy-button').textContent = 'Получить сертификат';
+            document.getElementById('buy-button').disabled = false;
         }
 
         function generateCertificateNumber() {
@@ -1417,10 +2002,54 @@
             document.getElementById('confirmation-modal').style.display = 'none';
         }
 
-        // Закрытие модального окна при клике вне его
+        // ============================================
+        // УВЕДОМЛЕНИЯ
+        // ============================================
+
+        function showNotification(message, type = 'info') {
+            // Удаляем предыдущие уведомления
+            const existingNotifications = document.querySelectorAll('.notification');
+            existingNotifications.forEach(notification => {
+                notification.remove();
+            });
+
+            // Создаем новое уведомление
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            
+            // Добавляем на страницу
+            document.body.appendChild(notification);
+            
+            // Удаляем через 5 секунд
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 5000);
+        }
+
+        // ============================================
+        // ОБРАБОТЧИКИ СОБЫТИЙ
+        // ============================================
+
         document.addEventListener('click', function(event) {
-            const modal = document.getElementById('confirmation-modal');
-            if (event.target === modal) {
+            const serviceModal = document.getElementById('service-modal');
+            const durationModal = document.getElementById('duration-modal');
+            const confirmationModal = document.getElementById('confirmation-modal');
+            
+            if (event.target === serviceModal) closeServiceModal();
+            if (event.target === durationModal) closeDurationModal();
+            if (event.target === confirmationModal) closeModal();
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeServiceModal();
+                closeDurationModal();
                 closeModal();
             }
         });
