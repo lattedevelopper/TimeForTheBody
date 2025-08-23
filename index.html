@@ -477,6 +477,52 @@
             font-size: 12px;
             text-align: right;
         }
+
+        /* Категории товаров */
+        .categories-section {
+            margin-bottom: 25px;
+        }
+
+        .categories-scroll {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 0 0 10px 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .categories-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-button {
+            background: white;
+            border: 2px solid #E8F5E8;
+            color: #81C784;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+            min-width: fit-content;
+        }
+
+        .category-button.active {
+            background: #A9D8AB;
+            color: white;
+            border-color: #A9D8AB;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(169, 216, 171, 0.3);
+        }
+
+        .category-button:hover:not(.active) {
+            border-color: #A9D8AB;
+            background: #F8FDF8;
+        }
     </style>
 </head>
 <body>
@@ -533,44 +579,68 @@
                     </div>
                 </div>
 
+                <!-- Категории товаров -->
+                <div class="categories-section">
+                    <div class="categories-scroll">
+                        <button class="category-button active" onclick="filterByCategory('all')" id="category-all">
+                            🌟 Все товары
+                        </button>
+                        <button class="category-button" onclick="filterByCategory('drinks')" id="category-drinks">
+                            🍵 Напитки
+                        </button>
+                        <button class="category-button" onclick="filterByCategory('fruits')" id="category-fruits">
+                            🥑 Овощи и фрукты
+                        </button>
+                        <button class="category-button" onclick="filterByCategory('dairy')" id="category-dairy">
+                            🥛 Молочное
+                        </button>
+                        <button class="category-button" onclick="filterByCategory('bakery')" id="category-bakery">
+                            🍞 Хлеб и крупы
+                        </button>
+                        <button class="category-button" onclick="filterByCategory('other')" id="category-other">
+                            🍯 Масла и мед
+                        </button>
+                    </div>
+                </div>
+
                 <!-- Карточки товаров -->
-                <div class="products-grid">
-                    <div class="product-card" onclick="openProductPage('tea', 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=300&h=200&fit=crop', 'Органический чай', '350 ₽', 'Натуральный зеленый чай высшего качества из экологически чистых регионов. Собран вручную на высокогорных плантациях.')">
+                <div class="products-grid" id="products-grid">
+                    <div class="product-card" data-category="drinks" onclick="openProductPage('tea', 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=300&h=200&fit=crop', 'Органический чай', '350 ₽', 'Натуральный зеленый чай высшего качества из экологически чистых регионов. Собран вручную на высокогорных плантациях.')">
                         <div class="product-image">
                             <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=300&h=200&fit=crop" alt="Органический чай">
                         </div>
                         <div class="product-title">Органический чай</div>
                         <div class="product-price">350 ₽</div>
                     </div>
-                    <div class="product-card" onclick="openProductPage('avocado', 'https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=300&h=200&fit=crop', 'Авокадо эко', '150 ₽', 'Спелые авокадо из органических хозяйств. Богаты полезными жирами и витаминами. Идеально для здорового питания.')">
+                    <div class="product-card" data-category="fruits" onclick="openProductPage('avocado', 'https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=300&h=200&fit=crop', 'Авокадо эко', '150 ₽', 'Спелые авокадо из органических хозяйств. Богаты полезными жирами и витаминами. Идеально для здорового питания.')">
                         <div class="product-image">
                             <img src="https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=300&h=200&fit=crop" alt="Авокадо эко">
                         </div>
                         <div class="product-title">Авокадо эко</div>
                         <div class="product-price">150 ₽</div>
                     </div>
-                    <div class="product-card" onclick="openProductPage('honey', 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=300&h=200&fit=crop', 'Мед натуральный', '890 ₽', 'Цветочный мед с собственной пасеки. Собран в экологически чистых районах. Не подвергался термической обработке.')">
+                    <div class="product-card" data-category="other" onclick="openProductPage('honey', 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=300&h=200&fit=crop', 'Мед натуральный', '890 ₽', 'Цветочный мед с собственной пасеки. Собран в экологически чистых районах. Не подвергался термической обработке.')">
                         <div class="product-image">
                             <img src="https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=300&h=200&fit=crop" alt="Мед натуральный">
                         </div>
                         <div class="product-title">Мед натуральный</div>
                         <div class="product-price">890 ₽</div>
                     </div>
-                    <div class="product-card" onclick="openProductPage('herbs', 'https://images.unsplash.com/photo-1515277877510-b8ec2eaef82a?w=300&h=200&fit=crop', 'Травяной сбор', '420 ₽', 'Целебный сбор из горных трав. Помогает укрепить иммунитет и улучшить общее самочувствие.')">
+                    <div class="product-card" data-category="drinks" onclick="openProductPage('herbs', 'https://images.unsplash.com/photo-1515277877510-b8ec2eaef82a?w=300&h=200&fit=crop', 'Травяной сбор', '420 ₽', 'Целебный сбор из горных трав. Помогает укрепить иммунитет и улучшить общее самочувствие.')">
                         <div class="product-image">
                             <img src="https://images.unsplash.com/photo-1515277877510-b8ec2eaef82a?w=300&h=200&fit=crop" alt="Травяной сбор">
                         </div>
                         <div class="product-title">Травяной сбор</div>
                         <div class="product-price">420 ₽</div>
                     </div>
-                    <div class="product-card" onclick="openProductPage('salad', 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&h=200&fit=crop', 'Салат органик', '180 ₽', 'Свежий листовой салат, выращенный без использования химических удобрений. Хрустящий и полезный.')">
+                    <div class="product-card" data-category="fruits" onclick="openProductPage('salad', 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&h=200&fit=crop', 'Салат органик', '180 ₽', 'Свежий листовой салат, выращенный без использования химических удобрений. Хрустящий и полезный.')">
                         <div class="product-image">
                             <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&h=200&fit=crop" alt="Салат органик">
                         </div>
                         <div class="product-title">Салат органик</div>
                         <div class="product-price">180 ₽</div>
                     </div>
-                    <div class="product-card" onclick="openProductPage('bread', 'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=300&h=200&fit=crop', 'Хлеб цельнозерновой', '120 ₽', 'Хлеб из муки грубого помола. Выпечен по традиционным рецептам без консервантов и улучшителей.')">
+                    <div class="product-card" data-category="bakery" onclick="openProductPage('bread', 'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=300&h=200&fit=crop', 'Хлеб цельнозерновой', '120 ₽', 'Хлеб из муки грубого помола. Выпечен по традиционным рецептам без консервантов и улучшителей.')">
                         <div class="product-image">
                             <img src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=300&h=200&fit=crop" alt="Хлеб цельнозерновой">
                         </div>
@@ -802,7 +872,8 @@
                 description: 'Натуральный зеленый чай без добавок', 
                 price: '350 ₽',
                 image: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=300&h=200&fit=crop',
-                fullDescription: 'Натуральный зеленый чай высшего качества из экологически чистых регионов. Собран вручную на высокогорных плантациях.'
+                fullDescription: 'Натуральный зеленый чай высшего качества из экологически чистых регионов. Собран вручную на высокогорных плантациях.',
+                category: 'drinks'
             },
             { 
                 id: 'avocado',
@@ -810,7 +881,8 @@
                 description: 'Свежие авокадо из органических хозяйств', 
                 price: '150 ₽',
                 image: 'https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=300&h=200&fit=crop',
-                fullDescription: 'Спелые авокадо из органических хозяйств. Богаты полезными жирами и витаминами. Идеально для здорового питания.'
+                fullDescription: 'Спелые авокадо из органических хозяйств. Богаты полезными жирами и витаминами. Идеально для здорового питания.',
+                category: 'fruits'
             },
             { 
                 id: 'honey',
@@ -818,7 +890,8 @@
                 description: 'Цветочный мед с пасеки', 
                 price: '890 ₽',
                 image: 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=300&h=200&fit=crop',
-                fullDescription: 'Цветочный мед с собственной пасеки. Собран в экологически чистых районах. Не подвергался термической обработке.'
+                fullDescription: 'Цветочный мед с собственной пасеки. Собран в экологически чистых районах. Не подвергался термической обработке.',
+                category: 'other'
             },
             { 
                 id: 'herbs',
@@ -826,7 +899,8 @@
                 description: 'Смесь целебных трав для здоровья', 
                 price: '420 ₽',
                 image: 'https://images.unsplash.com/photo-1515277877510-b8ec2eaef82a?w=300&h=200&fit=crop',
-                fullDescription: 'Целебный сбор из горных трав. Помогает укрепить иммунитет и улучшить общее самочувствие.'
+                fullDescription: 'Целебный сбор из горных трав. Помогает укрепить иммунитет и улучшить общее самочувствие.',
+                category: 'drinks'
             },
             { 
                 id: 'salad',
@@ -834,7 +908,8 @@
                 description: 'Свежий листовой салат без химии', 
                 price: '180 ₽',
                 image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&h=200&fit=crop',
-                fullDescription: 'Свежий листовой салат, выращенный без использования химических удобрений. Хрустящий и полезный.'
+                fullDescription: 'Свежий листовой салат, выращенный без использования химических удобрений. Хрустящий и полезный.',
+                category: 'fruits'
             },
             { 
                 id: 'bread',
@@ -842,7 +917,8 @@
                 description: 'Хлеб из муки грубого помола', 
                 price: '120 ₽',
                 image: 'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=300&h=200&fit=crop',
-                fullDescription: 'Хлеб из муки грубого помола. Выпечен по традиционным рецептам без консервантов и улучшителей.'
+                fullDescription: 'Хлеб из муки грубого помола. Выпечен по традиционным рецептам без консервантов и улучшителей.',
+                category: 'bakery'
             },
             { 
                 id: 'milk',
@@ -850,7 +926,8 @@
                 description: 'Натуральное коровье молоко', 
                 price: '85 ₽',
                 image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=300&h=200&fit=crop',
-                fullDescription: 'Натуральное фермерское молоко от коров, пасущихся на экологически чистых лугах.'
+                fullDescription: 'Натуральное фермерское молоко от коров, пасущихся на экологически чистых лугах.',
+                category: 'dairy'
             },
             { 
                 id: 'eggs',
@@ -858,7 +935,8 @@
                 description: 'Домашние куриные яйца', 
                 price: '120 ₽',
                 image: 'https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?w=300&h=200&fit=crop',
-                fullDescription: 'Свежие деревенские яйца от кур свободного выгула. Богаты витаминами и полезными веществами.'
+                fullDescription: 'Свежие деревенские яйца от кур свободного выгула. Богаты витаминами и полезными веществами.',
+                category: 'dairy'
             },
             { 
                 id: 'oats',
@@ -866,7 +944,8 @@
                 description: 'Цельные овсяные хлопья', 
                 price: '180 ₽',
                 image: 'https://images.unsplash.com/photo-1517685352821-92cf88aee5a5?w=300&h=200&fit=crop',
-                fullDescription: 'Органические овсяные хлопья из цельного зерна. Идеальный выбор для здорового завтрака.'
+                fullDescription: 'Органические овсяные хлопья из цельного зерна. Идеальный выбор для здорового завтрака.',
+                category: 'bakery'
             },
             { 
                 id: 'oil',
@@ -874,9 +953,51 @@
                 description: 'Холодного отжима extra virgin', 
                 price: '650 ₽',
                 image: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=300&h=200&fit=crop',
-                fullDescription: 'Оливковое масло первого холодного отжима Extra Virgin. Произведено в Средиземноморье по традиционным технологиям.'
+                fullDescription: 'Оливковое масло первого холодного отжима Extra Virgin. Произведено в Средиземноморье по традиционным технологиям.',
+                category: 'other'
             }
         ];
+
+        // Функция фильтрации товаров по категории
+        function filterByCategory(category) {
+            const productCards = document.querySelectorAll('.product-card');
+            const categoryButtons = document.querySelectorAll('.category-button');
+
+            // Обновляем активную кнопку
+            categoryButtons.forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`category-${category}`).classList.add('active');
+
+            // Показываем/скрываем товары с анимацией
+            productCards.forEach(card => {
+                const cardCategory = card.getAttribute('data-category');
+                
+                if (category === 'all' || cardCategory === category) {
+                    card.style.animation = 'fadeIn 0.3s ease';
+                    card.style.display = 'block';
+                } else {
+                    card.style.animation = 'fadeOut 0.2s ease';
+                    setTimeout(() => {
+                        if (card.style.animation.includes('fadeOut')) {
+                            card.style.display = 'none';
+                        }
+                    }, 200);
+                }
+            });
+        }
+
+        // CSS анимации для плавного появления/исчезновения
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes fadeOut {
+                from { opacity: 1; transform: translateY(0); }
+                to { opacity: 0; transform: translateY(-10px); }
+            }
+        `;
+        document.head.appendChild(style);
 
         // Функция открытия товара из поиска
         function openProductFromSearch(productId) {
