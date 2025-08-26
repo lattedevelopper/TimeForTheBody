@@ -402,6 +402,35 @@
             color: #1BA486;
         }
 
+        /* Кнопка записи */
+        .booking-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1BA486 0%, #22C899 100%);
+            color: white;
+            text-decoration: none;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            box-shadow: 0 4px 12px rgba(27, 164, 134, 0.3);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .booking-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(27, 164, 134, 0.4);
+            text-decoration: none;
+            color: white;
+        }
+
+        .booking-button:active {
+            transform: translateY(0);
+        }
+
         /* Категории товаров */
         .categories-section {
             margin-bottom: 25px;
@@ -1180,162 +1209,162 @@
                 <!-- Карточки услуг -->
                 <div class="products-grid" id="products-grid">
                     <!-- Оздоровительный массаж -->
-                    <div class="product-card" data-category="wellness-massage" onclick="openProductPage('classic-massage', '💆‍♀️', 'Общий массаж', 'от 1800 ₽', 'Расслабляющий оздоровительный массаж всего тела для снятия напряжения и улучшения кровообращения.')">
+                    <div class="product-card" data-category="wellness-massage" onclick="openProductPage('classic-massage', '💆‍♀️', 'Общий массаж', 'от 1800 ₽', 'Расслабляющий оздоровительный массаж всего тела для снятия напряжения и улучшения кровообращения.', '60-90 минут')">
                         <div class="product-image">💆‍♀️</div>
                         <div class="product-title">Общий массаж</div>
                         <div class="product-price">от 1800 ₽</div>
                     </div>
                     
-                    <div class="product-card" data-category="wellness-massage" onclick="openProductPage('lymphatic-massage', '🤲', 'Лимфодренажный массаж', 'от 2100 ₽', 'Специальный массаж для улучшения лимфооттока и снятия отеков.')">
+                    <div class="product-card" data-category="wellness-massage" onclick="openProductPage('lymphatic-massage', '🤲', 'Лимфодренажный массаж', 'от 1800 ₽', 'Специальный массаж для улучшения лимфооттока и снятия отеков.', '60-90 минут')">
                         <div class="product-image">🤲</div>
                         <div class="product-title">Лимфодренажный массаж</div>
-                        <div class="product-price">от 2100 ₽</div>
+                        <div class="product-price">от 1800 ₽</div>
                     </div>
 
-                    <div class="product-card" data-category="wellness-massage" onclick="openProductPage('back-massage', '💆‍♂️', 'Массаж спины', 'от 900 ₽', 'Массаж спины для снятия напряжения и боли в мышцах.')">
+                    <div class="product-card" data-category="wellness-massage" onclick="openProductPage('back-massage', '💆‍♂️', 'Массаж спины', 'от 900 ₽', 'Массаж спины для снятия напряжения и боли в мышцах.', '30-60 минут')">
                         <div class="product-image">💆‍♂️</div>
                         <div class="product-title">Массаж спины</div>
                         <div class="product-price">от 900 ₽</div>
                     </div>
 
-                    <div class="product-card" data-category="wellness-massage" onclick="openProductPage('neck-massage', '💆‍♀️', 'Массаж ШВЗ', '800 ₽', 'Массаж шейно-воротниковой зоны для снятия напряжения.')">
+                    <div class="product-card" data-category="wellness-massage" onclick="openProductPage('neck-massage', '💆‍♀️', 'Массаж ШВЗ', '800 ₽', 'Массаж шейно-воротниковой зоны для снятия напряжения.', '30 минут')">
                         <div class="product-image">💆‍♀️</div>
                         <div class="product-title">Массаж ШВЗ</div>
                         <div class="product-price">800 ₽</div>
                     </div>
 
-                    <div class="product-card" data-category="wellness-massage" onclick="openProductPage('head-massage', '🧠', 'Массаж головы', '800 ₽', 'Расслабляющий массаж головы и кожи головы.')">
+                    <div class="product-card" data-category="wellness-massage" onclick="openProductPage('head-massage', '🧠', 'Массаж головы', '800 ₽', 'Расслабляющий массаж головы и кожи головы.', '30 минут')">
                         <div class="product-image">🧠</div>
                         <div class="product-title">Массаж головы</div>
                         <div class="product-price">800 ₽</div>
                     </div>
 
-                    <div class="product-card" data-category="wellness-massage" onclick="openProductPage('legs-massage', '🦵', 'Массаж ног', '1200 ₽', 'Расслабляющий и лечебный массаж ног.')">
+                    <div class="product-card" data-category="wellness-massage" onclick="openProductPage('legs-massage', '🦵', 'Массаж ног', '1200 ₽', 'Расслабляющий и лечебный массаж ног.', '30 минут')">
                         <div class="product-image">🦵</div>
                         <div class="product-title">Массаж ног</div>
                         <div class="product-price">1200 ₽</div>
                     </div>
 
                     <!-- Эстетический массаж -->
-                    <div class="product-card" data-category="aesthetic-massage" onclick="openProductPage('anti-cellulite', '✨', 'Антицеллюлитный массаж', 'от 2100 ₽', 'Эффективный массаж для коррекции фигуры и борьбы с целлюлитом. Улучшает тонус кожи и контуры тела.')">
+                    <div class="product-card" data-category="aesthetic-massage" onclick="openProductPage('anti-cellulite', '✨', 'Антицеллюлитный массаж', 'от 2100 ₽', 'Эффективный массаж для коррекции фигуры и борьбы с целлюлитом. Улучшает тонус кожи и контуры тела.', '60-90 минут')">
                         <div class="product-image">✨</div>
                         <div class="product-title">Антицеллюлитный массаж</div>
                         <div class="product-price">от 2100 ₽</div>
                     </div>
 
                     <!-- Массаж лица  -->
-                    <div class="product-card" data-category="face-massage" onclick="openProductPage('classic-face-massage', '😌', 'Классический ручной массаж', 'от 1200 ₽', 'Классический ручной массаж лица для улучшения кровообращения и тонуса кожи.')">
+                    <div class="product-card" data-category="face-massage" onclick="openProductPage('classic-face-massage', '😌', 'Классический ручной массаж', 'от 1200 ₽', 'Классический ручной массаж лица для улучшения кровообращения и тонуса кожи.', '30-60 минут')">
                         <div class="product-image">😌</div>
                         <div class="product-title">Классический ручной массаж</div>
                         <div class="product-price">от 1200 ₽</div>
                     </div>
 
-                    <div class="product-card" data-category="face-massage" onclick="openProductPage('gua-sha-massage', '🪨', 'Контурный массаж лица пластинами Гуаша', '2100 ₽', 'Традиционный китайский массаж лица пластинами гуаша для омоложения.')">
+                    <div class="product-card" data-category="face-massage" onclick="openProductPage('gua-sha-massage', '🪨', 'Контурный массаж лица пластинами Гуаша', '2100 ₽', 'Традиционный китайский массаж лица пластинами гуаша для омоложения.', '60 минут')">
                         <div class="product-image">🪨</div>
                         <div class="product-title">Контурный массаж лица пластинами Гуаша</div>
                         <div class="product-price">2100 ₽</div>
                     </div>
 
-                    <div class="product-card" data-category="face-massage" onclick="openProductPage('french-massage', '🇫🇷', 'Французский скульптурный массаж лица', '2500 ₽', 'Французский скульптурный массаж для моделирования контуров лица.')">
+                    <div class="product-card" data-category="face-massage" onclick="openProductPage('french-massage', '🇫🇷', 'Французский скульптурный массаж лица', '2500 ₽', 'Французский скульптурный массаж для моделирования контуров лица.', '90 минут')">
                         <div class="product-image">🇫🇷</div>
                         <div class="product-title">Французский скульптурный массаж лица</div>
                         <div class="product-price">2500 ₽</div>
                     </div>
 
-                    <div class="product-card" data-category="face-massage" onclick="openProductPage('relax-massage', '😴', 'Массаж лица Relax (шея, лицо)', '1400 ₽', 'Расслабляющий массаж лица и шеи.')">
+                    <div class="product-card" data-category="face-massage" onclick="openProductPage('relax-massage', '😴', 'Массаж лица Relax (шея, лицо)', '1400 ₽', 'Расслабляющий массаж лица и шеи.', '45 минут')">
                         <div class="product-image">😴</div>
                         <div class="product-title">Массаж лица Relax (шея, лицо)</div>
                         <div class="product-price">1400 ₽</div>
                     </div>
 
-                    <div class="product-card" data-category="face-massage" onclick="openProductPage('myofascial-massage', '💪', 'Миофасциальный массаж лица', '2500 ₽', 'Миофасциальный массаж для глубокой проработки мышц лица.')">
+                    <div class="product-card" data-category="face-massage" onclick="openProductPage('myofascial-massage', '💪', 'Миофасциальный массаж лица', '2500 ₽', 'Миофасциальный массаж для глубокой проработки мышц лица.', '60 минут')">
                         <div class="product-image">💪</div>
                         <div class="product-title">Миофасциальный массаж лица</div>
                         <div class="product-price">2500 ₽</div>
                     </div>
 
-                    <div class="product-card" data-category="face-massage" onclick="openProductPage('microcurrents', '⚡', 'Микротоки на лицо', '1200 ₽', 'Аппаратная процедура с микротоками для подтяжки кожи.')">
+                    <div class="product-card" data-category="face-massage" onclick="openProductPage('microcurrents', '⚡', 'Микротоки на лицо', '1200 ₽', 'Аппаратная процедура с микротоками для подтяжки кожи.', '30 минут')">
                         <div class="product-image">⚡</div>
                         <div class="product-title">Микротоки на лицо</div>
                         <div class="product-price">1200 ₽</div>
                     </div>
 
-                    <div class="product-card" data-category="face-massage" onclick="openProductPage('rf-lifting-face', '🔥', 'RF-лифтинг', '1200 ₽', 'RF-лифтинг лица для подтяжки и омоложения кожи.')">
+                    <div class="product-card" data-category="face-massage" onclick="openProductPage('rf-lifting-face', '🔥', 'RF-лифтинг', '1200 ₽', 'RF-лифтинг лица для подтяжки и омоложения кожи.', '30 минут')">
                         <div class="product-image">🔥</div>
                         <div class="product-title">RF-лифтинг</div>
                         <div class="product-price">1200 ₽</div>
                     </div>
 
-                    <div class="product-card" data-category="face-massage" onclick="openProductPage('alginate-mask', '🧴', 'Альгинатная маска', '800 ₽', 'Увлажняющая и питательная альгинатная маска.')">
+                    <div class="product-card" data-category="face-massage" onclick="openProductPage('alginate-mask', '🧴', 'Альгинатная маска', '800 ₽', 'Увлажняющая и питательная альгинатная маска.', '30 минут')">
                         <div class="product-image">🧴</div>
                         <div class="product-title">Альгинатная маска</div>
                         <div class="product-price">800 ₽</div>
                     </div>
 
                     <!-- СПА программы -->
-                    <div class="product-card" data-category="spa-programms" onclick="openProductPage('paradise-body', '🌿', 'Рай для тела', '4200 ₽', '🌿 Кедровая бочка + контрастный душ + массаж спины + чайная церемония')">
+                    <div class="product-card" data-category="spa-programms" onclick="openProductPage('paradise-body', '🌿', 'Рай для тела', '4200 ₽', '🌿 Кедровая бочка + контрастный душ + массаж спины + чайная церемония', '180 минут')">
                         <div class="product-image">🌿</div>
                         <div class="product-title">Рай для тела</div>
                         <div class="product-price">4200 ₽</div>
                     </div>
 
-                    <div class="product-card" data-category="spa-programms" onclick="openProductPage('body-shake', '💪', 'Встряхни тело', '3000 ₽', 'Энергичный спортивный массаж для восстановления мышц и повышения тонуса тела.')">
+                    <div class="product-card" data-category="spa-programms" onclick="openProductPage('body-shake', '💪', 'Встряхни тело', '3000 ₽', 'Энергичный спортивный массаж для восстановления мышц и повышения тонуса тела.', '150 минут')">
                         <div class="product-image">💪</div>
                         <div class="product-title">Встряхни тело</div>
                         <div class="product-price">3000 ₽</div>
                     </div>
 
-                    <div class="product-card" data-category="spa-programms" onclick="openProductPage('salt-body', '🧂', 'Соль и тело', '4000 ₽', '🧂 Солевое обертывание + грязевые маски + минеральный массаж + солевая ванна')">
+                    <div class="product-card" data-category="spa-programms" onclick="openProductPage('salt-body', '🧂', 'Соль и тело', '4000 ₽', '🧂 Солевое обертывание + грязевые маски + минеральный массаж + солевая ванна', '180 минут')">
                         <div class="product-image">🧂</div>
                         <div class="product-title">Соль и тело</div>
                         <div class="product-price">4000 ₽</div>
                     </div>
 
-                    <div class="product-card" data-category="spa-programms" onclick="openProductPage('continuous-drainage', '💧', 'Сплошной дренаж', '3000 ₽', 'Комплексная лимфодренажная программа для очищения и восстановления организма.')">
+                    <div class="product-card" data-category="spa-programms" onclick="openProductPage('continuous-drainage', '💧', 'Сплошной дренаж', '3000 ₽', 'Комплексная лимфодренажная программа для очищения и восстановления организма.', '132 минуты')">
                         <div class="product-image">💧</div>
                         <div class="product-title">Сплошной дренаж</div>
                         <div class="product-price">3000 ₽</div>
                     </div>
 
                     <!-- Аппаратная коррекция фигуры -->
-                    <div class="product-card" data-category="body-correction" onclick="openProductPage('vacuum-rf', '🔧', 'Вакуумный массаж с RF-лифтингом', 'от 800 ₽', 'Аппаратный массаж для коррекции фигуры и подтяжки кожи с использованием вакуумно-роликовой технологии.')">
+                    <div class="product-card" data-category="body-correction" onclick="openProductPage('vacuum-rf', '🔧', 'Вакуумный массаж с RF-лифтингом', 'от 800 ₽', 'Аппаратный массаж для коррекции фигуры и подтяжки кожи с использованием вакуумно-роликовой технологии.', '30-60 минут')">
                         <div class="product-image">🔧</div>
                         <div class="product-title">Вакуумный массаж с RF-лифтингом</div>
                         <div class="product-price">от 800 ₽</div>
                     </div>
 
-                    <div class="product-card" data-category="body-correction" onclick="openProductPage('rf-lifting-body', '🔥', 'RF-лифтинг', 'от 800 ₽', 'RF-лифтинг тела для подтяжки и омоложения кожи.')">
+                    <div class="product-card" data-category="body-correction" onclick="openProductPage('rf-lifting-body', '🔥', 'RF-лифтинг', 'от 800 ₽', 'RF-лифтинг тела для подтяжки и омоложения кожи.', '30-60 минут')">
                         <div class="product-image">🔥</div>
                         <div class="product-title">RF-лифтинг</div>
                         <div class="product-price">от 800 ₽</div>
                     </div>
 
-                    <div class="product-card" data-category="body-correction" onclick="openProductPage('cavitation', '〰️', 'Кавитация', 'от 800 ₽', 'Ультразвуковая кавитация для коррекции фигуры и уменьшения жировых отложений.')">
+                    <div class="product-card" data-category="body-correction" onclick="openProductPage('cavitation', '〰️', 'Кавитация', 'от 800 ₽', 'Ультразвуковая кавитация для коррекции фигуры и уменьшения жировых отложений.', '30-60 минут')">
                         <div class="product-image">〰️</div>
                         <div class="product-title">Кавитация</div>
                         <div class="product-price">от 800 ₽</div>
                     </div>
 
                     <!-- Дополнительно -->
-                    <div class="product-card" data-category="additional" onclick="openProductPage('kedr-bochka', '🛁', 'Кедровая бочка', '800 ₽', 'Оздоровительная процедура в кедровой бочке с травяным паром, обеспечивает детокс, улучшает кровообращение, укрепляет иммунитет, снимает стресс и омолаживает кожу, длительность 20 минут.')">
+                    <div class="product-card" data-category="additional" onclick="openProductPage('kedr-bochka', '🛁', 'Кедровая бочка', '800 ₽', 'Оздоровительная процедура в кедровой бочке с травяным паром, обеспечивает детокс, улучшает кровообращение, укрепляет иммунитет, снимает стресс и омолаживает кожу.', '20 минут')">
                         <div class="product-image">🛁</div>
                         <div class="product-title">Кедровая бочка</div>
                         <div class="product-price">800 ₽</div>
                     </div>
 
-                    <div class="product-card" data-category="additional" onclick="openProductPage('kedr-bochka_and_scrab', '🛁', 'Кедровая бочка + скрабирование тела', '1800 ₽', 'Комплексная процедура включает травяной пар в кедровой бочке с отварами целебных трав для детокса и улучшения кровообращения, после чего проводится скрабирование тела натуральными составами для удаления ороговевших клеток, глубокого очищения пор, разглаживания и увлажнения кожи.')">
+                    <div class="product-card" data-category="additional" onclick="openProductPage('kedr-bochka_and_scrab', '🛁', 'Кедровая бочка + скрабирование тела', '1800 ₽', 'Комплексная процедура включает травяной пар в кедровой бочке с отварами целебных трав для детокса и улучшения кровообращения, после чего проводится скрабирование тела натуральными составами для удаления ороговевших клеток, глубокого очищения пор, разглаживания и увлажнения кожи.', '60 минут')">
                         <div class="product-image">🛁</div>
                         <div class="product-title">Кедровая бочка + скрабирование тела</div>
                         <div class="product-price">1800 ₽</div>
                     </div>
 
-                    <div class="product-card" data-category="additional" onclick="openProductPage('obert', '🎁', 'Обёртывание', '1200 ₽', 'Косметическая процедура с нанесением на тело активных составов (водоросли, глина, мёд, масла) с последующим укутыванием плёнкой и тёплым покрывалом для создания термоэффекта.')">
+                    <div class="product-card" data-category="additional" onclick="openProductPage('obert', '🎁', 'Обёртывание', '1200 ₽', 'Косметическая процедура с нанесением на тело активных составов (водоросли, глина, мёд, масла) с последующим укутыванием плёнкой и тёплым покрывалом для создания термоэффекта.', '30 минут')">
                         <div class="product-image">🎁</div>
                         <div class="product-title">Обёртывание</div>
                         <div class="product-price">1200 ₽</div>
                     </div>
 
-                    <div class="product-card" data-category="additional" onclick="openProductPage('massage_scrab', '✨', 'Массаж на скрабе', '1500 ₽', 'Процедура сочетает массажные техники с одновременным нанесением отшелушивающего скраба на основе натуральных компонентов для глубокого очищения пор и улучшения текстуры кожи.')">
+                    <div class="product-card" data-category="additional" onclick="openProductPage('massage_scrab', '✨', 'Массаж на скрабе', '1500 ₽', 'Процедура сочетает массажные техники с одновременным нанесением отшелушивающего скраба на основе натуральных компонентов для глубокого очищения пор и улучшения текстуры кожи.', '40 минут')">
                         <div class="product-image">✨</div>
                         <div class="product-title">Массаж на скрабе</div>
                         <div class="product-price">1500 ₽</div>
@@ -1356,19 +1385,19 @@
                         <div class="progress-bar">
                             <div class="progress-step active" id="step-indicator-1">
                                 <div class="step-circle">1</div>
-                                <div class="step-label">Услуги<br></div>
+                                <div class="step-label">Выбор<br>услуги</div>
                             </div>
                             <div class="progress-step" id="step-indicator-2">
                                 <div class="step-circle">2</div>
-                                <div class="step-label">Данные<br></div>
+                                <div class="step-label">Данные<br>получателя</div>
                             </div>
                             <div class="progress-step" id="step-indicator-3">
                                 <div class="step-circle">3</div>
-                                <div class="step-label">Контакты<br></div>
+                                <div class="step-label">Контакты<br>и сообщение</div>
                             </div>
                             <div class="progress-step" id="step-indicator-4">
                                 <div class="step-circle">4</div>
-                                <div class="step-label">Проверка<br></div>
+                                <div class="step-label">Проверка<br>и отправка</div>
                             </div>
                         </div>
                     </div>
@@ -1718,15 +1747,13 @@
                         <div class="step-title">Данные получателя</div>
                         <div class="step-description">Укажите данные получателя. Срок действия сертификата составляет 6 месяцев</div>
                         
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">Кому сертификат</label>
-                                <input type="text" class="form-input" id="recipient-name" placeholder="Имя получателя" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">От кого</label>
-                                <input type="text" class="form-input" id="sender-name" placeholder="Ваше имя" required>
-                            </div>
+                        <div class="form-group">
+                            <label class="form-label">Кому сертификат</label>
+                            <input type="text" class="form-input" id="recipient-name" placeholder="Имя получателя" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">От кого</label>
+                            <input type="text" class="form-input" id="sender-name" placeholder="Ваше имя" required>
                         </div>
 
                         <div class="form-group">
@@ -1917,14 +1944,24 @@
                                     <svg class="feature-icon" viewBox="0 0 24 24" fill="currentColor">
                                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                                     </svg>
-                                    Эко-сертификат
+                                    Профессиональный подход
                                 </div>
                                 <div class="feature-item">
                                     <svg class="feature-icon" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
+                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                                     </svg>
-                                    Бесплатная доставка
+                                    Индивидуальный подход
                                 </div>
+                            </div>
+
+                            <!-- Кнопка записи -->
+                            <div style="text-align: center; margin-top: 30px;">
+                                <a href="tel:+79960712024" class="booking-button">
+                                    <svg style="width: 20px; height: 20px; margin-right: 8px;" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                                    </svg>
+                                    Записаться на процедуру
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -2182,7 +2219,7 @@
             }
         }
 
-        function openProductPage(id, emoji, title, price, description) {
+        function openProductPage(id, emoji, title, price, description, duration) {
             const pages = document.querySelectorAll('.page');
             const buttons = document.querySelectorAll('.nav-button');
             
@@ -2192,7 +2229,10 @@
             document.getElementById('product-detail-image').textContent = emoji;
             document.getElementById('product-detail-title').textContent = title;
             document.getElementById('product-detail-price').textContent = price;
-            document.getElementById('product-detail-description').textContent = description;
+            
+            // Добавляем длительность к описанию
+            const fullDescription = duration ? `${description}\n\nДлительность: ${duration}` : description;
+            document.getElementById('product-detail-description').textContent = fullDescription;
             
             document.getElementById('product-page').classList.add('active');
         }
@@ -2227,162 +2267,162 @@
                 id: 'classic-massage', name: 'Общий массаж', description: 'Расслабляющий массаж всего тела', 
                 price: 'от 1800 ₽', emoji: '💆‍♀️',
                 fullDescription: 'Расслабляющий оздоровительный массаж всего тела для снятия напряжения и улучшения кровообращения.',
-                category: 'wellness-massage'
+                category: 'wellness-massage', duration: '60-90 минут'
             },
             { 
                 id: 'lymphatic-massage', name: 'Лимфодренажный массаж', description: 'Специальный массаж для улучшения лимфооттока', 
                 price: 'от 1800 ₽', emoji: '🤲',
                 fullDescription: 'Специальный массаж для улучшения лимфооттока и снятия отеков.',
-                category: 'wellness-massage'
+                category: 'wellness-massage', duration: '60-90 минут'
             },
             { 
                 id: 'back-massage', name: 'Массаж спины', description: 'Массаж для снятия напряжения в спине', 
                 price: 'от 900 ₽', emoji: '💆‍♂️',
                 fullDescription: 'Массаж спины для снятия напряжения и боли в мышцах.',
-                category: 'wellness-massage'
+                category: 'wellness-massage', duration: '30-60 минут'
             },
             { 
                 id: 'neck-massage', name: 'Массаж ШВЗ', description: 'Массаж шейно-воротниковой зоны', 
                 price: '800 ₽', emoji: '💆‍♀️',
                 fullDescription: 'Массаж шейно-воротниковой зоны для снятия напряжения.',
-                category: 'wellness-massage'
+                category: 'wellness-massage', duration: '30 минут'
             },
             { 
                 id: 'head-massage', name: 'Массаж головы', description: 'Расслабляющий массаж головы и кожи головы', 
                 price: '800 ₽', emoji: '🧠',
                 fullDescription: 'Расслабляющий массаж головы и кожи головы.',
-                category: 'wellness-massage'
+                category: 'wellness-massage', duration: '30 минут'
             },
             { 
                 id: 'legs-massage', name: 'Массаж ног', description: 'Расслабляющий и лечебный массаж ног', 
                 price: '1200 ₽', emoji: '🦵',
                 fullDescription: 'Расслабляющий и лечебный массаж ног.',
-                category: 'wellness-massage'
+                category: 'wellness-massage', duration: '30 минут'
             },
             // Эстетический массаж
             { 
                 id: 'anti-cellulite', name: 'Антицеллюлитный массаж', description: 'Эффективный массаж для коррекции фигуры', 
                 price: 'от 2100 ₽', emoji: '✨',
                 fullDescription: 'Эффективный массаж для коррекции фигуры и борьбы с целлюлитом. Улучшает тонус кожи и контуры тела.',
-                category: 'aesthetic-massage'
+                category: 'aesthetic-massage', duration: '60-90 минут'
             },
             // Массаж лица  
             { 
                 id: 'classic-face-massage', name: 'Классический ручной массаж', description: 'Омолаживающий массаж лица', 
                 price: 'от 1200 ₽', emoji: '😌',
                 fullDescription: 'Классический ручной массаж лица для улучшения кровообращения и тонуса кожи.',
-                category: 'face-massage'
+                category: 'face-massage', duration: '30-60 минут'
             },
             { 
                 id: 'gua-sha-massage', name: 'Контурный массаж лица пластинами Гуаша', description: 'Традиционный китайский массаж', 
                 price: '2100 ₽', emoji: '🪨',
                 fullDescription: 'Традиционный китайский массаж лица пластинами гуаша для омоложения.',
-                category: 'face-massage'
+                category: 'face-massage', duration: '60 минут'
             },
             { 
                 id: 'french-massage', name: 'Французский скульптурный массаж лица', description: 'Французский скульптурный массаж', 
                 price: '2500 ₽', emoji: '🇫🇷',
                 fullDescription: 'Французский скульптурный массаж для моделирования контуров лица.',
-                category: 'face-massage'
+                category: 'face-massage', duration: '90 минут'
             },
             { 
                 id: 'relax-massage', name: 'Массаж лица Relax (шея, лицо)', description: 'Расслабляющий массаж лица и шеи', 
                 price: '1400 ₽', emoji: '😴',
                 fullDescription: 'Расслабляющий массаж лица и шеи.',
-                category: 'face-massage'
+                category: 'face-massage', duration: '45 минут'
             },
             { 
                 id: 'myofascial-massage', name: 'Миофасциальный массаж лица', description: 'Миофасциальный массаж для глубокой проработки мышц лица', 
                 price: '2500 ₽', emoji: '💪',
                 fullDescription: 'Миофасциальный массаж для глубокой проработки мышц лица.',
-                category: 'face-massage'
+                category: 'face-massage', duration: '60 минут'
             },
             { 
                 id: 'microcurrents', name: 'Микротоки на лицо', description: 'Аппаратная процедура с микротоками', 
                 price: '1200 ₽', emoji: '⚡',
                 fullDescription: 'Аппаратная процедура с микротоками для подтяжки кожи.',
-                category: 'face-massage'
+                category: 'face-massage', duration: '30 минут'
             },
             { 
                 id: 'rf-lifting-face', name: 'RF-лифтинг', description: 'RF-лифтинг лица для подтяжки и омоложения кожи', 
                 price: '1200 ₽', emoji: '🔥',
                 fullDescription: 'RF-лифтинг лица для подтяжки и омоложения кожи.',
-                category: 'face-massage'
+                category: 'face-massage', duration: '30 минут'
             },
             { 
                 id: 'alginate-mask', name: 'Альгинатная маска', description: 'Увлажняющая и питательная маска', 
                 price: '800 ₽', emoji: '🧴',
                 fullDescription: 'Увлажняющая и питательная альгинатная маска.',
-                category: 'face-massage'
+                category: 'face-massage', duration: '30 минут'
             },
             // СПА программы
             { 
                 id: 'paradise-body', name: 'Рай для тела', description: 'Кедровая бочка + душ + массаж + чай', 
                 price: '4200 ₽', emoji: '🌿',
                 fullDescription: '🌿 Кедровая бочка + контрастный душ + массаж спины + чайная церемония',
-                category: 'spa-programms'
+                category: 'spa-programms', duration: '180 минут'
             },
             { 
                 id: 'body-shake', name: 'Встряхни тело', description: 'Энергичный спортивный массаж', 
                 price: '3000 ₽', emoji: '💪',
                 fullDescription: 'Энергичный спортивный массаж для восстановления мышц и повышения тонуса тела.',
-                category: 'spa-programms'
+                category: 'spa-programms', duration: '150 минут'
             },
             { 
                 id: 'salt-body', name: 'Соль и тело', description: 'Солевые процедуры + массаж + ванна', 
                 price: '4000 ₽', emoji: '🧂',
                 fullDescription: '🧂 Солевое обертывание + грязевые маски + минеральный массаж + солевая ванна',
-                category: 'spa-programms'
+                category: 'spa-programms', duration: '180 минут'
             },
             { 
                 id: 'continuous-drainage', name: 'Сплошной дренаж', description: 'Комплексная лимфодренажная программа', 
                 price: '3000 ₽', emoji: '💧',
                 fullDescription: 'Комплексная лимфодренажная программа для очищения и восстановления организма.',
-                category: 'spa-programms'
+                category: 'spa-programms', duration: '132 минуты'
             },
             // Аппаратная коррекция фигуры
             { 
                 id: 'vacuum-rf', name: 'Вакуумный массаж с RF-лифтингом', description: 'Аппаратная коррекция фигуры', 
                 price: 'от 800 ₽', emoji: '🔧',
                 fullDescription: 'Аппаратный массаж для коррекции фигуры и подтяжки кожи с использованием вакуумно-роликовой технологии.',
-                category: 'body-correction'
+                category: 'body-correction', duration: '30-60 минут'
             },
             { 
                 id: 'rf-lifting-body', name: 'RF-лифтинг', description: 'RF-лифтинг тела для подтяжки кожи', 
                 price: 'от 800 ₽', emoji: '🔥',
                 fullDescription: 'RF-лифтинг тела для подтяжки и омоложения кожи.',
-                category: 'body-correction'
+                category: 'body-correction', duration: '30-60 минут'
             },
             { 
                 id: 'cavitation', name: 'Кавитация', description: 'Ультразвуковая кавитация для коррекции фигуры', 
                 price: 'от 800 ₽', emoji: '〰️',
                 fullDescription: 'Ультразвуковая кавитация для коррекции фигуры и уменьшения жировых отложений.',
-                category: 'body-correction'
+                category: 'body-correction', duration: '30-60 минут'
             },
             // Дополнительно
             { 
                 id: 'kedr-bochka', name: 'Кедровая бочка', description: 'Травяной пар в кедре для детокса и иммунитета', 
                 price: '800 ₽', emoji: '🛁',
-                fullDescription: 'Оздоровительная процедура в кедровой бочке с травяным паром, обеспечивает детокс, улучшает кровообращение, укрепляет иммунитет, снимает стресс и омолаживает кожу, длительность 20 минут.',
-                category: 'additional'
+                fullDescription: 'Оздоровительная процедура в кедровой бочке с травяным паром, обеспечивает детокс, улучшает кровообращение, укрепляет иммунитет, снимает стресс и омолаживает кожу.',
+                category: 'additional', duration: '20 минут'
             },
             { 
                 id: 'kedr-bochka_and_scrab', name: 'Кедровая бочка + скрабирование тела', description: 'Комплексная процедура пар + скраб', 
                 price: '1800 ₽', emoji: '🛁',
                 fullDescription: 'Комплексная процедура включает травяной пар в кедровой бочке с отварами целебных трав для детокса и улучшения кровообращения, после чего проводится скрабирование тела натуральными составами для удаления ороговевших клеток, глубокого очищения пор, разглаживания и увлажнения кожи.',
-                category: 'additional'
+                category: 'additional', duration: '60 минут'
             },
             { 
                 id: 'obert', name: 'Обёртывание', description: 'Активные составы + укутывание для похудения и упругости кожи', 
                 price: '1200 ₽', emoji: '🎁',
                 fullDescription: 'Косметическая процедура с нанесением на тело активных составов (водоросли, глина, мёд, масла) с последующим укутыванием плёнкой и тёплым покрывалом для создания термоэффекта.',
-                category: 'additional'
+                category: 'additional', duration: '30 минут'
             },
             { 
                 id: 'massage_scrab', name: 'Массаж на скрабе', description: 'Массаж со скрабом для гладкости и тонуса кожи', 
                 price: '1500 ₽', emoji: '✨',
                 fullDescription: 'Процедура сочетает массажные техники с одновременным нанесением отшелушивающего скраба на основе натуральных компонентов для глубокого очищения пор и улучшения текстуры кожи.',
-                category: 'additional'
+                category: 'additional', duration: '40 минут'
             }
         ];
 
@@ -2406,7 +2446,7 @@
         function openProductFromSearch(productId) {
             const product = products.find(p => p.id === productId);
             if (product) {
-                openProductPage(product.id, product.emoji, product.name, product.price, product.fullDescription);
+                openProductPage(product.id, product.emoji, product.name, product.price, product.fullDescription, product.duration);
             }
         }
 
