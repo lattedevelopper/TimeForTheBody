@@ -148,22 +148,20 @@
         .product-image {
             width: 100%;
             height: 120px;
-            background: #F0FDF9;
+            background: linear-gradient(135deg, #F0FDF9 0%, #E8F8F5 100%);
             border-radius: 12px;
             margin-bottom: 12px;
-            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            transition: all 0.3s ease;
             position: relative;
         }
 
-        .product-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .product-card:hover .product-image img {
+        .product-card:hover .product-image {
             transform: scale(1.05);
+            background: linear-gradient(135deg, #E8F8F5 0%, #B8F2E6 100%);
         }
 
         .product-title {
@@ -354,14 +352,11 @@
             height: 300px;
             background: linear-gradient(135deg, #F0FDF9 0%, #E8F8F5 100%);
             border-bottom: 1px solid #E8F8F5;
-            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 120px;
             position: relative;
-        }
-
-        .product-detail-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
         }
 
         .product-detail-info {
@@ -405,81 +400,6 @@
             width: 20px;
             height: 20px;
             color: #1BA486;
-        }
-
-        /* Секция отзывов */
-        .reviews-section {
-            margin-top: 32px;
-        }
-
-        .reviews-title {
-            font-size: 20px;
-            font-weight: 700;
-            color: #0F7A5B;
-            margin-bottom: 20px;
-            padding-left: 4px;
-        }
-
-        .review-card {
-            background: white;
-            border: 1px solid #E8F8F5;
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 16px;
-            box-shadow: 0 2px 8px rgba(27, 164, 134, 0.08);
-        }
-
-        .review-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-
-        .review-avatar {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #B8F2E6 0%, #22C899 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            font-weight: 600;
-            color: #0F7A5B;
-        }
-
-        .review-info {
-            flex: 1;
-        }
-
-        .review-name {
-            font-weight: 600;
-            color: #0F7A5B;
-            margin-bottom: 2px;
-        }
-
-        .review-rating {
-            display: flex;
-            gap: 2px;
-            margin-bottom: 8px;
-        }
-
-        .star {
-            color: #FFB300;
-            font-size: 14px;
-        }
-
-        .review-text {
-            color: #666;
-            line-height: 1.5;
-            font-size: 15px;
-        }
-
-        .review-date {
-            color: #999;
-            font-size: 12px;
-            text-align: right;
         }
 
         /* Категории товаров */
@@ -528,21 +448,136 @@
             background: #F0FDF9;
         }
 
-        /* Страница сертификатов */
+        /* ПОШАГОВОЕ ОФОРМЛЕНИЕ СЕРТИФИКАТОВ */
         .certificates-page {
             padding: 20px;
             padding-bottom: 120px;
         }
 
-        .certificate-form {
+        /* Прогресс-бар */
+        .progress-container {
+            margin-bottom: 30px;
             background: white;
             border-radius: 20px;
             padding: 24px;
-            box-shadow: 0 8px 24px rgba(27, 164, 134, 0.15);
-            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(27, 164, 134, 0.1);
         }
 
-        .form-title {
+        .progress-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .progress-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0F7A5B;
+            margin-bottom: 8px;
+        }
+
+        .progress-subtitle {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .progress-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            position: relative;
+        }
+
+        .progress-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 16px;
+            left: 60%;
+            width: 80%;
+            height: 2px;
+            background: #E8F8F5;
+            z-index: 1;
+        }
+
+        .progress-step.active:not(:last-child)::after,
+        .progress-step.completed:not(:last-child)::after {
+            background: #1BA486;
+        }
+
+        .step-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #E8F8F5;
+            color: #999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .progress-step.active .step-circle {
+            background: #1BA486;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .progress-step.completed .step-circle {
+            background: #1BA486;
+            color: white;
+        }
+
+        .step-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #999;
+            margin-top: 8px;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .progress-step.active .step-label,
+        .progress-step.completed .step-label {
+            color: #0F7A5B;
+        }
+
+        /* Шаги формы */
+        .step-content {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: 0 8px 24px rgba(27, 164, 134, 0.12);
+            animation: stepSlideIn 0.4s ease;
+        }
+
+        .step-content.active {
+            display: block;
+        }
+
+        @keyframes stepSlideIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(20px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        .step-title {
             font-size: 20px;
             font-weight: 700;
             color: #0F7A5B;
@@ -550,13 +585,232 @@
             text-align: center;
         }
 
-        .form-subtitle {
+        .step-description {
+            color: #666;
+            text-align: center;
+            margin-bottom: 28px;
+            font-size: 14px;
+        }
+
+        /* Выбор услуг */
+        .services-grid {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 30px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .service-card {
+            border: 2px solid #E8F8F5;
+            border-radius: 16px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .service-card:hover {
+            border-color: #1BA486;
+            background: #F0FDF9;
+            transform: translateY(-2px);
+        }
+
+        .service-card.selected {
+            border-color: #1BA486;
+            background: linear-gradient(135deg, #F0FDF9 0%, #E8F8F5 100%);
+            box-shadow: 0 4px 12px rgba(27, 164, 134, 0.2);
+        }
+
+        .service-card-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #1BA486 0%, #159A73 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .service-card-info {
+            flex: 1;
+        }
+
+        .service-card-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0F7A5B;
+            margin-bottom: 4px;
+        }
+
+        .service-card-description {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .service-card-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .service-card-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1BA486;
+        }
+
+        .service-card-duration {
+            font-size: 12px;
+            color: #999;
+            background: #F0FDF9;
+            padding: 4px 8px;
+            border-radius: 8px;
+        }
+
+        .service-variants {
+            color: #666;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        /* МОДАЛЬНОЕ ОКНО ВЫБОРА ВАРИАНТОВ */
+        .service-variant-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .variant-modal-content {
+            background: white;
+            border-radius: 24px;
+            padding: 28px;
+            margin: 20px;
+            max-width: 380px;
+            width: 100%;
+            animation: modalAppear 0.3s ease;
+        }
+
+        .variant-modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0F7A5B;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .variant-modal-description {
             color: #666;
             text-align: center;
             margin-bottom: 24px;
             font-size: 14px;
         }
 
+        .variant-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .variant-option {
+            border: 2px solid #E8F8F5;
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .variant-option:hover {
+            border-color: #1BA486;
+            background: #F0FDF9;
+        }
+
+        .variant-option.selected {
+            border-color: #1BA486;
+            background: linear-gradient(135deg, #F0FDF9 0%, #E8F8F5 100%);
+        }
+
+        .variant-info {
+            flex: 1;
+        }
+
+        .variant-duration {
+            font-weight: 600;
+            color: #0F7A5B;
+            margin-bottom: 4px;
+        }
+
+        .variant-features {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .variant-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1BA486;
+        }
+
+        .variant-modal-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .variant-button {
+            flex: 1;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .variant-button-cancel {
+            background: #E8F8F5;
+            color: #0F7A5B;
+        }
+
+        .variant-button-cancel:hover {
+            background: #B8F2E6;
+        }
+
+        .variant-button-confirm {
+            background: linear-gradient(135deg, #1BA486 0%, #22C899 100%);
+            color: white;
+        }
+
+        .variant-button-confirm:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(27, 164, 134, 0.4);
+        }
+
+        .variant-button-confirm:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Поля формы */
         .form-group {
             margin-bottom: 20px;
         }
@@ -569,17 +823,17 @@
             font-size: 14px;
         }
 
-        .form-input, .form-select, .form-textarea {
+        .form-input, .form-textarea {
             width: 100%;
-            padding: 12px 16px;
+            padding: 14px 16px;
             border: 2px solid #E8F8F5;
             border-radius: 12px;
             font-size: 16px;
-            transition: border-color 0.3s ease;
+            transition: all 0.3s ease;
             background: white;
         }
 
-        .form-input:focus, .form-select:focus, .form-textarea:focus {
+        .form-input:focus, .form-textarea:focus {
             outline: none;
             border-color: #1BA486;
             box-shadow: 0 0 0 3px rgba(27, 164, 134, 0.1);
@@ -587,93 +841,150 @@
 
         .form-textarea {
             resize: vertical;
-            min-height: 80px;
+            min-height: 100px;
         }
 
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 16px;
         }
 
-        .certificate-preview {
-            background: linear-gradient(135deg, #1BA486 0%, #159A73 100%);
-            border-radius: 16px;
-            padding: 20px;
-            color: white;
+        /* Выбор срока действия */
+        .duration-options {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .duration-card {
+            border: 2px solid #E8F8F5;
+            border-radius: 12px;
+            padding: 16px;
             text-align: center;
-            margin-bottom: 24px;
+            transition: all 0.3s ease;
+            position: relative;
+            width: 150px;
         }
 
-        .certificate-preview h3 {
-            font-size: 18px;
-            margin-bottom: 12px;
+        .duration-card.selected {
+            border-color: #1BA486;
+            background: linear-gradient(135deg, #F0FDF9 0%, #E8F8F5 100%);
+            box-shadow: 0 4px 12px rgba(27, 164, 134, 0.2);
         }
 
-        .certificate-preview .service-name {
-            font-size: 16px;
-            font-weight: 600;
+        .duration-card-icon {
+            font-size: 24px;
             margin-bottom: 8px;
         }
 
-        .certificate-preview .recipient-name {
+        .duration-card-text {
             font-size: 14px;
-            opacity: 0.9;
-        }
-
-        .price-display {
-            background: #F0FDF9;
-            padding: 16px;
-            border-radius: 12px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .price-label {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 4px;
-        }
-
-        .price-amount {
-            font-size: 24px;
-            font-weight: 700;
+            font-weight: 600;
             color: #0F7A5B;
         }
 
-        .buy-button {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #1BA486 0%, #22C899 100%);
-            color: white;
+        /* Сводка заказа */
+        .order-summary {
+            background: #F0FDF9;
+            border: 2px solid #E8F8F5;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .summary-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0F7A5B;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #E8F8F5;
+        }
+
+        .summary-row:last-child {
+            border-bottom: none;
+            padding-top: 16px;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .summary-label {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .summary-value {
+            color: #0F7A5B;
+            font-weight: 600;
+        }
+
+        .summary-total {
+            color: #1BA486 !important;
+            font-size: 20px !important;
+        }
+
+        /* Кнопки навигации */
+        .step-navigation {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .step-button {
+            flex: 1;
+            padding: 14px 20px;
             border: none;
             border-radius: 12px;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+        }
+
+        .step-button-back {
+            background: #E8F8F5;
+            color: #0F7A5B;
+        }
+
+        .step-button-back:hover {
+            background: #B8F2E6;
+            transform: translateY(-2px);
+        }
+
+        .step-button-next {
+            background: linear-gradient(135deg, #1BA486 0%, #22C899 100%);
+            color: white;
             box-shadow: 0 4px 12px rgba(27, 164, 134, 0.3);
         }
 
-        .buy-button:hover {
+        .step-button-next:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(27, 164, 134, 0.4);
         }
 
-        .buy-button:disabled {
+        .step-button-next:disabled {
             background: #ccc;
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
         }
 
+        /* Модальное окно подтверждения */
         .confirmation-modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
             display: none;
             align-items: center;
             justify-content: center;
@@ -682,7 +993,7 @@
 
         .modal-content {
             background: white;
-            border-radius: 20px;
+            border-radius: 24px;
             padding: 32px 24px;
             margin: 20px;
             max-width: 380px;
@@ -691,24 +1002,25 @@
         }
 
         @keyframes modalAppear {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(-20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .modal-icon {
-            width: 64px;
-            height: 64px;
-            margin: 0 auto 16px;
-            background: #1BA486;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #1BA486 0%, #22C899 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px;
+            font-size: 40px;
+            color: white;
         }
 
         .modal-title {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 700;
             color: #0F7A5B;
             margin-bottom: 12px;
@@ -720,274 +1032,32 @@
             line-height: 1.5;
         }
 
+        .certificate-number {
+            background: #F0FDF9;
+            padding: 12px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+            color: #0F7A5B;
+            margin: 16px 0;
+            border: 1px solid #E8F8F5;
+        }
+
         .modal-button {
-            background: #1BA486;
+            background: linear-gradient(135deg, #1BA486 0%, #22C899 100%);
             color: white;
             border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
+            padding: 14px 28px;
+            border-radius: 10px;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.3s ease;
+            transition: all 0.3s ease;
+            font-size: 16px;
         }
 
         .modal-button:hover {
-            background: #159A73;
-        }
-
-        /* Модальные окна для выбора */
-        .selection-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 3000;
-            backdrop-filter: blur(4px);
-        }
-
-        .selection-modal-content {
-            background: white;
-            border-radius: 24px;
-            padding: 0;
-            margin: 20px;
-            max-width: 400px;
-            width: 90%;
-            max-height: 80vh;
-            overflow: hidden;
-            animation: modalSlideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-
-        @keyframes modalSlideUp {
-            from { 
-                opacity: 0; 
-                transform: translateY(60px) scale(0.95); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0) scale(1); 
-            }
-        }
-
-        .selection-modal-header {
-            background: linear-gradient(135deg, #1BA486 0%, #159A73 100%);
-            color: white;
-            padding: 24px;
-            text-align: center;
-            position: relative;
-        }
-
-        .selection-modal-title {
-            font-size: 20px;
-            font-weight: 700;
-            margin: 0;
-        }
-
-        .selection-modal-close {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.2s ease;
-        }
-
-        .selection-modal-close:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .selection-modal-body {
-            padding: 0;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        /* Карточки услуг */
-        .service-option {
-            border-bottom: 1px solid #F0F0F0;
-            padding: 20px 24px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .service-option:last-child {
-            border-bottom: none;
-        }
-
-        .service-option:hover {
-            background: linear-gradient(135deg, #F0FDF9 0%, #E8F8F5 100%);
-        }
-
-        .service-option.selected {
-            background: linear-gradient(135deg, #E8F8F5 0%, #B8F2E6 100%);
-            border-left: 4px solid #1BA486;
-        }
-
-        .service-icon {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, #1BA486 0%, #159A73 100%);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: white;
-            flex-shrink: 0;
-        }
-
-        .service-info {
-            flex: 1;
-        }
-
-        .service-name {
-            font-size: 16px;
-            font-weight: 600;
-            color: #0F7A5B;
-            margin-bottom: 4px;
-        }
-
-        .service-description {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 8px;
-        }
-
-        .service-price {
-            font-size: 18px;
-            font-weight: 700;
-            color: #1BA486;
-        }
-
-        .service-duration {
-            font-size: 12px;
-            color: #999;
-            margin-left: 8px;
-        }
-
-        /* Опции срока действия */
-        .duration-option {
-            border-bottom: 1px solid #F0F0F0;
-            padding: 18px 24px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .duration-option:last-child {
-            border-bottom: none;
-        }
-
-        .duration-option:hover {
-            background: linear-gradient(135deg, #F0FDF9 0%, #E8F8F5 100%);
-        }
-
-        .duration-option.selected {
-            background: linear-gradient(135deg, #E8F8F5 0%, #B8F2E6 100%);
-            border-left: 4px solid #1BA486;
-        }
-
-        .duration-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .duration-icon {
-            width: 24px;
-            height: 24px;
-            color: #1BA486;
-        }
-
-        .duration-text {
-            font-size: 16px;
-            font-weight: 600;
-            color: #0F7A5B;
-        }
-
-        .duration-badge {
-            background: #1BA486;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .popular-badge {
-            background: #FF9800;
-        }
-
-        .extended-badge {
-            background: #9C27B0;
-        }
-
-        /* Кнопки выбора */
-        .select-button {
-            width: 100%;
-            padding: 16px 20px;
-            border: 2px solid #E8F8F5;
-            border-radius: 12px;
-            background: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 16px;
-            text-align: left;
-        }
-
-        .select-button:hover {
-            border-color: #1BA486;
-            background: #FDFFFE;
-        }
-
-        .select-button.selected {
-            border-color: #1BA486;
-            background: linear-gradient(135deg, #F0FDF9 0%, #E8F8F5 100%);
-        }
-
-        .select-button-text {
-            color: #0F7A5B;
-            font-weight: 500;
-        }
-
-        .select-button.placeholder .select-button-text {
-            color: #999;
-            font-weight: 400;
-        }
-
-        .select-button-arrow {
-            width: 20px;
-            height: 20px;
-            color: #1BA486;
-            transition: transform 0.2s ease;
-        }
-
-        .select-button:hover .select-button-arrow {
-            color: #0F7A5B;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(27, 164, 134, 0.4);
         }
 
         /* Уведомления */
@@ -1022,7 +1092,7 @@
 </head>
 <body>
     <div class="container">
-        <!-- Боковая/нижняя навигация -->
+        <!-- Навигация -->
         <div class="navigation">
             <button class="nav-button active" onclick="switchPage('home')">
                 <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -1056,20 +1126,20 @@
                     <div class="promo-slides" id="promo-slides">
                         <div class="promo-slide">
                             <div>
-                                <div>🌿 Скидка 30%</div>
-                                <div style="font-size: 14px; margin-top: 8px;">на эко-товары</div>
+                                <div>🌿 Скидка на абонемент</div>
+                                <div style="font-size: 14px; margin-top: 8px;">10 сеансов - 10%</div>
                             </div>
                         </div>
                         <div class="promo-slide">
                             <div>
-                                <div>🚚 Бесплатная доставка</div>
-                                <div style="font-size: 14px; margin-top: 8px;">от 2000 рублей</div>
+                                <div>🎁 Скидка в день рождения 10%</div>
+                                <div style="font-size: 14px; margin-top: 8px;">3 дня до и 3 дня после</div>
                             </div>
                         </div>
                         <div class="promo-slide">
                             <div>
-                                <div>💚 Новинки недели</div>
-                                <div style="font-size: 14px; margin-top: 8px;">свежие поступления</div>
+                                <div>💚 Скидка за отметку в соц. сетях</div>
+                                <div style="font-size: 14px; margin-top: 8px;">10% на следующий сеанс</div>
                             </div>
                         </div>
                     </div>
@@ -1080,142 +1150,696 @@
                     </div>
                 </div>
 
-                <!-- Категории товаров -->
+                <!-- Категории услуг -->
                 <div class="categories-section">
                     <div class="categories-scroll">
                         <button class="category-button active" onclick="filterByCategory('all')" id="category-all">
-                            🌟 Все товары
+                            🌟 Все услуги
                         </button>
-                        <button class="category-button" onclick="filterByCategory('drinks')" id="category-drinks">
-                            🍵 Напитки
+                        <button class="category-button" onclick="filterByCategory('wellness-massage')" id="category-wellness-massage">
+                            💆‍♀️ Оздоровительный массаж
                         </button>
-                        <button class="category-button" onclick="filterByCategory('fruits')" id="category-fruits">
-                            🥑 Овощи и фрукты
+                        <button class="category-button" onclick="filterByCategory('aesthetic-massage')" id="category-aesthetic-massage">
+                            ✨ Эстетический массаж
                         </button>
-                        <button class="category-button" onclick="filterByCategory('dairy')" id="category-dairy">
-                            🥛 Молочное
+                        <button class="category-button" onclick="filterByCategory('face-massage')" id="category-face-massage">
+                            🧴 Массаж лица
                         </button>
-                        <button class="category-button" onclick="filterByCategory('bakery')" id="category-bakery">
-                            🍞 Хлеб и крупы
+                        <button class="category-button" onclick="filterByCategory('body-correction')" id="category-body-correction">
+                            📱 Аппаратная коррекция фигуры
                         </button>
-                        <button class="category-button" onclick="filterByCategory('other')" id="category-other">
-                            🍯 Масла и мед
+                        <button class="category-button" onclick="filterByCategory('spa-programms')" id="category-spa-programms">
+                            🔥 СПА-программы
+                        </button>
+                        <button class="category-button" onclick="filterByCategory('additional')" id="category-additional">
+                            🎯 Дополнительно
                         </button>
                     </div>
                 </div>
 
-                <!-- Карточки товаров -->
+                <!-- Карточки услуг -->
                 <div class="products-grid" id="products-grid">
-                    <div class="product-card" data-category="drinks" onclick="openProductPage('tea', 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=300&h=200&fit=crop', 'Органический чай', '350 ₽', 'Натуральный зеленый чай высшего качества из экологически чистых регионов. Собран вручную на высокогорных плантациях.')">
-                        <div class="product-image">
-                            <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=300&h=200&fit=crop" alt="Органический чай">
-                        </div>
-                        <div class="product-title">Органический чай</div>
-                        <div class="product-price">350 ₽</div>
+                    <!-- Оздоровительный массаж -->
+                    <div class="product-card" data-category="wellness-massage" onclick="openProductPage('classic-massage', '💆‍♀️', 'Общий массаж', 'от 1800 ₽', 'Расслабляющий оздоровительный массаж всего тела для снятия напряжения и улучшения кровообращения.')">
+                        <div class="product-image">💆‍♀️</div>
+                        <div class="product-title">Общий массаж</div>
+                        <div class="product-price">от 1800 ₽</div>
                     </div>
-                    <div class="product-card" data-category="fruits" onclick="openProductPage('avocado', 'https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=300&h=200&fit=crop', 'Авокадо эко', '150 ₽', 'Спелые авокадо из органических хозяйств. Богаты полезными жирами и витаминами. Идеально для здорового питания.')">
-                        <div class="product-image">
-                            <img src="https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=300&h=200&fit=crop" alt="Авокадо эко">
-                        </div>
-                        <div class="product-title">Авокадо эко</div>
-                        <div class="product-price">150 ₽</div>
+                    
+                    <div class="product-card" data-category="wellness-massage" onclick="openProductPage('lymphatic-massage', '🤲', 'Лимфодренажный массаж', 'от 2100 ₽', 'Специальный массаж для улучшения лимфооттока и снятия отеков.')">
+                        <div class="product-image">🤲</div>
+                        <div class="product-title">Лимфодренажный массаж</div>
+                        <div class="product-price">от 2100 ₽</div>
                     </div>
-                    <div class="product-card" data-category="other" onclick="openProductPage('honey', 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=300&h=200&fit=crop', 'Мед натуральный', '890 ₽', 'Цветочный мед с собственной пасеки. Собран в экологически чистых районах. Не подвергался термической обработке.')">
-                        <div class="product-image">
-                            <img src="https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=300&h=200&fit=crop" alt="Мед натуральный">
-                        </div>
-                        <div class="product-title">Мед натуральный</div>
-                        <div class="product-price">890 ₽</div>
+
+                    <div class="product-card" data-category="wellness-massage" onclick="openProductPage('back-massage', '💆‍♂️', 'Массаж спины', 'от 900 ₽', 'Массаж спины для снятия напряжения и боли в мышцах.')">
+                        <div class="product-image">💆‍♂️</div>
+                        <div class="product-title">Массаж спины</div>
+                        <div class="product-price">от 900 ₽</div>
                     </div>
-                    <div class="product-card" data-category="drinks" onclick="openProductPage('herbs', 'https://images.unsplash.com/photo-1515277877510-b8ec2eaef82a?w=300&h=200&fit=crop', 'Травяной сбор', '420 ₽', 'Целебный сбор из горных трав. Помогает укрепить иммунитет и улучшить общее самочувствие.')">
-                        <div class="product-image">
-                            <img src="https://images.unsplash.com/photo-1515277877510-b8ec2eaef82a?w=300&h=200&fit=crop" alt="Травяной сбор">
-                        </div>
-                        <div class="product-title">Травяной сбор</div>
-                        <div class="product-price">420 ₽</div>
+
+                    <div class="product-card" data-category="wellness-massage" onclick="openProductPage('neck-massage', '💆‍♀️', 'Массаж ШВЗ', '800 ₽', 'Массаж шейно-воротниковой зоны для снятия напряжения.')">
+                        <div class="product-image">💆‍♀️</div>
+                        <div class="product-title">Массаж ШВЗ</div>
+                        <div class="product-price">800 ₽</div>
                     </div>
-                    <div class="product-card" data-category="fruits" onclick="openProductPage('salad', 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&h=200&fit=crop', 'Салат органик', '180 ₽', 'Свежий листовой салат, выращенный без использования химических удобрений. Хрустящий и полезный.')">
-                        <div class="product-image">
-                            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&h=200&fit=crop" alt="Салат органик">
-                        </div>
-                        <div class="product-title">Салат органик</div>
-                        <div class="product-price">180 ₽</div>
+
+                    <div class="product-card" data-category="wellness-massage" onclick="openProductPage('head-massage', '🧠', 'Массаж головы', '800 ₽', 'Расслабляющий массаж головы и кожи головы.')">
+                        <div class="product-image">🧠</div>
+                        <div class="product-title">Массаж головы</div>
+                        <div class="product-price">800 ₽</div>
                     </div>
-                    <div class="product-card" data-category="bakery" onclick="openProductPage('bread', 'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=300&h=200&fit=crop', 'Хлеб цельнозерновой', '120 ₽', 'Хлеб из муки грубого помола. Выпечен по традиционным рецептам без консервантов и улучшителей.')">
-                        <div class="product-image">
-                            <img src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=300&h=200&fit=crop" alt="Хлеб цельнозерновой">
+
+                    <div class="product-card" data-category="wellness-massage" onclick="openProductPage('legs-massage', '🦵', 'Массаж ног', '1200 ₽', 'Расслабляющий и лечебный массаж ног.')">
+                        <div class="product-image">🦵</div>
+                        <div class="product-title">Массаж ног</div>
+                        <div class="product-price">1200 ₽</div>
+                    </div>
+
+                    <!-- Эстетический массаж -->
+                    <div class="product-card" data-category="aesthetic-massage" onclick="openProductPage('anti-cellulite', '✨', 'Антицеллюлитный массаж', 'от 2100 ₽', 'Эффективный массаж для коррекции фигуры и борьбы с целлюлитом. Улучшает тонус кожи и контуры тела.')">
+                        <div class="product-image">✨</div>
+                        <div class="product-title">Антицеллюлитный массаж</div>
+                        <div class="product-price">от 2100 ₽</div>
+                    </div>
+
+                    <!-- Массаж лица  -->
+                    <div class="product-card" data-category="face-massage" onclick="openProductPage('classic-face-massage', '😌', 'Классический ручной массаж', 'от 1200 ₽', 'Классический ручной массаж лица для улучшения кровообращения и тонуса кожи.')">
+                        <div class="product-image">😌</div>
+                        <div class="product-title">Классический ручной массаж</div>
+                        <div class="product-price">от 1200 ₽</div>
+                    </div>
+
+                    <div class="product-card" data-category="face-massage" onclick="openProductPage('gua-sha-massage', '🪨', 'Контурный массаж лица пластинами Гуаша', '2100 ₽', 'Традиционный китайский массаж лица пластинами гуаша для омоложения.')">
+                        <div class="product-image">🪨</div>
+                        <div class="product-title">Контурный массаж лица пластинами Гуаша</div>
+                        <div class="product-price">2100 ₽</div>
+                    </div>
+
+                    <div class="product-card" data-category="face-massage" onclick="openProductPage('french-massage', '🇫🇷', 'Французский скульптурный массаж лица', '2500 ₽', 'Французский скульптурный массаж для моделирования контуров лица.')">
+                        <div class="product-image">🇫🇷</div>
+                        <div class="product-title">Французский скульптурный массаж лица</div>
+                        <div class="product-price">2500 ₽</div>
+                    </div>
+
+                    <div class="product-card" data-category="face-massage" onclick="openProductPage('relax-massage', '😴', 'Массаж лица Relax (шея, лицо)', '1400 ₽', 'Расслабляющий массаж лица и шеи.')">
+                        <div class="product-image">😴</div>
+                        <div class="product-title">Массаж лица Relax (шея, лицо)</div>
+                        <div class="product-price">1400 ₽</div>
+                    </div>
+
+                    <div class="product-card" data-category="face-massage" onclick="openProductPage('myofascial-massage', '💪', 'Миофасциальный массаж лица', '2500 ₽', 'Миофасциальный массаж для глубокой проработки мышц лица.')">
+                        <div class="product-image">💪</div>
+                        <div class="product-title">Миофасциальный массаж лица</div>
+                        <div class="product-price">2500 ₽</div>
+                    </div>
+
+                    <div class="product-card" data-category="face-massage" onclick="openProductPage('microcurrents', '⚡', 'Микротоки на лицо', '1200 ₽', 'Аппаратная процедура с микротоками для подтяжки кожи.')">
+                        <div class="product-image">⚡</div>
+                        <div class="product-title">Микротоки на лицо</div>
+                        <div class="product-price">1200 ₽</div>
+                    </div>
+
+                    <div class="product-card" data-category="face-massage" onclick="openProductPage('rf-lifting-face', '🔥', 'RF-лифтинг', '1200 ₽', 'RF-лифтинг лица для подтяжки и омоложения кожи.')">
+                        <div class="product-image">🔥</div>
+                        <div class="product-title">RF-лифтинг</div>
+                        <div class="product-price">1200 ₽</div>
+                    </div>
+
+                    <div class="product-card" data-category="face-massage" onclick="openProductPage('alginate-mask', '🧴', 'Альгинатная маска', '800 ₽', 'Увлажняющая и питательная альгинатная маска.')">
+                        <div class="product-image">🧴</div>
+                        <div class="product-title">Альгинатная маска</div>
+                        <div class="product-price">800 ₽</div>
+                    </div>
+
+                    <!-- СПА программы -->
+                    <div class="product-card" data-category="spa-programms" onclick="openProductPage('paradise-body', '🌿', 'Рай для тела', '4200 ₽', '🌿 Кедровая бочка + контрастный душ + массаж спины + чайная церемония')">
+                        <div class="product-image">🌿</div>
+                        <div class="product-title">Рай для тела</div>
+                        <div class="product-price">4200 ₽</div>
+                    </div>
+
+                    <div class="product-card" data-category="spa-programms" onclick="openProductPage('body-shake', '💪', 'Встряхни тело', '3000 ₽', 'Энергичный спортивный массаж для восстановления мышц и повышения тонуса тела.')">
+                        <div class="product-image">💪</div>
+                        <div class="product-title">Встряхни тело</div>
+                        <div class="product-price">3000 ₽</div>
+                    </div>
+
+                    <div class="product-card" data-category="spa-programms" onclick="openProductPage('salt-body', '🧂', 'Соль и тело', '4000 ₽', '🧂 Солевое обертывание + грязевые маски + минеральный массаж + солевая ванна')">
+                        <div class="product-image">🧂</div>
+                        <div class="product-title">Соль и тело</div>
+                        <div class="product-price">4000 ₽</div>
+                    </div>
+
+                    <div class="product-card" data-category="spa-programms" onclick="openProductPage('continuous-drainage', '💧', 'Сплошной дренаж', '3000 ₽', 'Комплексная лимфодренажная программа для очищения и восстановления организма.')">
+                        <div class="product-image">💧</div>
+                        <div class="product-title">Сплошной дренаж</div>
+                        <div class="product-price">3000 ₽</div>
+                    </div>
+
+                    <!-- Аппаратная коррекция фигуры -->
+                    <div class="product-card" data-category="body-correction" onclick="openProductPage('vacuum-rf', '🔧', 'Вакуумный массаж с RF-лифтингом', 'от 800 ₽', 'Аппаратный массаж для коррекции фигуры и подтяжки кожи с использованием вакуумно-роликовой технологии.')">
+                        <div class="product-image">🔧</div>
+                        <div class="product-title">Вакуумный массаж с RF-лифтингом</div>
+                        <div class="product-price">от 800 ₽</div>
+                    </div>
+
+                    <div class="product-card" data-category="body-correction" onclick="openProductPage('rf-lifting-body', '🔥', 'RF-лифтинг', 'от 800 ₽', 'RF-лифтинг тела для подтяжки и омоложения кожи.')">
+                        <div class="product-image">🔥</div>
+                        <div class="product-title">RF-лифтинг</div>
+                        <div class="product-price">от 800 ₽</div>
+                    </div>
+
+                    <div class="product-card" data-category="body-correction" onclick="openProductPage('cavitation', '〰️', 'Кавитация', 'от 800 ₽', 'Ультразвуковая кавитация для коррекции фигуры и уменьшения жировых отложений.')">
+                        <div class="product-image">〰️</div>
+                        <div class="product-title">Кавитация</div>
+                        <div class="product-price">от 800 ₽</div>
+                    </div>
+
+                    <!-- Дополнительно -->
+                    <div class="product-card" data-category="additional" onclick="openProductPage('kedr-bochka', '🛁', 'Кедровая бочка', '800 ₽', 'Оздоровительная процедура в кедровой бочке с травяным паром, обеспечивает детокс, улучшает кровообращение, укрепляет иммунитет, снимает стресс и омолаживает кожу, длительность 20 минут.')">
+                        <div class="product-image">🛁</div>
+                        <div class="product-title">Кедровая бочка</div>
+                        <div class="product-price">800 ₽</div>
+                    </div>
+
+                    <div class="product-card" data-category="additional" onclick="openProductPage('kedr-bochka_and_scrab', '🛁', 'Кедровая бочка + скрабирование тела', '1800 ₽', 'Комплексная процедура включает травяной пар в кедровой бочке с отварами целебных трав для детокса и улучшения кровообращения, после чего проводится скрабирование тела натуральными составами для удаления ороговевших клеток, глубокого очищения пор, разглаживания и увлажнения кожи.')">
+                        <div class="product-image">🛁</div>
+                        <div class="product-title">Кедровая бочка + скрабирование тела</div>
+                        <div class="product-price">1800 ₽</div>
+                    </div>
+
+                    <div class="product-card" data-category="additional" onclick="openProductPage('obert', '🎁', 'Обёртывание', '1200 ₽', 'Косметическая процедура с нанесением на тело активных составов (водоросли, глина, мёд, масла) с последующим укутыванием плёнкой и тёплым покрывалом для создания термоэффекта.')">
+                        <div class="product-image">🎁</div>
+                        <div class="product-title">Обёртывание</div>
+                        <div class="product-price">1200 ₽</div>
+                    </div>
+
+                    <div class="product-card" data-category="additional" onclick="openProductPage('massage_scrab', '✨', 'Массаж на скрабе', '1500 ₽', 'Процедура сочетает массажные техники с одновременным нанесением отшелушивающего скраба на основе натуральных компонентов для глубокого очищения пор и улучшения текстуры кожи.')">
+                        <div class="product-image">✨</div>
+                        <div class="product-title">Массаж на скрабе</div>
+                        <div class="product-price">1500 ₽</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ПОШАГОВАЯ СТРАНИЦА СЕРТИФИКАТОВ -->
+            <div class="page" id="certificates-page">
+                <div class="certificates-page">
+                    <!-- Прогресс-бар -->
+                    <div class="progress-container">
+                        <div class="progress-header">
+                            <div class="progress-title">Оформление сертификата</div>
+                            <div class="progress-subtitle">Шаг <span id="current-step-text">1</span> из 4</div>
                         </div>
-                        <div class="product-title">Хлеб цельнозерновой</div>
-                        <div class="product-price">120 ₽</div>
+                        <div class="progress-bar">
+                            <div class="progress-step active" id="step-indicator-1">
+                                <div class="step-circle">1</div>
+                                <div class="step-label">Выбор<br>услуги</div>
+                            </div>
+                            <div class="progress-step" id="step-indicator-2">
+                                <div class="step-circle">2</div>
+                                <div class="step-label">Данные<br>получателя</div>
+                            </div>
+                            <div class="progress-step" id="step-indicator-3">
+                                <div class="step-circle">3</div>
+                                <div class="step-label">Контакты<br>и сообщение</div>
+                            </div>
+                            <div class="progress-step" id="step-indicator-4">
+                                <div class="step-circle">4</div>
+                                <div class="step-label">Проверка<br>и отправка</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ШАГ 1: Выбор услуги -->
+                    <div class="step-content active" id="step-1">
+                        <div class="step-title">Выберите услугу</div>
+                        <div class="step-description">Выберите услугу, на которую будет действовать подарочный сертификат</div>
+                        
+                        <div class="services-grid">
+                            <!-- ОЗДОРОВИТЕЛЬНЫЙ МАССАЖ -->
+                            <div class="service-card" onclick="showServiceVariants('general_massage')" data-service="general_massage">
+                                <div class="service-card-icon">💆‍♀️</div>
+                                <div class="service-card-info">
+                                    <div class="service-card-name">Общий массаж</div>
+                                    <div class="service-card-description">Расслабляющий массаж всего тела</div>
+                                    <div class="service-card-details">
+                                        <div class="service-card-price">от 1800 ₽</div>
+                                        <div class="service-card-duration">60-90 мин</div>
+                                    </div>
+                                    <div class="service-variants">Доступно 2 варианта</div>
+                                </div>
+                            </div>
+
+                            <div class="service-card" onclick="showServiceVariants('lymph_massage')" data-service="lymph_massage">
+                                <div class="service-card-icon">🤲</div>
+                                <div class="service-card-info">
+                                    <div class="service-card-name">Лимфодренажный массаж</div>
+                                    <div class="service-card-description">Улучшение лимфооттока и снятие отеков</div>
+                                    <div class="service-card-details">
+                                        <div class="service-card-price">от 1800 ₽</div>
+                                        <div class="service-card-duration">60-90 мин</div>
+                                    </div>
+                                    <div class="service-variants">Доступно 2 варианта</div>
+                                </div>
+                            </div>
+
+                            <div class="service-card" onclick="showServiceVariants('back_massage')" data-service="back_massage">
+                                <div class="service-card-icon">💆‍♂️</div>
+                                <div class="service-card-info">
+                                    <div class="service-card-name">Массаж спины</div>
+                                    <div class="service-card-description">Снятие напряжения и боли в мышцах спины</div>
+                                    <div class="service-card-details">
+                                        <div class="service-card-price">от 900 ₽</div>
+                                        <div class="service-card-duration">30-60 мин</div>
+                                    </div>
+                                    <div class="service-variants">Доступно 3 варианта</div>
+                                </div>
+                            </div>
+
+                            <div class="service-card" onclick="selectSingleServiceStep('shvz_massage', '💆‍♀️', 'Массаж ШВЗ', 'Массаж шейно-воротниковой зоны', '800', '30 мин')">
+                                <div class="service-card-icon">💆‍♀️</div>
+                                <div class="service-card-info">
+                                    <div class="service-card-name">Массаж ШВЗ</div>
+                                    <div class="service-card-description">Массаж шейно-воротниковой зоны</div>
+                                    <div class="service-card-details">
+                                        <div class="service-card-price">800 ₽</div>
+                                        <div class="service-card-duration">30 мин</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="service-card" onclick="selectSingleServiceStep('head_massage', '🧠', 'Массаж головы', 'Расслабляющий массаж головы и кожи головы', '800', '30 мин')">
+                                <div class="service-card-icon">🧠</div>
+                                <div class="service-card-info">
+                                    <div class="service-card-name">Массаж головы</div>
+                                    <div class="service-card-description">Расслабляющий массаж головы и кожи головы</div>
+                                    <div class="service-card-details">
+                                        <div class="service-card-price">800 ₽</div>
+                                        <div class="service-card-duration">30 мин</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="service-card" onclick="selectSingleServiceStep('legs_massage', '🦵', 'Массаж ног', 'Расслабляющий и лечебный массаж ног', '1200', '30 мин')">
+                                <div class="service-card-icon">🦵</div>
+                                <div class="service-card-info">
+                                    <div class="service-card-name">Массаж ног</div>
+                                    <div class="service-card-description">Расслабляющий и лечебный массаж ног</div>
+                                    <div class="service-card-details">
+                                        <div class="service-card-price">1200 ₽</div>
+                                        <div class="service-card-duration">30 мин</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ЭСТЕТИЧЕСКИЙ МАССАЖ -->
+                            <div class="service-card" onclick="showServiceVariants('anti_cellulite')" data-service="anti_cellulite">
+                                <div class="service-card-icon">✨</div>
+                                <div class="service-card-info">
+                                    <div class="service-card-name">Антицеллюлитный массаж</div>
+                                    <div class="service-card-description">Коррекция фигуры и борьба с целлюлитом</div>
+                                    <div class="service-card-details">
+                                        <div class="service-card-price">от 2100 ₽</div>
+                                        <div class="service-card-duration">60-90 мин</div>
+                                    </div>
+                                    <div class="service-variants">Доступно 2 варианта</div>
+                                </div>
+                            </div>
+
+                            <!-- МАССАЖ ЛИЦА -->
+                            <div class="service-card" onclick="showServiceVariants('face_classic')" data-service="face_classic">
+                                <div class="service-card-icon">😌</div>
+                                <div class="service-card-info">
+                                    <div class="service-card-name">Классический ручной массаж лица</div>
+                                    <div class="service-card-description">Улучшение кровообращения и тонуса кожи</div>
+                                    <div class="service-card-details">
+                                        <div class="service-card-price">от 1200 ₽</div>
+                                        <div class="service-card-duration">30-60 мин</div>
+                                    </div>
+                                    <div class="service-variants">Доступно 3 варианта</div>
+                                </div>
+                            </div>
+
+                            <div class="service-card" onclick="selectSingleServiceStep('gua_sha', '🪨', 'Контурный массаж лица пластинами Гуаша', 'Традиционный китайский массаж лица', '2100', '60 мин')">
+                                <div class="service-card-icon">🪨</div>
+                                <div class="service-card-info">
+                                    <div class="service-card-name">Контурный массаж лица пластинами Гуаша</div>
+                                    <div class="service-card-description">Традиционный китайский массаж лица</div>
+                                    <div class="service-card-details">
+                                        <div class="service-card-price">2100 ₽</div>
+                                        <div class="service-card-duration">60 мин</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="service-card" onclick="selectSingleServiceStep('french_massage', '🇫🇷', 'Французский скульптурный массаж лица', 'Скульптурный массаж для моделирования контуров', '2500', '90 мин')">
+                                <div class="service-card-icon">🇫🇷</div>
+                                <div class="service-card-info">
+                                    <div class="service-card-name">Французский скульптурный массаж лица</div>
+                                    <div class="service-card-description">Скульптурный массаж для моделирования контуров</div>
+                                    <div class="service-card-details">
+                                        <div class="service-card-price">2500 ₽</div>
+                                        <div class="service-card-duration">90 мин</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="service-card" onclick="selectSingleServiceStep('face_relax', '😴', 'Массаж лица Relax', 'Расслабляющий массаж лица и шеи', '1400', '45 мин')">
+                                <div class="service-card-icon">😴</div>
+                                <div class="service-card-info">
+                                    <div class="service-card-name">Массаж лица Relax (шея, лицо)</div>
+                                    <div class="service-card-description">Расслабляющий массаж лица и шеи</div>
+                                    <div class="service-card-details">
+                                        <div class="service-card-price">1400 ₽</div>
+                                        <div class="service-card-duration">45 мин</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="service-card" onclick="selectSingleServiceStep('myofascial', '💪', 'Миофасциальный массаж лица', 'Глубокая проработка мышц лица', '2500', '60 мин')">
+                                <div class="service-card-icon">💪</div>
+                                <div class="service-card-info">
+                                    <div class="service-card-name">Миофасциальный массаж лица</div>
+                                    <div class="service-card-description">Глубокая проработка мышц лица</div>
+                                    <div class="service-card-details">
+                                        <div class="service-card-price">2500 ₽</div>
+                                        <div class="service-card-duration">60 мин</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="service-card" onclick="selectSingleServiceStep('microcurrents', '⚡', 'Микротоки на лицо', 'Аппаратная процедура с микротоками', '1200', '30 мин')">
+                                <div class="service-card-icon">⚡</div>
+                                <div class="service-card-info">
+                                    <div class="service-card-name">Микротоки на лицо</div>
+                                    <div class="service-card-description">Аппаратная процедура с микротоками</div>
+                                    <div class="service-card-details">
+                                        <div class="service-card-price">1200 ₽</div>
+                                        <div class="service-card-duration">30 мин</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="service-card" onclick="selectSingleServiceStep('rf_lifting_face', '🔥', 'RF-лифтинг лица', 'RF-лифтинг для подтяжки кожи лица', '1200', '30 мин')">
+                                <div class="service-card-icon">🔥</div>
+                                <div class="service-card-info">
+                                    <div class="service-card-name">RF-лифтинг лица</div>
+                                    <div class="service-card-description">RF-лифтинг для подтяжки кожи лица</div>
+                                    <div class="service-card-details">
+                                        <div class="service-card-price">1200 ₽</div>
+                                        <div class="service-card-duration">30 мин</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="service-card" onclick="selectSingleServiceStep('alginate_mask', '🧴', 'Альгинатная маска', 'Увлажняющая и питательная маска', '800', '30 мин')">
+                                <div class="service-card-icon">🧴</div>
+                                <div class="service-card-info">
+                                    <div class="service-card-name">Альгинатная маска</div>
+                                    <div class="service-card-description">Увлажняющая и питательная маска</div>
+                                    <div class="service-card-details">
+                                        <div class="service-card-price">800 ₽</div>
+                                        <div class="service-card-duration">30 мин</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- СПА ПРОГРАММЫ -->
+                            <div class="service-card" onclick="selectSingleServiceStep('paradise_body', '🌿', 'Рай для тела', 'Кедровая бочка + душ + массаж + чай', '4200', '180 мин')">
+                                <div class="service-card-icon">🌿</div>
+                                <div class="service-card-info">
+                                    <div class="service-card-name">Рай для тела</div>
+                                    <div class="service-card-description">Кедровая бочка + душ + массаж + чай</div>
+                                    <div class="service-card-details">
+                                        <div class="service-card-price">4200 ₽</div>
+                                        <div class="service-card-duration">180 мин</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="service-card" onclick="selectSingleServiceStep('body_shake', '💪', 'Встряхни тело', 'Энергичный спортивный массаж', '3000', '150 мин')">
+                                <div class="service-card-icon">💪</div>
+                                <div class="service-card-info">
+                                    <div class="service-card-name">Встряхни тело</div>
+                                    <div class="service-card-description">Энергичный спортивный массаж</div>
+                                    <div class="service-card-details">
+                                        <div class="service-card-price">3000 ₽</div>
+                                        <div class="service-card-duration">150 мин</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="service-card" onclick="selectSingleServiceStep('salt_body', '🧂', 'Соль и тело', 'Солевые процедуры + массаж', '4000', '180 мин')">
+                                <div class="service-card-icon">🧂</div>
+                                <div class="service-card-info">
+                                    <div class="service-card-name">Соль и тело</div>
+                                    <div class="service-card-description">Солевые процедуры + массаж</div>
+                                    <div class="service-card-details">
+                                        <div class="service-card-price">4000 ₽</div>
+                                        <div class="service-card-duration">180 мин</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="service-card" onclick="selectSingleServiceStep('drainage', '💧', 'Сплошной дренаж', 'Комплексная лимфодренажная программа', '3000', '132 мин')">
+                                <div class="service-card-icon">💧</div>
+                                <div class="service-card-info">
+                                    <div class="service-card-name">Сплошной дренаж</div>
+                                    <div class="service-card-description">Комплексная лимфодренажная программа</div>
+                                    <div class="service-card-details">
+                                        <div class="service-card-price">3000 ₽</div>
+                                        <div class="service-card-duration">132 мин</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- АППАРАТНАЯ КОРРЕКЦИЯ ФИГУРЫ -->
+                            <div class="service-card" onclick="showServiceVariants('vacuum_rf')" data-service="vacuum_rf">
+                                <div class="service-card-icon">🔧</div>
+                                <div class="service-card-info">
+                                    <div class="service-card-name">Вакуумный массаж с RF-лифтингом</div>
+                                    <div class="service-card-description">Аппаратная коррекция фигуры</div>
+                                    <div class="service-card-details">
+                                        <div class="service-card-price">от 800 ₽</div>
+                                        <div class="service-card-duration">30-60 мин</div>
+                                    </div>
+                                    <div class="service-variants">Доступно 3 варианта</div>
+                                </div>
+                            </div>
+
+                            <div class="service-card" onclick="showServiceVariants('rf_lifting_body')" data-service="rf_lifting_body">
+                                <div class="service-card-icon">🔥</div>
+                                <div class="service-card-info">
+                                    <div class="service-card-name">RF-лифтинг тела</div>
+                                    <div class="service-card-description">Подтяжка и омоложение кожи тела</div>
+                                    <div class="service-card-details">
+                                        <div class="service-card-price">от 800 ₽</div>
+                                        <div class="service-card-duration">30-60 мин</div>
+                                    </div>
+                                    <div class="service-variants">Доступно 3 варианта</div>
+                                </div>
+                            </div>
+
+                            <div class="service-card" onclick="showServiceVariants('cavitation')" data-service="cavitation">
+                                <div class="service-card-icon">〰️</div>
+                                <div class="service-card-info">
+                                    <div class="service-card-name">Кавитация</div>
+                                    <div class="service-card-description">Ультразвуковая коррекция фигуры</div>
+                                    <div class="service-card-details">
+                                        <div class="service-card-price">от 800 ₽</div>
+                                        <div class="service-card-duration">30-60 мин</div>
+                                    </div>
+                                    <div class="service-variants">Доступно 3 варианта</div>
+                                </div>
+                            </div>
+
+                            <!-- ДОПОЛНИТЕЛЬНЫЕ УСЛУГИ -->
+                            <div class="service-card" onclick="selectSingleServiceStep('kedr_bochka', '🛁', 'Кедровая бочка', 'Травяной пар для детокса', '800', '20 мин')">
+                                <div class="service-card-icon">🛁</div>
+                                <div class="service-card-info">
+                                    <div class="service-card-name">Кедровая бочка</div>
+                                    <div class="service-card-description">Травяной пар для детокса</div>
+                                    <div class="service-card-details">
+                                        <div class="service-card-price">800 ₽</div>
+                                        <div class="service-card-duration">20 мин</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="service-card" onclick="selectSingleServiceStep('kedr_scrub', '🛁', 'Кедровая бочка + скрабирование', 'Комплексная процедура пар + скраб', '1800', '60 мин')">
+                                <div class="service-card-icon">🛁</div>
+                                <div class="service-card-info">
+                                    <div class="service-card-name">Кедровая бочка + скрабирование тела</div>
+                                    <div class="service-card-description">Комплексная процедура пар + скраб</div>
+                                    <div class="service-card-details">
+                                        <div class="service-card-price">1800 ₽</div>
+                                        <div class="service-card-duration">60 мин</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="service-card" onclick="selectSingleServiceStep('wrapping', '🎁', 'Обёртывание', 'Активные составы + укутывание', '1200', '30 мин')">
+                                <div class="service-card-icon">🎁</div>
+                                <div class="service-card-info">
+                                    <div class="service-card-name">Обёртывание</div>
+                                    <div class="service-card-description">Активные составы + укутывание</div>
+                                    <div class="service-card-details">
+                                        <div class="service-card-price">1200 ₽</div>
+                                        <div class="service-card-duration">30 мин</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="service-card" onclick="selectSingleServiceStep('scrub_massage', '✨', 'Массаж на скрабе', 'Массаж со скрабом для гладкости кожи', '1500', '40 мин')">
+                                <div class="service-card-icon">✨</div>
+                                <div class="service-card-info">
+                                    <div class="service-card-name">Массаж на скрабе</div>
+                                    <div class="service-card-description">Массаж со скрабом для гладкости кожи</div>
+                                    <div class="service-card-details">
+                                        <div class="service-card-price">1500 ₽</div>
+                                        <div class="service-card-duration">40 мин</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-navigation">
+                            <button class="step-button step-button-next" onclick="nextStep()" id="step-1-next" disabled>
+                                Далее
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ШАГ 2: Получатель и срок действия -->
+                    <div class="step-content" id="step-2">
+                        <div class="step-title">Данные получателя</div>
+                        <div class="step-description">Укажите данные получателя. Срок действия сертификата составляет 6 месяцев</div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Кому сертификат</label>
+                                <input type="text" class="form-input" id="recipient-name" placeholder="Имя получателя" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">От кого</label>
+                                <input type="text" class="form-input" id="sender-name" placeholder="Ваше имя" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Срок действия сертификата</label>
+                            <div class="duration-options">
+                                <div class="duration-card selected">
+                                    <div class="duration-card-icon">📅</div>
+                                    <div class="duration-card-text">6 месяцев</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-navigation">
+                            <button class="step-button step-button-back" onclick="prevStep()">
+                                Назад
+                            </button>
+                            <button class="step-button step-button-next" onclick="nextStep()">
+                                Далее
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ШАГ 3: Контакты и сообщение -->
+                    <div class="step-content" id="step-3">
+                        <div class="step-title">Контакты и сообщение</div>
+                        <div class="step-description">Укажите email для получения сертификата и добавьте персональное сообщение</div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Email для получения сертификата</label>
+                            <input type="email" class="form-input" id="email" placeholder="example@mail.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Персональное сообщение (необязательно)</label>
+                            <textarea class="form-textarea" id="message" placeholder="Напишите теплые слова получателю сертификата..."></textarea>
+                        </div>
+
+                        <div class="step-navigation">
+                            <button class="step-button step-button-back" onclick="prevStep()">
+                                Назад
+                            </button>
+                            <button class="step-button step-button-next" onclick="nextStep()">
+                                Далее
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ШАГ 4: Проверка и отправка -->
+                    <div class="step-content" id="step-4">
+                        <div class="step-title">Проверьте данные</div>
+                        <div class="step-description">Убедитесь, что все данные указаны корректно, и отправьте сертификат</div>
+                        
+                        <div class="order-summary">
+                            <div class="summary-title">📋 Сводка заказа</div>
+                            <div class="summary-row">
+                                <span class="summary-label">Услуга:</span>
+                                <span class="summary-value" id="summary-service">Не выбрано</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Вариант:</span>
+                                <span class="summary-value" id="summary-variant">—</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Получатель:</span>
+                                <span class="summary-value" id="summary-recipient">—</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">От:</span>
+                                <span class="summary-value" id="summary-sender">—</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Срок действия:</span>
+                                <span class="summary-value" id="summary-duration">6 месяцев</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Email:</span>
+                                <span class="summary-value" id="summary-email">—</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Стоимость:</span>
+                                <span class="summary-value summary-total" id="summary-price">0 ₽</span>
+                            </div>
+                        </div>
+
+                        <div class="step-navigation">
+                            <button class="step-button step-button-back" onclick="prevStep()">
+                                Назад
+                            </button>
+                            <button class="step-button step-button-next" onclick="sendCertificate()" id="send-button">
+                                Получить сертификат
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Страница сертификатов -->
-            <div class="page" id="certificates-page">
-                <div class="certificates-page">
-                    <div class="certificate-form">
-                        <h2 class="form-title">Подарочный сертификат</h2>
-                        <p class="form-subtitle">Заполните форму для создания сертификата на услуги</p>
+            <!-- МОДАЛЬНОЕ ОКНО ВЫБОРА ВАРИАНТОВ -->
+            <div class="service-variant-modal" id="service-variant-modal">
+                <div class="variant-modal-content">
+                    <div class="variant-modal-title" id="variant-modal-title">Выберите вариант услуги</div>
+                    <div class="variant-modal-description" id="variant-modal-description">Выберите подходящий вариант по времени и цене</div>
+                    
+                    <div class="variant-options" id="variant-options">
+                        <!-- Варианты будут добавлены динамически -->
+                    </div>
 
-                        <form id="certificate-form" onsubmit="processCertificate(event)">
-                            <div class="form-group">
-                                <label class="form-label">Выберите услугу</label>
-                                <button type="button" class="select-button placeholder" id="service-button" onclick="openServiceModal()">
-                                    <span class="select-button-text">Выберите услугу</span>
-                                    <svg class="select-button-arrow" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M7 10l5 5 5-5z"/>
-                                    </svg>
-                                </button>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label class="form-label">Кому сертификат</label>
-                                    <input type="text" class="form-input" id="recipient-name" placeholder="Получатель" onchange="updatePreview()" required>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">От кого</label>
-                                    <input type="text" class="form-input" id="sender-name" placeholder="Ваше имя" required>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label">Срок действия</label>
-                                <button type="button" class="select-button selected" id="duration-button" onclick="openDurationModal()">
-                                    <span class="select-button-text">60 дней</span>
-                                    <svg class="select-button-arrow" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M7 10l5 5 5-5z"/>
-                                    </svg>
-                                </button>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label">Email для получения сертификата</label>
-                                <input type="email" class="form-input" id="email" placeholder="example@mail.com" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label">Дополнительное сообщение (необязательно)</label>
-                                <textarea class="form-textarea" id="message" placeholder="Персональное сообщение получателю..."></textarea>
-                            </div>
-
-                            <!-- Превью сертификата -->
-                            <div class="certificate-preview" id="certificate-preview" style="display: none;">
-                                <div class="service-name" id="preview-service">Выберите услугу</div>
-                                <div class="recipient-name">Для: <span id="preview-recipient">Получатель</span></div>
-                            </div>
-
-                            <!-- Отображение цены -->
-                            <div class="price-display" id="price-display" style="display: none;">
-                                <div class="price-label">К оплате:</div>
-                                <div class="price-amount" id="price-amount">0 ₽</div>
-                            </div>
-
-                            <button type="submit" class="buy-button" id="buy-button" disabled>
-                                Получить сертификат
-                            </button>
-                        </form>
+                    <div class="variant-modal-buttons">
+                        <button class="variant-button variant-button-cancel" onclick="closeVariantModal()">
+                            Отмена
+                        </button>
+                        <button class="variant-button variant-button-confirm" onclick="confirmServiceVariant()" id="confirm-variant-btn" disabled>
+                            Выбрать
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1223,136 +1847,15 @@
             <!-- Модальное окно подтверждения -->
             <div class="confirmation-modal" id="confirmation-modal">
                 <div class="modal-content">
-                    <div class="modal-icon">✅</div>
+                    <div class="modal-icon">🎉</div>
                     <h3 class="modal-title">Сертификат отправлен!</h3>
                     <p class="modal-text">
-                        Ваш подарочный сертификат успешно отправлен на указанный email. 
-                        <br><br>
-                        <strong>Номер сертификата:</strong><br>
-                        <span id="certificate-number">CERT-2025-XXXX</span>
+                        Ваш подарочный сертификат успешно создан и отправлен на указанный email адрес.
                     </p>
-                    <button class="modal-button" onclick="closeModal()">Отлично!</button>
-                </div>
-            </div>
-
-            <!-- Модальное окно выбора услуги -->
-            <div class="selection-modal" id="service-modal">
-                <div class="selection-modal-content">
-                    <div class="selection-modal-header">
-                        <h3 class="selection-modal-title">Выберите услугу</h3>
-                        <button class="selection-modal-close" onclick="closeServiceModal()">&times;</button>
+                    <div class="certificate-number" id="certificate-number">
+                        CERT-2025-XXXX
                     </div>
-                    <div class="selection-modal-body">
-                        <div class="service-option" onclick="selectService('massage', '💆‍♀️', 'Массаж релакс', 'Расслабляющий массаж всего тела', '3500', '60 мин')">
-                            <div class="service-icon">💆‍♀️</div>
-                            <div class="service-info">
-                                <div class="service-name">Массаж релакс</div>
-                                <div class="service-description">Расслабляющий массаж всего тела</div>
-                                <div class="service-price">3500 ₽<span class="service-duration">60 мин</span></div>
-                            </div>
-                        </div>
-
-                        <div class="service-option" onclick="selectService('facial', '🧴', 'Уход за лицом', 'Комплексная процедура для лица', '4200', '90 мин')">
-                            <div class="service-icon">🧴</div>
-                            <div class="service-info">
-                                <div class="service-name">Уход за лицом</div>
-                                <div class="service-description">Комплексная процедура для лица</div>
-                                <div class="service-price">4200 ₽<span class="service-duration">90 мин</span></div>
-                            </div>
-                        </div>
-
-                        <div class="service-option" onclick="selectService('manicure', '💅', 'Маникюр с покрытием', 'Классический маникюр + гель-лак', '2800', '75 мин')">
-                            <div class="service-icon">💅</div>
-                            <div class="service-info">
-                                <div class="service-name">Маникюр с покрытием</div>
-                                <div class="service-description">Классический маникюр + гель-лак</div>
-                                <div class="service-price">2800 ₽<span class="service-duration">75 мин</span></div>
-                            </div>
-                        </div>
-
-                        <div class="service-option" onclick="selectService('haircut', '✂️', 'Стрижка + укладка', 'Профессиональная стрижка и укладка', '3200', '90 мин')">
-                            <div class="service-icon">✂️</div>
-                            <div class="service-info">
-                                <div class="service-name">Стрижка + укладка</div>
-                                <div class="service-description">Профессиональная стрижка и укладка</div>
-                                <div class="service-price">3200 ₽<span class="service-duration">90 мин</span></div>
-                            </div>
-                        </div>
-
-                        <div class="service-option" onclick="selectService('spa', '🌿', 'SPA-процедуры', 'Комплекс расслабляющих процедур', '5500', '120 мин')">
-                            <div class="service-icon">🌿</div>
-                            <div class="service-info">
-                                <div class="service-name">SPA-процедуры</div>
-                                <div class="service-description">Комплекс расслабляющих процедур</div>
-                                <div class="service-price">5500 ₽<span class="service-duration">120 мин</span></div>
-                            </div>
-                        </div>
-
-                        <div class="service-option" onclick="selectService('yoga', '🧘‍♀️', 'Занятие йогой', 'Индивидуальное занятие йогой', '1500', '60 мин')">
-                            <div class="service-icon">🧘‍♀️</div>
-                            <div class="service-info">
-                                <div class="service-name">Занятие йогой</div>
-                                <div class="service-description">Индивидуальное занятие йогой</div>
-                                <div class="service-price">1500 ₽<span class="service-duration">60 мин</span></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Модальное окно выбора срока действия -->
-            <div class="selection-modal" id="duration-modal">
-                <div class="selection-modal-content">
-                    <div class="selection-modal-header">
-                        <h3 class="selection-modal-title">Срок действия</h3>
-                        <button class="selection-modal-close" onclick="closeDurationModal()">&times;</button>
-                    </div>
-                    <div class="selection-modal-body">
-                        <div class="duration-option" onclick="selectDuration('30', '30 дней')">
-                            <div class="duration-info">
-                                <svg class="duration-icon" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z"/>
-                                </svg>
-                                <span class="duration-text">30 дней</span>
-                            </div>
-                        </div>
-
-                        <div class="duration-option selected" onclick="selectDuration('60', '60 дней')">
-                            <div class="duration-info">
-                                <svg class="duration-icon" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z"/>
-                                </svg>
-                                <span class="duration-text">60 дней</span>
-                            </div>
-                        </div>
-
-                        <div class="duration-option" onclick="selectDuration('90', '90 дней')">
-                            <div class="duration-info">
-                                <svg class="duration-icon" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z"/>
-                                </svg>
-                                <span class="duration-text">90 дней</span>
-                            </div>
-                        </div>
-
-                        <div class="duration-option" onclick="selectDuration('180', '6 месяцев')">
-                            <div class="duration-info">
-                                <svg class="duration-icon" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z"/>
-                                </svg>
-                                <span class="duration-text">6 месяцев</span>
-                            </div>
-                        </div>
-
-                        <div class="duration-option" onclick="selectDuration('365', '1 год')">
-                            <div class="duration-info">
-                                <svg class="duration-icon" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z"/>
-                                </svg>
-                                <span class="duration-text">1 год</span>
-                            </div>
-                        </div>
-                    </div>
+                    <button class="modal-button" onclick="closeModal()">Готово!</button>
                 </div>
             </div>
 
@@ -1362,7 +1865,7 @@
                     <input 
                         type="text" 
                         class="search-box" 
-                        placeholder="Поиск товаров..."
+                        placeholder="Поиск услуг..."
                         id="search-input"
                         oninput="performSearch()"
                     >
@@ -1373,7 +1876,7 @@
                         <svg style="width: 48px; height: 48px; margin-bottom: 16px; color: #1BA486;" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
                         </svg>
-                        <div>Введите запрос для поиска товаров</div>
+                        <div>Введите запрос для поиска услуг</div>
                     </div>
                 </div>
             </div>
@@ -1390,7 +1893,7 @@
 
                     <div class="product-detail">
                         <div class="product-detail-image" id="product-detail-image">
-                            <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=500&h=400&fit=crop" alt="Товар" id="product-detail-img">
+                            🌿
                         </div>
                         <div class="product-detail-info">
                             <div class="product-detail-title" id="product-detail-title">
@@ -1425,71 +1928,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Отзывы -->
-                    <div class="reviews-section">
-                        <h3 class="reviews-title">Отзывы покупателей</h3>
-                        
-                        <div class="review-card">
-                            <div class="review-header">
-                                <div class="review-avatar">А</div>
-                                <div class="review-info">
-                                    <div class="review-name">Анна К.</div>
-                                    <div class="review-rating">
-                                        <span class="star">★</span>
-                                        <span class="star">★</span>
-                                        <span class="star">★</span>
-                                        <span class="star">★</span>
-                                        <span class="star">★</span>
-                                    </div>
-                                </div>
-                                <div class="review-date">2 дня назад</div>
-                            </div>
-                            <div class="review-text">
-                                Отличный товар! Качество превзошло ожидания. Обязательно буду заказывать ещё.
-                            </div>
-                        </div>
-
-                        <div class="review-card">
-                            <div class="review-header">
-                                <div class="review-avatar">М</div>
-                                <div class="review-info">
-                                    <div class="review-name">Михаил П.</div>
-                                    <div class="review-rating">
-                                        <span class="star">★</span>
-                                        <span class="star">★</span>
-                                        <span class="star">★</span>
-                                        <span class="star">★</span>
-                                        <span class="star">☆</span>
-                                    </div>
-                                </div>
-                                <div class="review-date">5 дней назад</div>
-                            </div>
-                            <div class="review-text">
-                                Хорошее качество, быстрая доставка. Рекомендую этот магазин!
-                            </div>
-                        </div>
-
-                        <div class="review-card">
-                            <div class="review-header">
-                                <div class="review-avatar">Е</div>
-                                <div class="review-info">
-                                    <div class="review-name">Елена С.</div>
-                                    <div class="review-rating">
-                                        <span class="star">★</span>
-                                        <span class="star">★</span>
-                                        <span class="star">★</span>
-                                        <span class="star">★</span>
-                                        <span class="star">★</span>
-                                    </div>
-                                </div>
-                                <div class="review-date">1 неделя назад</div>
-                            </div>
-                            <div class="review-text">
-                                Очень довольна покупкой. Товар соответствует описанию. Спасибо за качественный сервис!
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -1497,16 +1935,16 @@
 
     <script>
         // ============================================
-        // НАСТРОЙКИ EMAILJS - ЗАМЕНИ НА СВОИ КЛЮЧИ!
+        // НАСТРОЙКИ EMAILJS
         // ============================================
         
-        // Инициализация EmailJS (ОБЯЗАТЕЛЬНО ЗАМЕНИ НА СВОИ КЛЮЧИ!)
-        emailjs.init("YOUR_PUBLIC_KEY"); // Замени на свой Public Key из EmailJS
+        // Инициализация EmailJS с вашими ключами
+        emailjs.init("DAw23G92N0aW3F17E");
         
-        // Конфигурация (ОБЯЗАТЕЛЬНО ЗАМЕНИ НА СВОИ КЛЮЧИ!)
+        // Конфигурация
         const EMAILJS_CONFIG = {
-            serviceId: "YOUR_SERVICE_ID",    // ID сервиса из EmailJS
-            templateId: "YOUR_TEMPLATE_ID",  // ID шаблона из EmailJS
+            serviceId: "service_3w01ixd",    // ID сервиса из EmailJS
+            templateId: "template_vrs45er",  // ID шаблона из EmailJS
         };
 
         // ============================================
@@ -1516,8 +1954,200 @@
         let currentSlide = 0;
         const totalSlides = 3;
         let previousPage = 'home';
-        let selectedService = null;
-        let selectedDuration = { value: '60', text: '60 дней' };
+        
+        // Переменные для пошагового оформления
+        let currentStep = 1;
+        const totalSteps = 4;
+        let certificateData = {
+            service: null,
+            selectedVariant: null,
+            recipientName: '',
+            senderName: '',
+            duration: { value: '180', text: '6 месяцев' },
+            email: '',
+            message: ''
+        };
+
+        // РЕАЛЬНЫЕ ДАННЫЕ О ВАРИАНТАХ УСЛУГ
+        const serviceVariants = {
+            general_massage: {
+                name: '💆‍♀️ Общий массаж',
+                description: 'Расслабляющий массаж всего тела',
+                variants: [
+                    {
+                        id: 'general_60',
+                        duration: '60 минут',
+                        features: 'Базовый общий массаж',
+                        price: '1800'
+                    },
+                    {
+                        id: 'general_90', 
+                        duration: '90 минут',
+                        features: 'Расширенный общий массаж',
+                        price: '2500'
+                    }
+                ]
+            },
+            lymph_massage: {
+                name: '🤲 Лимфодренажный массаж',
+                description: 'Улучшение лимфооттока и снятие отеков',
+                variants: [
+                    {
+                        id: 'lymph_60',
+                        duration: '60 минут',
+                        features: 'Лимфодренажный массаж 60 мин',
+                        price: '1800'
+                    },
+                    {
+                        id: 'lymph_90',
+                        duration: '90 минут', 
+                        features: 'Лимфодренажный массаж 90 мин',
+                        price: '2500'
+                    }
+                ]
+            },
+            back_massage: {
+                name: '💆‍♂️ Массаж спины',
+                description: 'Снятие напряжения и боли в мышцах спины',
+                variants: [
+                    {
+                        id: 'back_30',
+                        duration: '30 минут',
+                        features: 'Массаж спины 30 мин',
+                        price: '900'
+                    },
+                    {
+                        id: 'back_40',
+                        duration: '40 минут',
+                        features: 'Массаж спины 40 мин',
+                        price: '1200'
+                    },
+                    {
+                        id: 'back_60',
+                        duration: '60 минут',
+                        features: 'Массаж спины 60 мин',
+                        price: '1800'
+                    }
+                ]
+            },
+            anti_cellulite: {
+                name: '✨ Антицеллюлитный массаж',
+                description: 'Коррекция фигуры и борьба с целлюлитом',
+                variants: [
+                    {
+                        id: 'anti_60',
+                        duration: '60 минут',
+                        features: 'Антицеллюлитный массаж 60 мин',
+                        price: '2100'
+                    },
+                    {
+                        id: 'anti_90',
+                        duration: '90 минут', 
+                        features: 'Антицеллюлитный массаж 90 мин',
+                        price: '2700'
+                    }
+                ]
+            },
+            face_classic: {
+                name: '😌 Классический ручной массаж лица',
+                description: 'Улучшение кровообращения и тонуса кожи',
+                variants: [
+                    {
+                        id: 'face_30',
+                        duration: '30 минут',
+                        features: 'Классический массаж лица 30 мин',
+                        price: '1200'
+                    },
+                    {
+                        id: 'face_40',
+                        duration: '40 минут',
+                        features: 'Классический массаж лица 40 мин',
+                        price: '1500'
+                    },
+                    {
+                        id: 'face_60',
+                        duration: '60 минут',
+                        features: 'Классический массаж лица 60 мин',
+                        price: '1800'
+                    }
+                ]
+            },
+            vacuum_rf: {
+                name: '🔧 Вакуумный массаж с RF-лифтингом',
+                description: 'Аппаратная коррекция фигуры',
+                variants: [
+                    {
+                        id: 'vacuum_30',
+                        duration: '30 минут',
+                        features: 'Вакуумный массаж с RF 30 мин',
+                        price: '800'
+                    },
+                    {
+                        id: 'vacuum_40',
+                        duration: '40 минут',
+                        features: 'Вакуумный массаж с RF 40 мин',
+                        price: '1200'
+                    },
+                    {
+                        id: 'vacuum_60',
+                        duration: '60 минут',
+                        features: 'Вакуумный массаж с RF 60 мин',
+                        price: '1600'
+                    }
+                ]
+            },
+            rf_lifting_body: {
+                name: '🔥 RF-лифтинг тела',
+                description: 'Подтяжка и омоложение кожи тела',
+                variants: [
+                    {
+                        id: 'rf_body_30',
+                        duration: '30 минут',
+                        features: 'RF-лифтинг тела 30 мин',
+                        price: '800'
+                    },
+                    {
+                        id: 'rf_body_40',
+                        duration: '40 минут',
+                        features: 'RF-лифтинг тела 40 мин',
+                        price: '1200'
+                    },
+                    {
+                        id: 'rf_body_60',
+                        duration: '60 минут',
+                        features: 'RF-лифтинг тела 60 мин',
+                        price: '1600'
+                    }
+                ]
+            },
+            cavitation: {
+                name: '〰️ Кавитация',
+                description: 'Ультразвуковая коррекция фигуры',
+                variants: [
+                    {
+                        id: 'cavitation_30',
+                        duration: '30 минут',
+                        features: 'Кавитация 30 мин',
+                        price: '800'
+                    },
+                    {
+                        id: 'cavitation_40',
+                        duration: '40 минут',
+                        features: 'Кавитация 40 мин',
+                        price: '1200'
+                    },
+                    {
+                        id: 'cavitation_60',
+                        duration: '60 минут',
+                        features: 'Кавитация 60 мин',
+                        price: '1600'
+                    }
+                ]
+            }
+        };
+
+        let selectedServiceType = null;
+        let selectedServiceVariant = null;
 
         // ============================================
         // ОСНОВНЫЕ ФУНКЦИИ САЙТА
@@ -1544,6 +2174,7 @@
                 document.getElementById('certificates-page').classList.add('active');
                 buttons[2].classList.add('active');
                 previousPage = 'certificates';
+                resetCertificateForm();
             }
             
             if (currentScrollPosition < 100) {
@@ -1551,15 +2182,14 @@
             }
         }
 
-        function openProductPage(id, imageUrl, title, price, description) {
+        function openProductPage(id, emoji, title, price, description) {
             const pages = document.querySelectorAll('.page');
             const buttons = document.querySelectorAll('.nav-button');
             
             pages.forEach(p => p.classList.remove('active'));
             buttons.forEach(b => b.classList.remove('active'));
             
-            document.getElementById('product-detail-img').src = imageUrl;
-            document.getElementById('product-detail-img').alt = title;
+            document.getElementById('product-detail-image').textContent = emoji;
             document.getElementById('product-detail-title').textContent = title;
             document.getElementById('product-detail-price').textContent = price;
             document.getElementById('product-detail-description').textContent = description;
@@ -1592,41 +2222,167 @@
         // ============================================
 
         const products = [
+            // Оздоровительный массаж
             { 
-                id: 'tea', name: 'Органический чай', description: 'Натуральный зеленый чай без добавок', 
-                price: '350 ₽', image: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=300&h=200&fit=crop',
-                fullDescription: 'Натуральный зеленый чай высшего качества из экологически чистых регионов. Собран вручную на высокогорных плантациях.',
-                category: 'drinks'
+                id: 'classic-massage', name: 'Общий массаж', description: 'Расслабляющий массаж всего тела', 
+                price: 'от 1800 ₽', emoji: '💆‍♀️',
+                fullDescription: 'Расслабляющий оздоровительный массаж всего тела для снятия напряжения и улучшения кровообращения.',
+                category: 'wellness-massage'
             },
             { 
-                id: 'avocado', name: 'Авокадо эко', description: 'Свежие авокадо из органических хозяйств', 
-                price: '150 ₽', image: 'https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=300&h=200&fit=crop',
-                fullDescription: 'Спелые авокадо из органических хозяйств. Богаты полезными жирами и витаминами. Идеально для здорового питания.',
-                category: 'fruits'
+                id: 'lymphatic-massage', name: 'Лимфодренажный массаж', description: 'Специальный массаж для улучшения лимфооттока', 
+                price: 'от 1800 ₽', emoji: '🤲',
+                fullDescription: 'Специальный массаж для улучшения лимфооттока и снятия отеков.',
+                category: 'wellness-massage'
             },
             { 
-                id: 'honey', name: 'Мед натуральный', description: 'Цветочный мед с пасеки', 
-                price: '890 ₽', image: 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=300&h=200&fit=crop',
-                fullDescription: 'Цветочный мед с собственной пасеки. Собран в экологически чистых районах. Не подвергался термической обработке.',
-                category: 'other'
+                id: 'back-massage', name: 'Массаж спины', description: 'Массаж для снятия напряжения в спине', 
+                price: 'от 900 ₽', emoji: '💆‍♂️',
+                fullDescription: 'Массаж спины для снятия напряжения и боли в мышцах.',
+                category: 'wellness-massage'
             },
             { 
-                id: 'herbs', name: 'Травяной сбор', description: 'Смесь целебных трав для здоровья', 
-                price: '420 ₽', image: 'https://images.unsplash.com/photo-1515277877510-b8ec2eaef82a?w=300&h=200&fit=crop',
-                fullDescription: 'Целебный сбор из горных трав. Помогает укрепить иммунитет и улучшить общее самочувствие.',
-                category: 'drinks'
+                id: 'neck-massage', name: 'Массаж ШВЗ', description: 'Массаж шейно-воротниковой зоны', 
+                price: '800 ₽', emoji: '💆‍♀️',
+                fullDescription: 'Массаж шейно-воротниковой зоны для снятия напряжения.',
+                category: 'wellness-massage'
             },
             { 
-                id: 'salad', name: 'Салат органик', description: 'Свежий листовой салат без химии', 
-                price: '180 ₽', image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&h=200&fit=crop',
-                fullDescription: 'Свежий листовой салат, выращенный без использования химических удобрений. Хрустящий и полезный.',
-                category: 'fruits'
+                id: 'head-massage', name: 'Массаж головы', description: 'Расслабляющий массаж головы и кожи головы', 
+                price: '800 ₽', emoji: '🧠',
+                fullDescription: 'Расслабляющий массаж головы и кожи головы.',
+                category: 'wellness-massage'
             },
             { 
-                id: 'bread', name: 'Хлеб цельнозерновой', description: 'Хлеб из муки грубого помола', 
-                price: '120 ₽', image: 'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=300&h=200&fit=crop',
-                fullDescription: 'Хлеб из муки грубого помола. Выпечен по традиционным рецептам без консервантов и улучшителей.',
-                category: 'bakery'
+                id: 'legs-massage', name: 'Массаж ног', description: 'Расслабляющий и лечебный массаж ног', 
+                price: '1200 ₽', emoji: '🦵',
+                fullDescription: 'Расслабляющий и лечебный массаж ног.',
+                category: 'wellness-massage'
+            },
+            // Эстетический массаж
+            { 
+                id: 'anti-cellulite', name: 'Антицеллюлитный массаж', description: 'Эффективный массаж для коррекции фигуры', 
+                price: 'от 2100 ₽', emoji: '✨',
+                fullDescription: 'Эффективный массаж для коррекции фигуры и борьбы с целлюлитом. Улучшает тонус кожи и контуры тела.',
+                category: 'aesthetic-massage'
+            },
+            // Массаж лица  
+            { 
+                id: 'classic-face-massage', name: 'Классический ручной массаж', description: 'Омолаживающий массаж лица', 
+                price: 'от 1200 ₽', emoji: '😌',
+                fullDescription: 'Классический ручной массаж лица для улучшения кровообращения и тонуса кожи.',
+                category: 'face-massage'
+            },
+            { 
+                id: 'gua-sha-massage', name: 'Контурный массаж лица пластинами Гуаша', description: 'Традиционный китайский массаж', 
+                price: '2100 ₽', emoji: '🪨',
+                fullDescription: 'Традиционный китайский массаж лица пластинами гуаша для омоложения.',
+                category: 'face-massage'
+            },
+            { 
+                id: 'french-massage', name: 'Французский скульптурный массаж лица', description: 'Французский скульптурный массаж', 
+                price: '2500 ₽', emoji: '🇫🇷',
+                fullDescription: 'Французский скульптурный массаж для моделирования контуров лица.',
+                category: 'face-massage'
+            },
+            { 
+                id: 'relax-massage', name: 'Массаж лица Relax (шея, лицо)', description: 'Расслабляющий массаж лица и шеи', 
+                price: '1400 ₽', emoji: '😴',
+                fullDescription: 'Расслабляющий массаж лица и шеи.',
+                category: 'face-massage'
+            },
+            { 
+                id: 'myofascial-massage', name: 'Миофасциальный массаж лица', description: 'Миофасциальный массаж для глубокой проработки мышц лица', 
+                price: '2500 ₽', emoji: '💪',
+                fullDescription: 'Миофасциальный массаж для глубокой проработки мышц лица.',
+                category: 'face-massage'
+            },
+            { 
+                id: 'microcurrents', name: 'Микротоки на лицо', description: 'Аппаратная процедура с микротоками', 
+                price: '1200 ₽', emoji: '⚡',
+                fullDescription: 'Аппаратная процедура с микротоками для подтяжки кожи.',
+                category: 'face-massage'
+            },
+            { 
+                id: 'rf-lifting-face', name: 'RF-лифтинг', description: 'RF-лифтинг лица для подтяжки и омоложения кожи', 
+                price: '1200 ₽', emoji: '🔥',
+                fullDescription: 'RF-лифтинг лица для подтяжки и омоложения кожи.',
+                category: 'face-massage'
+            },
+            { 
+                id: 'alginate-mask', name: 'Альгинатная маска', description: 'Увлажняющая и питательная маска', 
+                price: '800 ₽', emoji: '🧴',
+                fullDescription: 'Увлажняющая и питательная альгинатная маска.',
+                category: 'face-massage'
+            },
+            // СПА программы
+            { 
+                id: 'paradise-body', name: 'Рай для тела', description: 'Кедровая бочка + душ + массаж + чай', 
+                price: '4200 ₽', emoji: '🌿',
+                fullDescription: '🌿 Кедровая бочка + контрастный душ + массаж спины + чайная церемония',
+                category: 'spa-programms'
+            },
+            { 
+                id: 'body-shake', name: 'Встряхни тело', description: 'Энергичный спортивный массаж', 
+                price: '3000 ₽', emoji: '💪',
+                fullDescription: 'Энергичный спортивный массаж для восстановления мышц и повышения тонуса тела.',
+                category: 'spa-programms'
+            },
+            { 
+                id: 'salt-body', name: 'Соль и тело', description: 'Солевые процедуры + массаж + ванна', 
+                price: '4000 ₽', emoji: '🧂',
+                fullDescription: '🧂 Солевое обертывание + грязевые маски + минеральный массаж + солевая ванна',
+                category: 'spa-programms'
+            },
+            { 
+                id: 'continuous-drainage', name: 'Сплошной дренаж', description: 'Комплексная лимфодренажная программа', 
+                price: '3000 ₽', emoji: '💧',
+                fullDescription: 'Комплексная лимфодренажная программа для очищения и восстановления организма.',
+                category: 'spa-programms'
+            },
+            // Аппаратная коррекция фигуры
+            { 
+                id: 'vacuum-rf', name: 'Вакуумный массаж с RF-лифтингом', description: 'Аппаратная коррекция фигуры', 
+                price: 'от 800 ₽', emoji: '🔧',
+                fullDescription: 'Аппаратный массаж для коррекции фигуры и подтяжки кожи с использованием вакуумно-роликовой технологии.',
+                category: 'body-correction'
+            },
+            { 
+                id: 'rf-lifting-body', name: 'RF-лифтинг', description: 'RF-лифтинг тела для подтяжки кожи', 
+                price: 'от 800 ₽', emoji: '🔥',
+                fullDescription: 'RF-лифтинг тела для подтяжки и омоложения кожи.',
+                category: 'body-correction'
+            },
+            { 
+                id: 'cavitation', name: 'Кавитация', description: 'Ультразвуковая кавитация для коррекции фигуры', 
+                price: 'от 800 ₽', emoji: '〰️',
+                fullDescription: 'Ультразвуковая кавитация для коррекции фигуры и уменьшения жировых отложений.',
+                category: 'body-correction'
+            },
+            // Дополнительно
+            { 
+                id: 'kedr-bochka', name: 'Кедровая бочка', description: 'Травяной пар в кедре для детокса и иммунитета', 
+                price: '800 ₽', emoji: '🛁',
+                fullDescription: 'Оздоровительная процедура в кедровой бочке с травяным паром, обеспечивает детокс, улучшает кровообращение, укрепляет иммунитет, снимает стресс и омолаживает кожу, длительность 20 минут.',
+                category: 'additional'
+            },
+            { 
+                id: 'kedr-bochka_and_scrab', name: 'Кедровая бочка + скрабирование тела', description: 'Комплексная процедура пар + скраб', 
+                price: '1800 ₽', emoji: '🛁',
+                fullDescription: 'Комплексная процедура включает травяной пар в кедровой бочке с отварами целебных трав для детокса и улучшения кровообращения, после чего проводится скрабирование тела натуральными составами для удаления ороговевших клеток, глубокого очищения пор, разглаживания и увлажнения кожи.',
+                category: 'additional'
+            },
+            { 
+                id: 'obert', name: 'Обёртывание', description: 'Активные составы + укутывание для похудения и упругости кожи', 
+                price: '1200 ₽', emoji: '🎁',
+                fullDescription: 'Косметическая процедура с нанесением на тело активных составов (водоросли, глина, мёд, масла) с последующим укутыванием плёнкой и тёплым покрывалом для создания термоэффекта.',
+                category: 'additional'
+            },
+            { 
+                id: 'massage_scrab', name: 'Массаж на скрабе', description: 'Массаж со скрабом для гладкости и тонуса кожи', 
+                price: '1500 ₽', emoji: '✨',
+                fullDescription: 'Процедура сочетает массажные техники с одновременным нанесением отшелушивающего скраба на основе натуральных компонентов для глубокого очищения пор и улучшения текстуры кожи.',
+                category: 'additional'
             }
         ];
 
@@ -1650,7 +2406,7 @@
         function openProductFromSearch(productId) {
             const product = products.find(p => p.id === productId);
             if (product) {
-                openProductPage(product.id, product.image, product.name, product.price, product.fullDescription);
+                openProductPage(product.id, product.emoji, product.name, product.price, product.fullDescription);
             }
         }
 
@@ -1665,7 +2421,7 @@
                         <svg style="width: 48px; height: 48px; margin-bottom: 16px; color: #1BA486;" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
                         </svg>
-                        <div>Введите запрос для поиска товаров</div>
+                        <div>Введите запрос для поиска услуг</div>
                     </div>
                 `;
                 return;
@@ -1698,31 +2454,177 @@
         }
 
         // ============================================
-        // МОДАЛЬНЫЕ ОКНА ДЛЯ ВЫБОРА УСЛУГ
+        // ПОШАГОВОЕ ОФОРМЛЕНИЕ СЕРТИФИКАТОВ
         // ============================================
 
-        function openServiceModal() {
-            document.getElementById('service-modal').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
+        function resetCertificateForm() {
+            currentStep = 1;
+            certificateData = {
+                service: null,
+                selectedVariant: null,
+                recipientName: '',
+                senderName: '',
+                duration: { value: '180', text: '6 месяцев' },
+                email: '',
+                message: ''
+            };
+            
+            selectedServiceType = null;
+            selectedServiceVariant = null;
+            
+            // Сброс полей формы
+            document.getElementById('recipient-name').value = '';
+            document.getElementById('sender-name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('message').value = '';
+            
+            // Сброс выбранных элементов
+            document.querySelectorAll('.service-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            updateStepProgress();
+            showStep(1);
         }
 
-        function openDurationModal() {
-            document.getElementById('duration-modal').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
+        function updateStepProgress() {
+            // Обновляем прогресс-бар
+            for (let i = 1; i <= totalSteps; i++) {
+                const indicator = document.getElementById(`step-indicator-${i}`);
+                const circle = indicator.querySelector('.step-circle');
+                
+                if (i < currentStep) {
+                    indicator.classList.add('completed');
+                    indicator.classList.remove('active');
+                    circle.innerHTML = '✓';
+                } else if (i === currentStep) {
+                    indicator.classList.add('active');
+                    indicator.classList.remove('completed');
+                    circle.innerHTML = i;
+                } else {
+                    indicator.classList.remove('active', 'completed');
+                    circle.innerHTML = i;
+                }
+            }
+            
+            // Обновляем текст текущего шага
+            document.getElementById('current-step-text').textContent = currentStep;
         }
 
-        function closeServiceModal() {
-            document.getElementById('service-modal').style.display = 'none';
-            document.body.style.overflow = 'auto';
+        function showStep(stepNumber) {
+            // Скрываем все шаги
+            document.querySelectorAll('.step-content').forEach(step => {
+                step.classList.remove('active');
+            });
+            
+            // Показываем нужный шаг
+            document.getElementById(`step-${stepNumber}`).classList.add('active');
         }
 
-        function closeDurationModal() {
-            document.getElementById('duration-modal').style.display = 'none';
-            document.body.style.overflow = 'auto';
+        function nextStep() {
+            if (validateCurrentStep()) {
+                if (currentStep < totalSteps) {
+                    currentStep++;
+                    updateStepProgress();
+                    showStep(currentStep);
+                    
+                    // Обновляем сводку на последнем шаге
+                    if (currentStep === 4) {
+                        updateSummary();
+                    }
+                }
+            }
         }
 
-        function selectService(value, icon, name, description, price, duration) {
-            selectedService = {
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateStepProgress();
+                showStep(currentStep);
+            }
+        }
+
+        function validateCurrentStep() {
+            switch (currentStep) {
+                case 1:
+                    if (!certificateData.service) {
+                        showNotification('Пожалуйста, выберите услугу', 'error');
+                        return false;
+                    }
+                    break;
+                case 2:
+                    const recipientName = document.getElementById('recipient-name').value.trim();
+                    const senderName = document.getElementById('sender-name').value.trim();
+                    
+                    if (!recipientName) {
+                        showNotification('Пожалуйста, укажите имя получателя', 'error');
+                        return false;
+                    }
+                    if (!senderName) {
+                        showNotification('Пожалуйста, укажите ваше имя', 'error');
+                        return false;
+                    }
+                    
+                    certificateData.recipientName = recipientName;
+                    certificateData.senderName = senderName;
+                    break;
+                case 3:
+                    const email = document.getElementById('email').value.trim();
+                    const message = document.getElementById('message').value.trim();
+                    
+                    if (!email) {
+                        showNotification('Пожалуйста, укажите email для получения сертификата', 'error');
+                        return false;
+                    }
+                    
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(email)) {
+                        showNotification('Пожалуйста, укажите корректный email адрес', 'error');
+                        return false;
+                    }
+                    
+                    certificateData.email = email;
+                    certificateData.message = message;
+                    break;
+            }
+            return true;
+        }
+
+        // ============================================
+        // ВЫБОР УСЛУГ И ВАРИАНТОВ
+        // ============================================
+
+        function showServiceVariants(serviceType) {
+            if (!serviceVariants[serviceType]) {
+                console.error('Варианты для услуги не найдены:', serviceType);
+                return;
+            }
+
+            selectedServiceType = serviceType;
+            const service = serviceVariants[serviceType];
+            
+            // Обновляем заголовок и описание модального окна
+            document.getElementById('variant-modal-title').textContent = service.name;
+            document.getElementById('variant-modal-description').textContent = service.description;
+            
+            // Генерируем варианты
+            const variantOptions = document.getElementById('variant-options');
+            variantOptions.innerHTML = service.variants.map(variant => `
+                <div class="variant-option" onclick="selectVariant('${variant.id}')" data-variant="${variant.id}">
+                    <div class="variant-info">
+                        <div class="variant-duration">${variant.duration}</div>
+                        <div class="variant-features">${variant.features}</div>
+                    </div>
+                    <div class="variant-price">${variant.price} ₽</div>
+                </div>
+            `).join('');
+            
+            // Показываем модальное окно
+            document.getElementById('service-variant-modal').style.display = 'flex';
+        }
+
+        function selectSingleServiceStep(value, icon, name, description, price, duration) {
+            certificateData.service = {
                 value: value,
                 icon: icon,
                 name: name,
@@ -1730,200 +2632,171 @@
                 price: price,
                 duration: duration
             };
-
-            const serviceButton = document.getElementById('service-button');
-            serviceButton.innerHTML = `
-                <span class="select-button-text">${name} - ${price}₽</span>
-                <svg class="select-button-arrow" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M7 10l5 5 5-5z"/>
-                </svg>
-            `;
-            serviceButton.classList.remove('placeholder');
-            serviceButton.classList.add('selected');
-
-            document.querySelectorAll('.service-option').forEach(option => {
-                option.classList.remove('selected');
+            certificateData.selectedVariant = null; // Нет вариантов для одиночных услуг
+            
+            // Обновляем выделение
+            document.querySelectorAll('.service-card').forEach(card => {
+                card.classList.remove('selected');
             });
-            event.target.closest('.service-option').classList.add('selected');
-
-            closeServiceModal();
-            updatePreview();
+            event.target.closest('.service-card').classList.add('selected');
+            
+            // Активируем кнопку "Далее"
+            document.getElementById('step-1-next').disabled = false;
         }
 
-        function selectDuration(value, text) {
-            selectedDuration = { value: value, text: text };
-
-            const durationButton = document.getElementById('duration-button');
-            durationButton.innerHTML = `
-                <span class="select-button-text">${text}</span>
-                <svg class="select-button-arrow" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M7 10l5 5 5-5z"/>
-                </svg>
-            `;
-
-            document.querySelectorAll('.duration-option').forEach(option => {
+        function selectVariant(variantId) {
+            selectedServiceVariant = variantId;
+            
+            // Обновляем выделение вариантов
+            document.querySelectorAll('.variant-option').forEach(option => {
                 option.classList.remove('selected');
             });
-            event.target.closest('.duration-option').classList.add('selected');
-
-            closeDurationModal();
+            document.querySelector(`[data-variant="${variantId}"]`).classList.add('selected');
+            
+            // Активируем кнопку подтверждения
+            document.getElementById('confirm-variant-btn').disabled = false;
         }
 
-        function updatePreview() {
-            const recipientName = document.getElementById('recipient-name').value;
-            const preview = document.getElementById('certificate-preview');
-            const previewService = document.getElementById('preview-service');
-            const previewRecipient = document.getElementById('preview-recipient');
-            const priceDisplay = document.getElementById('price-display');
-            const priceAmount = document.getElementById('price-amount');
-            const buyButton = document.getElementById('buy-button');
-
-            if (selectedService) {
-                previewService.textContent = selectedService.name;
-                previewRecipient.textContent = recipientName || 'Получатель';
-                priceAmount.textContent = selectedService.price + ' ₽';
-
-                preview.style.display = 'block';
-                priceDisplay.style.display = 'block';
-                buyButton.disabled = false;
-            } else {
-                preview.style.display = 'none';
-                priceDisplay.style.display = 'none';
-                buyButton.disabled = true;
+        function confirmServiceVariant() {
+            if (!selectedServiceType || !selectedServiceVariant) {
+                showNotification('Пожалуйста, выберите вариант', 'error');
+                return;
             }
+
+            const service = serviceVariants[selectedServiceType];
+            const variant = service.variants.find(v => v.id === selectedServiceVariant);
+            
+            if (!variant) {
+                showNotification('Ошибка выбора варианта', 'error');
+                return;
+            }
+
+            // Сохраняем данные об услуге
+            certificateData.service = {
+                value: selectedServiceType,
+                icon: service.name.charAt(0), // Берем иконку из названия
+                name: service.name.substring(2), // Убираем иконку из названия
+                description: service.description,
+                price: variant.price,
+                duration: variant.duration
+            };
+            
+            certificateData.selectedVariant = {
+                id: variant.id,
+                duration: variant.duration,
+                features: variant.features,
+                price: variant.price
+            };
+            
+            // Обновляем выделение основной карточки услуги
+            document.querySelectorAll('.service-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            document.querySelector(`[data-service="${selectedServiceType}"]`).classList.add('selected');
+            
+            // Активируем кнопку "Далее"
+            document.getElementById('step-1-next').disabled = false;
+            
+            // Закрываем модальное окно
+            closeVariantModal();
+            
+            showNotification('✅ Вариант услуги выбран!', 'success');
+        }
+
+        function closeVariantModal() {
+            document.getElementById('service-variant-modal').style.display = 'none';
+            selectedServiceVariant = null;
+            document.getElementById('confirm-variant-btn').disabled = true;
+            
+            // Сбрасываем выделение вариантов
+            document.querySelectorAll('.variant-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+        }
+
+        function updateSummary() {
+            if (certificateData.service) {
+                document.getElementById('summary-service').textContent = certificateData.service.name;
+                document.getElementById('summary-price').textContent = certificateData.service.price + ' ₽';
+                
+                // Показываем информацию о варианте, если есть
+                const variantElement = document.getElementById('summary-variant');
+                if (certificateData.selectedVariant) {
+                    variantElement.textContent = `${certificateData.selectedVariant.duration} - ${certificateData.selectedVariant.features}`;
+                } else {
+                    variantElement.textContent = certificateData.service.duration;
+                }
+            }
+            
+            document.getElementById('summary-recipient').textContent = certificateData.recipientName || '—';
+            document.getElementById('summary-sender').textContent = certificateData.senderName || '—';
+            document.getElementById('summary-duration').textContent = certificateData.duration.text;
+            document.getElementById('summary-email').textContent = certificateData.email || '—';
         }
 
         // ============================================
-        // ОТПРАВКА СЕРТИФИКАТОВ ЧЕРЕЗ EMAILJS
+        // ОТПРАВКА СЕРТИФИКАТА
         // ============================================
 
-        async function processCertificate(event) {
-            event.preventDefault();
-
-            if (!selectedService) {
-                showNotification('Пожалуйста, выберите услугу', 'error');
+        async function sendCertificate() {
+            if (!validateCurrentStep()) {
                 return;
             }
 
-            const emailInput = document.getElementById('email').value.trim();
-            if (!emailInput) {
-                showNotification('Пожалуйста, укажите email для получения сертификата', 'error');
-                return;
-            }
-
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(emailInput)) {
-                showNotification('Пожалуйста, укажите корректный email адрес', 'error');
-                return;
-            }
-
-            const buyButton = document.getElementById('buy-button');
-            buyButton.textContent = 'Создаем сертификат...';
-            buyButton.disabled = true;
+            const sendButton = document.getElementById('send-button');
+            sendButton.textContent = 'Отправляем...';
+            sendButton.disabled = true;
 
             try {
                 const certificateNumber = generateCertificateNumber();
                 
-                const formData = {
-                    service: selectedService.value,
-                    serviceName: selectedService.name,
-                    recipientName: document.getElementById('recipient-name').value.trim() || 'Получатель',
-                    senderName: document.getElementById('sender-name').value.trim() || 'Отправитель',
-                    validityPeriod: selectedDuration.value,
-                    email: emailInput,
-                    message: document.getElementById('message').value.trim(),
-                    price: selectedService.price,
-                    certificateNumber: certificateNumber
-                };
-
-                console.log('📧 Отправка сертификата через Outlook...', formData);
-
-                buyButton.textContent = 'Отправляем на почту...';
+                // Подготавливаем данные для отправки (убираем эмодзи из названия услуги)
+                const cleanServiceName = certificateData.service.name.replace(/[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E0}-\u{1F1FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu, '').trim();
                 
                 const templateParams = {
-                    to_email: formData.email,
-                    recipient_name: formData.recipientName,
-                    sender_name: formData.senderName,
-                    service_name: formData.serviceName,
+                    to_email: certificateData.email,
+                    recipient_name: certificateData.recipientName,
+                    sender_name: certificateData.senderName,
+                    service_name: cleanServiceName,
                     certificate_number: certificateNumber,
-                    price: formData.price,
-                    validity_days: formData.validityPeriod,
-                    personal_message: formData.message || 'Поздравляем с получением сертификата!',
-                    service_description: selectedService.description,
-                    service_duration: selectedService.duration,
-                    valid_until: getValidityDate(formData.validityPeriod)
+                    price: certificateData.service.price,
+                    validity_days: certificateData.duration.value,
+                    personal_message: certificateData.message || 'Поздравляем с получением сертификата!',
+                    service_description: certificateData.service.description,
+                    service_duration: certificateData.service.duration,
+                    service_variant: certificateData.selectedVariant ? `${certificateData.selectedVariant.duration} - ${certificateData.selectedVariant.features}` : '',
+                    valid_until: getValidityDate(certificateData.duration.value)
                 };
 
-                console.log('📤 Параметры для отправки:', templateParams);
+                console.log('📤 Отправка сертификата:', templateParams);
 
-                const response = await emailjs.send(
-                    EMAILJS_CONFIG.serviceId,
-                    EMAILJS_CONFIG.templateId,
-                    templateParams
-                );
+                // Отправляем сертификат через EmailJS
+                await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, templateParams);
 
-                console.log('✅ Email отправлен успешно через Outlook!', response);
+                console.log('✅ Сертификат отправлен успешно!');
 
                 document.getElementById('certificate-number').textContent = certificateNumber;
                 document.getElementById('confirmation-modal').style.display = 'flex';
                 
-                showNotification('🎉 Сертификат успешно отправлен на ' + formData.email + '!', 'success');
+                showNotification('🎉 Сертификат успешно отправлен!', 'success');
 
                 resetCertificateForm();
                 
             } catch (error) {
                 console.error('❌ Ошибка отправки сертификата:', error);
                 
-                let errorMessage = 'Неизвестная ошибка';
-                
+                let errorMessage = 'Произошла ошибка при отправке сертификата';
                 if (error.text) {
-                    if (error.text.includes('recipients address is empty')) {
-                        errorMessage = 'Ошибка настройки шаблона. Проверьте поле "To email" в настройках шаблона EmailJS';
-                    } else if (error.text.includes('service')) {
-                        errorMessage = 'Проблема с подключением Outlook. Проверьте Service ID';
-                    } else if (error.text.includes('template')) {
-                        errorMessage = 'Шаблон не найден. Проверьте Template ID';
-                    } else {
-                        errorMessage = error.text;
-                    }
+                    errorMessage = error.text;
                 } else if (error.message) {
                     errorMessage = error.message;
                 }
                 
                 showNotification(`❌ ${errorMessage}`, 'error');
                 
-                buyButton.textContent = 'Получить сертификат';
-                buyButton.disabled = false;
+                sendButton.textContent = 'Получить сертификат';
+                sendButton.disabled = false;
             }
-        }
-
-        function resetCertificateForm() {
-            document.getElementById('certificate-form').reset();
-            
-            selectedService = null;
-            selectedDuration = { value: '60', text: '60 дней' };
-            
-            const serviceButton = document.getElementById('service-button');
-            serviceButton.innerHTML = `
-                <span class="select-button-text">Выберите услугу</span>
-                <svg class="select-button-arrow" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M7 10l5 5 5-5z"/>
-                </svg>
-            `;
-            serviceButton.classList.add('placeholder');
-            serviceButton.classList.remove('selected');
-
-            const durationButton = document.getElementById('duration-button');
-            durationButton.innerHTML = `
-                <span class="select-button-text">60 дней</span>
-                <svg class="select-button-arrow" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M7 10l5 5 5-5z"/>
-                </svg>
-            `;
-
-            updatePreview();
-            document.getElementById('buy-button').textContent = 'Получить сертификат';
-            document.getElementById('buy-button').disabled = false;
         }
 
         function getValidityDate(days) {
@@ -1977,20 +2850,22 @@
         // ============================================
 
         document.addEventListener('click', function(event) {
-            const serviceModal = document.getElementById('service-modal');
-            const durationModal = document.getElementById('duration-modal');
             const confirmationModal = document.getElementById('confirmation-modal');
+            const variantModal = document.getElementById('service-variant-modal');
             
-            if (event.target === serviceModal) closeServiceModal();
-            if (event.target === durationModal) closeDurationModal();
-            if (event.target === confirmationModal) closeModal();
+            if (event.target === confirmationModal) {
+                closeModal();
+            }
+            
+            if (event.target === variantModal) {
+                closeVariantModal();
+            }
         });
 
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
-                closeServiceModal();
-                closeDurationModal();
                 closeModal();
+                closeVariantModal();
             }
         });
     </script>
