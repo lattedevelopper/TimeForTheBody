@@ -8,6 +8,11 @@
     <!-- EmailJS библиотека -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
         * {
             margin: 0;
@@ -16,7 +21,7 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: white;
             min-height: 100vh;
             padding-bottom: 0;
@@ -42,12 +47,30 @@
             padding: 20px;
             text-align: center;
             border-radius: 0 0 20px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.15s ease;
+        }
+
+        .header.scrolled {
+            padding: 12px 20px;
+            box-shadow: 0 4px 20px rgba(27, 164, 134, 0.3);
+            backdrop-filter: blur(10px);
+            background: rgba(27, 164, 134, 0.95);
         }
 
         .header h1 {
             color: white;
             font-size: 24px;
             font-weight: 600;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 0.5px;
+        }
+
+        .header.scrolled h1 {
+            font-size: 20px;
+            transition: all 0.15s ease;
         }
 
         .page {
@@ -59,6 +82,19 @@
 
         .page.active {
             display: block;
+        }
+
+        /* Индикатор скролла */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #1BA486, #22C899);
+            z-index: 1001;
+            transform-origin: left;
+            transform: scaleX(0);
+            transition: transform 0.2s ease;
         }
 
         /* Карусель акций */
@@ -117,6 +153,52 @@
 
         .indicator.active {
             background: white;
+        }
+
+        /* Категории услуг */
+        .categories-section {
+            margin-bottom: 25px;
+        }
+
+        .categories-scroll {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 0 0 10px 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .categories-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-button {
+            background: white;
+            border: 2px solid #E8F8F5;
+            color: #1BA486;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+            min-width: fit-content;
+        }
+
+        .category-button.active {
+            background: #1BA486;
+            color: white;
+            border-color: #1BA486;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(27, 164, 134, 0.3);
+        }
+
+        .category-button:hover:not(.active) {
+            border-color: #1BA486;
+            background: #F0FDF9;
         }
 
         /* Карточки товаров */
@@ -431,52 +513,6 @@
             transform: translateY(0);
         }
 
-        /* Категории товаров */
-        .categories-section {
-            margin-bottom: 25px;
-        }
-
-        .categories-scroll {
-            display: flex;
-            gap: 12px;
-            overflow-x: auto;
-            padding: 0 0 10px 0;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-
-        .categories-scroll::-webkit-scrollbar {
-            display: none;
-        }
-
-        .category-button {
-            background: white;
-            border: 2px solid #E8F8F5;
-            color: #1BA486;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-            flex-shrink: 0;
-            min-width: fit-content;
-        }
-
-        .category-button.active {
-            background: #1BA486;
-            color: white;
-            border-color: #1BA486;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(27, 164, 134, 0.3);
-        }
-
-        .category-button:hover:not(.active) {
-            border-color: #1BA486;
-            background: #F0FDF9;
-        }
-
         /* ПОШАГОВОЕ ОФОРМЛЕНИЕ СЕРТИФИКАТОВ */
         .certificates-page {
             padding: 20px;
@@ -502,6 +538,7 @@
             font-weight: 700;
             color: #0F7A5B;
             margin-bottom: 8px;
+            font-family: 'Playfair Display', serif;
         }
 
         .progress-subtitle {
@@ -612,6 +649,7 @@
             color: #0F7A5B;
             margin-bottom: 8px;
             text-align: center;
+            font-family: 'Playfair Display', serif;
         }
 
         .step-description {
@@ -930,6 +968,7 @@
             color: #0F7A5B;
             margin-bottom: 16px;
             text-align: center;
+            font-family: 'Playfair Display', serif;
         }
 
         .summary-row {
@@ -1091,6 +1130,80 @@
             box-shadow: 0 8px 20px rgba(27, 164, 134, 0.4);
         }
 
+        /* ПРОГРЕСС-БАР ЗАГРУЗКИ */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1BA486 0%, #159A73 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loading-logo {
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 30px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .loading-progress {
+            width: 200px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .loading-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #22C899, #B8F2E6, #22C899);
+            background-size: 200% 100%;
+            border-radius: 3px;
+            animation: loadingProgress 2.5s ease-out forwards, shimmer 1.5s ease-in-out infinite;
+            transform-origin: left;
+        }
+
+        @keyframes loadingProgress {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .loading-text {
+            color: white;
+            font-size: 14px;
+            opacity: 0.8;
+            animation: textFade 1.5s ease-in-out infinite;
+        }
+
+        @keyframes textFade {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
         /* Уведомления */
         .notification {
             position: fixed;
@@ -1141,10 +1254,34 @@
             opacity: 0.8;
             text-decoration: none;
         }
+
+        /* Анимации появления */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Прогресс-бар загрузки -->
+        <div class="loading-overlay" id="loading-overlay">
+            <div class="loading-logo">Времятелу!</div>
+            <div class="loading-progress">
+                <div class="loading-bar"></div>
+            </div>
+            <div class="loading-text">Загружаем услуги красоты...</div>
+        </div>
+
+        <!-- Индикатор скролла -->
+        <div class="scroll-indicator" id="scroll-indicator"></div>
+
         <!-- Навигация -->
         <div class="navigation">
             <button class="nav-button active" onclick="switchPage('home')">
@@ -1409,19 +1546,19 @@
                         <div class="progress-bar">
                             <div class="progress-step active" id="step-indicator-1">
                                 <div class="step-circle">1</div>
-                                <div class="step-label">Услуги<br></div>
+                                <div class="step-label">Выбор<br>услуги</div>
                             </div>
                             <div class="progress-step" id="step-indicator-2">
                                 <div class="step-circle">2</div>
-                                <div class="step-label">Данные<br></div>
+                                <div class="step-label">Данные<br>получателя</div>
                             </div>
                             <div class="progress-step" id="step-indicator-3">
                                 <div class="step-circle">3</div>
-                                <div class="step-label">Контакты<br></div>
+                                <div class="step-label">Контакты<br>и сообщение</div>
                             </div>
                             <div class="progress-step" id="step-indicator-4">
                                 <div class="step-circle">4</div>
-                                <div class="step-label">Проверка<br></div>
+                                <div class="step-label">Проверка<br>и отправка</div>
                             </div>
                         </div>
                     </div>
@@ -2014,6 +2151,78 @@
         };
 
         // ============================================
+        // HAPTIC FEEDBACK
+        // ============================================
+        
+        // Функция для haptic feedback
+        function hapticFeedback(type = 'light') {
+            if (!navigator.vibrate) {
+                return; // Вибрация не поддерживается
+            }
+            
+            switch(type) {
+                case 'light':
+                    navigator.vibrate(10); // Легкая вибрация для нажатий
+                    break;
+                case 'medium':
+                    navigator.vibrate(20); // Средняя вибрация для выборов
+                    break;
+                case 'heavy':
+                    navigator.vibrate([30, 10, 30]); // Двойная вибрация для успехов
+                    break;
+                case 'error':
+                    navigator.vibrate([100, 50, 100, 50, 100]); // Серия вибраций для ошибок
+                    break;
+                case 'success':
+                    navigator.vibrate([20, 10, 20, 10, 40]); // Положительная вибрация
+                    break;
+                default:
+                    navigator.vibrate(15);
+            }
+        }
+
+        // ============================================
+        // АНИМАЦИИ ЗАГРУЗКИ И СКРОЛЛА
+        // ============================================
+
+        // Управление лоадером
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('loading-overlay').classList.add('hidden');
+                // Добавляем staggered animation только для карточек товаров
+                const productCards = document.querySelectorAll('.product-card');
+                productCards.forEach((el, index) => {
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateY(20px)';
+                    el.style.animation = `fadeInUp 0.6s ease forwards ${index * 0.05}s`;
+                });
+            }, 2500);
+        });
+
+        // Sticky header и scroll effects
+        let lastScrollTop = 0;
+        const header = document.querySelector('.header');
+        const scrollIndicator = document.getElementById('scroll-indicator');
+
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+
+            // Sticky header animation
+            if (scrollTop > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+
+            // Scroll indicator
+            scrollIndicator.style.width = scrollPercent + '%';
+
+            lastScrollTop = scrollTop;
+        });
+
+        // ============================================
         // ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ
         // ============================================
         
@@ -2220,6 +2429,8 @@
         // ============================================
 
         function switchPage(page) {
+            hapticFeedback('light'); // Добавляем вибрацию при переключении страниц
+            
             const pages = document.querySelectorAll('.page');
             const buttons = document.querySelectorAll('.nav-button');
             
@@ -2249,6 +2460,8 @@
         }
 
         function openProductPage(id, emoji, title, price, description, duration) {
+            hapticFeedback('medium'); // Добавляем вибрацию при открытии карточки товара
+            
             const pages = document.querySelectorAll('.page');
             const buttons = document.querySelectorAll('.nav-button');
             
@@ -2456,6 +2669,8 @@
         ];
 
         function filterByCategory(category) {
+            hapticFeedback('light'); // Добавляем вибрацию при выборе категории
+            
             const productCards = document.querySelectorAll('.product-card');
             const categoryButtons = document.querySelectorAll('.category-button');
 
@@ -2592,6 +2807,8 @@
 
         function nextStep() {
             if (validateCurrentStep()) {
+                hapticFeedback('medium'); // Вибрация при переходе к следующему шагу
+                
                 if (currentStep < totalSteps) {
                     currentStep++;
                     updateStepProgress();
@@ -2602,10 +2819,14 @@
                         updateSummary();
                     }
                 }
+            } else {
+                hapticFeedback('error'); // Вибрация при ошибке валидации
             }
         }
 
         function prevStep() {
+            hapticFeedback('light'); // Легкая вибрация при возврате назад
+            
             if (currentStep > 1) {
                 currentStep--;
                 updateStepProgress();
@@ -2693,6 +2914,8 @@
         }
 
         function selectSingleServiceStep(value, icon, name, description, price, duration) {
+            hapticFeedback('medium'); // Вибрация при выборе услуги
+            
             certificateData.service = {
                 value: value,
                 icon: icon,
@@ -2714,6 +2937,8 @@
         }
 
         function selectVariant(variantId) {
+            hapticFeedback('light'); // Легкая вибрация при выборе варианта
+            
             selectedServiceVariant = variantId;
             
             // Обновляем выделение вариантов
@@ -2727,7 +2952,10 @@
         }
 
         function confirmServiceVariant() {
+            hapticFeedback('medium'); // Вибрация при подтверждении варианта
+            
             if (!selectedServiceType || !selectedServiceVariant) {
+                hapticFeedback('error'); // Вибрация ошибки
                 showNotification('Пожалуйста, выберите вариант', 'error');
                 return;
             }
@@ -2736,6 +2964,7 @@
             const variant = service.variants.find(v => v.id === selectedServiceVariant);
             
             if (!variant) {
+                hapticFeedback('error'); // Вибрация ошибки
                 showNotification('Ошибка выбора варианта', 'error');
                 return;
             }
@@ -2844,6 +3073,7 @@
 
                 console.log('✅ Сертификат отправлен успешно!');
 
+                hapticFeedback('success'); // Вибрация успеха
                 document.getElementById('certificate-number').textContent = certificateNumber;
                 document.getElementById('confirmation-modal').style.display = 'flex';
                 
@@ -2853,6 +3083,8 @@
                 
             } catch (error) {
                 console.error('❌ Ошибка отправки сертификата:', error);
+                
+                hapticFeedback('error'); // Вибрация ошибки
                 
                 let errorMessage = 'Произошла ошибка при отправке сертификата';
                 if (error.text) {
@@ -2893,6 +3125,18 @@
         // ============================================
 
         function showNotification(message, type = 'info') {
+            // Добавляем haptic feedback в зависимости от типа уведомления
+            switch(type) {
+                case 'success':
+                    hapticFeedback('success');
+                    break;
+                case 'error':
+                    hapticFeedback('error');
+                    break;
+                default:
+                    hapticFeedback('light');
+            }
+            
             const existingNotifications = document.querySelectorAll('.notification');
             existingNotifications.forEach(notification => {
                 notification.remove();
