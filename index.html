@@ -3661,12 +3661,31 @@
                 console.log('Платеж создан:', payment);
 
                 if (payment.confirmation && payment.confirmation.confirmation_url) {
-                    // Сохраняем данные в localStorage перед переходом (БЕЗ кодирования)
+                    console.log('🔍 Проверяем структуру платежа:', payment);
+                    console.log('🔍 payment.confirmation:', payment.confirmation);
+
+                    if (!payment) {
+                        throw new Error('Платеж не создан - пустой ответ');
+                    }
+
+                    if (!payment.confirmation) {
+                        throw new Error(`Нет объекта confirmation. Полученные поля: ${Object.keys(payment).join(', ')}`);
+                    }
+
+                    if (payment.confirmation.type !== 'redirect') {
+                        throw new Error(`Неверный тип подтверждения: ${payment.confirmation.type}. Ожидался: redirect`);
+                    }
+
+                    if (!payment.confirmation.confirmation_url) {
+                        throw new Error(`Нет confirmation_url. Поля confirmation: ${Object.keys(payment.confirmation).join(', ')}`);
+                    }
+
+                    console.log('✅ URL для оплаты получен:', payment.confirmation.confirmation_url);
+
+                    // Сохраняем данные в localStorage перед переходом
                     localStorage.setItem('certificateData', JSON.stringify(certificateData));
-                    localStorage.setItem('paymentId', paymentId);
-                    
-                    // Показываем информацию пользователю
-                    const paymentWidget = document.getElementById('payment-widget');
+                    localStorage.setItem('paymentId', payment.id);
+
                     paymentWidget.innerHTML = `
                         <div style="text-align: center; padding: 30px;">
                             <div style="font-size: 18px; color: #1BA486; margin-bottom: 20px;">
@@ -3807,22 +3826,43 @@
         }
 
         async function createPayment(paymentData) {
-            console.log('Отправляем запрос на создание платежа:', paymentData);
+            console.log('🚀 Отправляем запрос на создание платежа:', paymentData);
             
-            const response = await fetch('/api/create-payment', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(paymentData)
-            });
+            try {
+                const response = await fetch('/api/create-payment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(paymentData)
+                });
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Ошибка создания платежа');
+                console.log('📡 Ответ сервера - статус:', response.status);
+                console.log('📡 Ответ сервера - headers:', response.headers);
+
+                const responseText = await response.text();
+                console.log('📡 Сырой ответ сервера:', responseText);
+
+                let result;
+                try {
+                    result = JSON.parse(responseText);
+                } catch (parseError) {
+                    console.error('❌ Ошибка парсинга JSON:', parseError);
+                    throw new Error(`Неверный формат ответа сервера: ${responseText.substring(0, 200)}`);
+                }
+
+                if (!response.ok) {
+                    console.error('❌ Ошибка HTTP:', response.status, result);
+                    throw new Error(result.message || result.error || `HTTP ${response.status}`);
+                }
+
+                console.log('✅ Успешный ответ API:', result);
+                return result;
+
+            } catch (error) {
+                console.error('❌ Ошибка в createPayment:', error);
+                throw error;
             }
-
-            return await response.json();
         }
 
         // Обработка успешной оплаты
