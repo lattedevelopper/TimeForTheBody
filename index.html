@@ -3646,7 +3646,9 @@
                         sender: certificateData.senderName,
                         service: certificateData.service.name,
                         email: certificateData.email,
-                        certificate_data: btoa(JSON.stringify(certificateData)) // Сохраняем данные
+                        service_price: certificateData.service.price,
+                        service_duration: certificateData.service.duration
+                        // Убрали проблемную строку с btoa
                     }
                 };
 
@@ -3659,7 +3661,7 @@
                 console.log('Платеж создан:', payment);
 
                 if (payment.confirmation && payment.confirmation.confirmation_url) {
-                    // Сохраняем данные в localStorage перед переходом
+                    // Сохраняем данные в localStorage перед переходом (БЕЗ кодирования)
                     localStorage.setItem('certificateData', JSON.stringify(certificateData));
                     localStorage.setItem('paymentId', paymentId);
                     
@@ -3676,7 +3678,7 @@
                             <div style="font-size: 24px; font-weight: bold; color: #0F7A5B; margin-bottom: 30px;">
                                 ${certificateData.service.price} ₽
                             </div>
-                            <button class="step-button step-button-next" onclick="window.open('${payment.confirmation.confirmation_url}', '_blank')" style="margin-right: 10px;">
+                            <button class="step-button step-button-next" onclick="window.location.href='${payment.confirmation.confirmation_url}'" style="margin-right: 10px;">
                                 🔒 Перейти к оплате
                             </button>
                         </div>
@@ -3684,10 +3686,10 @@
                     
                     paymentButton.textContent = 'Нажмите кнопку выше для оплаты';
                     
-                    // Автоматически переходим через 2 секунды
+                    // Автоматически переходим через 3 секунды
                     setTimeout(() => {
-                        window.open(payment.confirmation.confirmation_url, '_blank');
-                    }, 2000);
+                        window.location.href = payment.confirmation.confirmation_url;
+                    }, 3000);
 
                 } else {
                     throw new Error('Не получен URL для оплаты');
@@ -3696,6 +3698,26 @@
             } catch (error) {
                 console.error('Ошибка создания платежа:', error);
                 handlePaymentError(error);
+            }
+        }
+
+        // Безопасное кодирование UTF-8 для btoa
+        function utf8ToBase64(str) {
+            try {
+                return btoa(unescape(encodeURIComponent(str)));
+            } catch (e) {
+                // Если btoa не работает, используем encodeURIComponent
+                return encodeURIComponent(str);
+            }
+        }
+
+        // Безопасное декодирование
+        function base64ToUtf8(str) {
+            try {
+                return decodeURIComponent(escape(atob(str)));
+            } catch (e) {
+                // Если atob не работает, используем decodeURIComponent
+                return decodeURIComponent(str);
             }
         }
 
