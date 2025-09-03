@@ -2741,7 +2741,7 @@
                 window.addEventListener('error', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    console.clear && console.clear();
+                    if (console.clear) console.clear();
                     return false;
                 });
 
@@ -2753,7 +2753,7 @@
             },
             
             handleDevToolsOpen() {
-                console.clear && console.clear();
+                if (console.clear) console.clear();
                 document.body.innerHTML = `
                     <div style="
                         position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
@@ -2781,7 +2781,7 @@
             },
             
             handleDebuggerDetected() {
-                console.clear && console.clear();
+                if (console.clear) console.clear();
                 location.replace('data:text/html,<h1>Access Denied</h1>');
             },
             
@@ -2830,7 +2830,7 @@
                     const code = this.decrypt(encryptedCode);
                     return new Function(code)();
                 } catch (e) {
-                    console.clear && console.clear();
+                    if (console.clear) console.clear();
                     location.reload();
                 }
             },
@@ -2972,7 +2972,7 @@
                 
                 // Очистка консоли каждые 3 секунды
                 setInterval(() => {
-                    console.clear && console.clear();
+                    if (console.clear) console.clear();
                 }, 3000);
                 
                 // Ловушки для анализа
