@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Времятелу!</title>
-
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💆‍♀️</text></svg>">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💆‍♀️</text></svg>">
     
     <!-- EmailJS библиотека -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
@@ -14,8 +11,6 @@
     <!-- Добавить после строки с EmailJS -->
     <script src="https://www.google.com/recaptcha/api.js?render=ВАШ_SITE_KEY"></script>
 
-    <!-- Юкасса -->
-    <script src="https://yookassa.ru/checkout-widget/v1/checkout-widget.js"></script>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="pre  connect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,12 +19,19 @@
     <!-- Защита от XSS -->
     <meta http-equiv="Content-Security-Policy" content="
         default-src 'self'; 
-        script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.google.com https://www.gstatic.com https://cdnjs.cloudflare.com https://yookassa.ru https://*.yookassa.ru; 
-        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://yookassa.ru https://*.yookassa.ru; 
+        script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.google.com https://www.gstatic.com https://cdnjs.cloudflare.com; 
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
         font-src 'self' https://fonts.gstatic.com; 
-        img-src 'self' data: https: https://yookassa.ru https://*.yookassa.ru; 
-        connect-src 'self' https://api.emailjs.com https://www.google.com https://payment.yookassa.ru https://yookassa.ru https://*.yookassa.ru;
-        frame-src https://www.google.com https://yookassa.ru https://*.yookassa.ru;">
+        img-src 'self' data: https:; 
+        connect-src 'self' https://api.emailjs.com https://www.google.com;
+        frame-src https://www.google.com;">
+
+    <!-- Дополнительная защита -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+
     <style>
         * {
             margin: 0;
@@ -170,73 +172,6 @@
 
         .indicator.active {
             background: white;
-        }
-
-        /* Стили для оплаты */
-        .payment-summary {
-            background: linear-gradient(135deg, #F0FDF9 0%, #E8F8F5 100%);
-            border: 2px solid #B8F2E6;
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-
-        .payment-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: #0F7A5B;
-            margin-bottom: 12px;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .payment-amount {
-            font-size: 32px;
-            font-weight: 800;
-            color: #1BA486;
-            margin-bottom: 16px;
-        }
-
-        .payment-details {
-            font-size: 14px;
-            color: #666;
-            line-height: 1.5;
-        }
-
-        .payment-widget {
-            background: white;
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 12px rgba(27, 164, 134, 0.1);
-            border: 2px solid #E8F8F5;
-            min-height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .payment-loading {
-            color: #666;
-            font-size: 16px;
-        }
-
-        .payment-error {
-            color: #f44336;
-            text-align: center;
-            padding: 20px;
-            border: 2px solid #ffcdd2;
-            border-radius: 12px;
-            background: #ffebee;
-        }
-
-        .payment-success {
-            color: #1BA486;
-            text-align: center;
-            padding: 20px;
-            border: 2px solid #B8F2E6;
-            border-radius: 12px;
-            background: #F0FDF9;
         }
 
         /* Категории услуг */
@@ -1852,7 +1787,8 @@
                     <div class="progress-container">
                         <div class="progress-header">
                             <div class="progress-title">Оформление сертификата</div>
-                            <div class="progress-subtitle">Шаг <span id="current-step-text">1</span> из 5</div>
+                            <div class="progress-subtitle">Шаг <span id="current-step-text">1</span> из 4</div>
+                        </div>
                         <div class="progress-bar">
                             <div class="progress-step active" id="step-indicator-1">
                                 <div class="step-circle">1</div>
@@ -1870,11 +1806,8 @@
                                 <div class="step-circle">4</div>
                                 <div class="step-label">Проверка<br></div>
                             </div>
-                            <div class="progress-step" id="step-indicator-5">
-                                <div class="step-circle">5</div>
-                                <div class="step-label">Оплата<br></div>
-                            </div>
                         </div>
+                    </div>
 
                     <!-- ШАГ 1: Выбор услуги -->
                     <div class="step-content active" id="step-1">
@@ -2381,36 +2314,6 @@
                 </div>
             </div>
 
-            <!-- ШАГ 5: Оплата -->
-            <div class="step-content" id="step-5">
-                <div class="step-title">Оплата сертификата</div>
-                <div class="step-description">Выберите удобный способ оплаты</div>
-                
-                <!-- Итоговая сумма -->
-                <div class="payment-summary">
-                    <div class="payment-title">💳 К оплате</div>
-                    <div class="payment-amount">
-                        <span id="payment-price">0</span> ₽
-                    </div>
-                    <div class="payment-details" id="payment-details">
-                        <!-- Детали заказа -->
-                    </div>
-                </div>
-
-                <div class="payment-widget" id="payment-widget">
-                    <!-- Здесь будет виджет оплаты -->
-                </div>
-
-                <div class="step-navigation">
-                    <button class="step-button step-button-back" onclick="prevStep()">
-                        Назад
-                    </button>
-                    <button class="step-button step-button-next" onclick="initiatePayment()" id="payment-button">
-                        Оплатить
-                    </button>
-                </div>
-            </div>
-
             <!-- МОДАЛЬНОЕ ОКНО ВЫБОРА ВАРИАНТОВ -->
             <div class="service-variant-modal" id="service-variant-modal">
                 <div class="variant-modal-content">
@@ -2569,6 +2472,364 @@
             key: _s('DAw23G92N0aW3F17E')
         };
 
+        // Максимальная защита от инструментов разработчика
+        const AntiInspection = {
+            blocked: false,
+            
+            init() {
+                this.blockDevTools();
+                this.blockConsole();
+                this.blockSourceView();
+                this.blockSelection();
+                this.blockRightClick();
+                this.detectDebugBreaks();
+                this.obfuscateErrors();
+            },
+            
+            blockDevTools() {
+                // Многоуровневая блокировка F12 и сочетаний клавиш
+                document.addEventListener('keydown', (e) => {
+                    // F12, Ctrl+Shift+I, Ctrl+Shift+C, Ctrl+U, Ctrl+S
+                    if (e.key === 'F12' || 
+                        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C' || e.key === 'J')) ||
+                        (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S'))) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        e.stopImmediatePropagation();
+                        this.showFakeError();
+                        return false;
+                    }
+                }, true);
+
+                // Блокировка через отслеживание размера окна
+                let devtools = false;
+                const threshold = 160;
+                
+                const detectDevTools = () => {
+                    if (window.outerHeight - window.innerHeight > threshold || 
+                        window.outerWidth - window.innerWidth > threshold) {
+                        if (!devtools) {
+                            devtools = true;
+                            this.handleDevToolsOpen();
+                        }
+                    } else {
+                        devtools = false;
+                    }
+                };
+
+                setInterval(detectDevTools, 100);
+                window.addEventListener('resize', detectDevTools);
+            },
+            
+            blockConsole() {
+                // Переопределяем все методы консоли
+                const noop = () => {};
+                const methods = ['log', 'warn', 'error', 'info', 'debug', 'trace', 'dir', 'group', 'groupEnd', 'clear'];
+                
+                methods.forEach(method => {
+                    if (console[method]) {
+                        console[method] = noop;
+                    }
+                });
+
+                // Блокировка через toString
+                let originalToString = Function.prototype.toString;
+                Function.prototype.toString = function() {
+                    if (this === noop) {
+                        return 'function () { [native code] }';
+                    }
+                    return originalToString.call(this);
+                };
+
+                // Детекция консольных команд
+                let consoleImage = new Image();
+                Object.defineProperty(consoleImage, 'id', {
+                    get: function() {
+                        this.blocked = true;
+                        this.handleConsoleAccess();
+                    }
+                });
+                console.log('%c ', consoleImage);
+            },
+            
+            blockSourceView() {
+                // Блокировка просмотра исходного кода
+                document.addEventListener('contextmenu', (e) => {
+                    e.preventDefault();
+                    this.showFakeError();
+                    return false;
+                });
+
+                // Блокировка Ctrl+A (выделить все)
+                document.addEventListener('keydown', (e) => {
+                    if (e.ctrlKey && e.key === 'a') {
+                        e.preventDefault();
+                        return false;
+                    }
+                });
+            },
+            
+            blockSelection() {
+                // Блокировка выделения текста
+                document.onselectstart = () => false;
+                document.ondragstart = () => false;
+                
+                // CSS защита через JavaScript
+                const style = document.createElement('style');
+                style.textContent = `
+                    * {
+                        -webkit-user-select: none !important;
+                        -moz-user-select: none !important;
+                        -ms-user-select: none !important;
+                        user-select: none !important;
+                        -webkit-touch-callout: none !important;
+                        -webkit-tap-highlight-color: transparent !important;
+                    }
+                    input, textarea {
+                        -webkit-user-select: text !important;
+                        -moz-user-select: text !important;
+                        -ms-user-select: text !important;
+                        user-select: text !important;
+                    }
+                `;
+                document.head.appendChild(style);
+            },
+            
+            blockRightClick() {
+                // Множественная блокировка правой кнопки мыши
+                document.addEventListener('mousedown', (e) => {
+                    if (e.button === 2) {
+                        e.preventDefault();
+                        this.showFakeError();
+                        return false;
+                    }
+                });
+
+                document.addEventListener('contextmenu', (e) => {
+                    e.preventDefault();
+                    this.showFakeError();
+                    return false;
+                }, true);
+            },
+            
+            detectDebugBreaks() {
+                // Детекция debugger и точек останова
+                let start = performance.now();
+                
+                const checkDebugger = () => {
+                    const before = performance.now();
+                    debugger; // Это вызовет остановку если открыт отладчик
+                    const after = performance.now();
+                    
+                    if (after - before > 100) {
+                        this.handleDebuggerDetected();
+                    }
+                };
+
+                // Проверяем каждые 1000мс
+                setInterval(checkDebugger, 1000);
+
+                // Дополнительная проверка через eval
+                setInterval(() => {
+                    const start = Date.now();
+                    eval('debugger');
+                    if (Date.now() - start > 100) {
+                        this.handleDebuggerDetected();
+                    }
+                }, 2000);
+            },
+            
+            obfuscateErrors() {
+                // Скрываем реальные ошибки
+                window.addEventListener('error', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.clear && console.clear();
+                    return false;
+                });
+
+                // Переопределяем throw
+                const originalThrow = window.Error;
+                window.Error = function(message) {
+                    return new originalThrow('System error occurred');
+                };
+            },
+            
+            handleDevToolsOpen() {
+                console.clear && console.clear();
+                document.body.innerHTML = `
+                    <div style="
+                        position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+                        background: #000; color: #ff0000; font-family: monospace; 
+                        display: flex; align-items: center; justify-content: center;
+                        z-index: 999999; font-size: 24px; text-align: center;
+                    ">
+                        <div>
+                            ⚠️ ACCESS DENIED ⚠️<br><br>
+                            Developer tools detected<br>
+                            Please close DevTools to continue
+                        </div>
+                    </div>
+                `;
+                
+                // Блокируем восстановление
+                setTimeout(() => location.reload(), 3000);
+            },
+            
+            handleConsoleAccess() {
+                if (!this.blocked) {
+                    this.blocked = true;
+                    this.handleDevToolsOpen();
+                }
+            },
+            
+            handleDebuggerDetected() {
+                console.clear && console.clear();
+                location.replace('data:text/html,<h1>Access Denied</h1>');
+            },
+            
+            showFakeError() {
+                // Показываем поддельную системную ошибку
+                alert('⚠️ System Error\n\nOperation not permitted\nError Code: 0x80070005');
+            }
+        };
+
+        // Запуск защиты только в продакшене
+        if (!window.location.hostname.includes('localhost') && 
+            !window.location.hostname.includes('127.0.0.1')) {
+            AntiInspection.init();
+        }
+
+        // Система динамического шифрования функций
+        const CodeProtection = {
+            key: Math.random().toString(36) + Date.now().toString(36),
+            
+            // Шифрование строк
+            encrypt(text) {
+                let result = '';
+                for (let i = 0; i < text.length; i++) {
+                    result += String.fromCharCode(
+                        text.charCodeAt(i) ^ this.key.charCodeAt(i % this.key.length)
+                    );
+                }
+                return btoa(result);
+            },
+            
+            // Дешифровка
+            decrypt(encrypted) {
+                const text = atob(encrypted);
+                let result = '';
+                for (let i = 0; i < text.length; i++) {
+                    result += String.fromCharCode(
+                        text.charCodeAt(i) ^ this.key.charCodeAt(i % this.key.length)
+                    );
+                }
+                return result;
+            },
+            
+            // Выполнение зашифрованного кода
+            exec(encryptedCode) {
+                try {
+                    const code = this.decrypt(encryptedCode);
+                    return new Function(code)();
+                } catch (e) {
+                    console.clear && console.clear();
+                    location.reload();
+                }
+            },
+            
+            // Защита функций
+            protectFunction(fn) {
+                const fnString = fn.toString();
+                const encrypted = this.encrypt(fnString);
+                
+                return function() {
+                    return CodeProtection.exec(encrypted).apply(this, arguments);
+                };
+            }
+        };
+
+        // Максимальная защита от копирования
+        const CopyProtection = {
+            init() {
+                this.blockCopy();
+                this.blockSave();
+                this.blockPrint();
+                this.addWatermarks();
+                this.trackAttempts();
+            },
+            
+            blockCopy() {
+                // Блокировка Ctrl+C, Ctrl+V, Ctrl+X, Ctrl+A
+                document.addEventListener('keydown', (e) => {
+                    if (e.ctrlKey && ['c', 'v', 'x', 'a', 's'].includes(e.key.toLowerCase())) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        this.logAttempt('copy_attempt');
+                        return false;
+                    }
+                }, true);
+                
+                // Блокировка через clipboard API
+                document.addEventListener('copy', (e) => {
+                    e.clipboardData.setData('text/plain', 'Access Denied');
+                    e.preventDefault();
+                });
+            },
+            
+            blockSave() {
+                // Блокировка Ctrl+S
+                document.addEventListener('keydown', (e) => {
+                    if (e.ctrlKey && e.key.toLowerCase() === 's') {
+                        e.preventDefault();
+                        alert('Saving is not allowed');
+                        return false;
+                    }
+                });
+                
+                // Блокировка через beforeunload
+                window.addEventListener('beforeunload', (e) => {
+                    return 'Data will be lost';
+                });
+            },
+            
+            blockPrint() {
+                // Блокировка печати
+                window.addEventListener('beforeprint', (e) => {
+                    document.body.innerHTML = '<h1>Printing is not allowed</h1>';
+                });
+                
+                // CSS защита от печати
+                const style = document.createElement('style');
+                style.textContent = '@media print { body { display: none !important; } }';
+                document.head.appendChild(style);
+            },
+            
+            addWatermarks() {
+                // Невидимые водяные знаки
+                const watermark = document.createElement('div');
+                watermark.style.cssText = `
+                    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                    pointer-events: none; z-index: 999999; opacity: 0.01;
+                    background: repeating-linear-gradient(45deg, 
+                        transparent, transparent 50px, 
+                        #000 50px, #000 60px);
+                `;
+                watermark.textContent = `© Времятелу ${new Date().getFullYear()} - Protected`;
+                document.body.appendChild(watermark);
+            },
+            
+            trackAttempts() {
+                let attempts = 0;
+                this.logAttempt = (type) => {
+                    attempts++;
+                    if (attempts > 3) {
+                        location.replace('data:text/html,<h1>Too many unauthorized access attempts</h1>');
+                    }
+                };
+            }
+        };
+
         // Скрытие реальных ключей EmailJS
         const SecureEmailConfig = {
             // Зашифрованные ключи (замените на свои зашифрованные)
@@ -2590,6 +2851,42 @@
                 };
             }
         };
+
+        // Инициализация всех систем защиты
+        (() => {
+            'use strict';
+            
+            // Проверяем, что не localhost
+            const isProduction = !window.location.hostname.includes('localhost') && 
+                                !window.location.hostname.includes('127.0.0.1');
+            
+            if (isProduction) {
+                console.log('🔒 Initializing security systems...');
+                
+                // Запуск всех защитных систем
+                AntiInspection.init();
+                CopyProtection.init();
+                
+                // Обфускация через некоторое время
+                setTimeout(() => {
+                    HTMLObfuscator.obfuscateClasses();
+                    HTMLObfuscator.addDecoyElements();
+                }, 1000);
+                
+                // Очистка консоли каждые 3 секунды
+                setInterval(() => {
+                    console.clear && console.clear();
+                }, 3000);
+                
+                // Ловушки для анализа
+                Object.defineProperty(window, 'console', {
+                    get: () => { location.reload(); },
+                    set: () => { location.reload(); }
+                });
+                
+                console.log('✅ Security systems active');
+            }
+        })();
         
         // ============================================
         // НАСТРОЙКИ EMAILJS
@@ -2687,7 +2984,7 @@
         
         // Переменные для пошагового оформления
         let currentStep = 1;
-        const totalSteps = 5;
+        const totalSteps = 4;
         let certificateData = {
             service: null,
             selectedVariant: null,
@@ -2697,14 +2994,6 @@
             email: '',
             message: ''
         };
-
-        const YOOKASSA_CONFIG = {
-            shopId: "1149605", // Получите в личном кабинете ЮKassa
-            secretKey: "live_lCR-0KMSgoyMj9f_VZLKbcQ3tuj20ms7ihckCQ5EMcM" // НИКОГДА не публикуйте в продакшене!
-        };
-
-        let paymentWidget = null;
-        let paymentId = null;
 
         // РЕАЛЬНЫЕ ДАННЫЕ О ВАРИАНТАХ УСЛУГ
         const serviceVariants = {
@@ -2890,6 +3179,71 @@
         // ============================================
         // ОСНОВНЫЕ ФУНКЦИИ САЙТА
         // ============================================
+
+
+        // Проверяем возврат с оплаты
+        window.addEventListener('load', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('payment') === 'success') {
+                checkPaymentStatus();
+            }
+        });
+
+        async function checkPaymentStatus() {
+            const pendingData = sessionStorage.getItem('pendingCertificate');
+            if (!pendingData) return;
+            
+            const certificateInfo = JSON.parse(pendingData);
+            
+            try {
+                // Проверяем статус платежа
+                const response = await fetch('/check_payment.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ payment_id: certificateInfo.paymentId })
+                });
+                
+                const result = await response.json();
+                
+                if (result.status === 'succeeded') {
+                    // Платеж успешен - отправляем сертификат
+                    await sendCertificateEmail(certificateInfo);
+                    sessionStorage.removeItem('pendingCertificate');
+                    
+                    // Показываем успех
+                    document.getElementById('certificate-number').textContent = certificateInfo.certificateNumber;
+                    document.getElementById('confirmation-modal').style.display = 'flex';
+                    showNotification('🎉 Сертификат оплачен и отправлен!', 'success');
+                    resetCertificateForm();
+                } else {
+                    showNotification('❌ Платеж не прошел. Попробуйте еще раз.', 'error');
+                    sessionStorage.removeItem('pendingCertificate');
+                }
+            } catch (error) {
+                console.error('Ошибка проверки платежа:', error);
+                showNotification('❌ Ошибка проверки платежа', 'error');
+            }
+        }
+
+        async function sendCertificateEmail(certificateInfo) {
+            const cleanServiceName = certificateInfo.service.name.replace(/[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E0}-\u{1F1FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu, '').trim();
+            
+            const templateParams = {
+                to_email: certificateInfo.email,
+                recipient_name: certificateInfo.recipientName,
+                sender_name: certificateInfo.senderName,
+                service_name: cleanServiceName,
+                certificate_number: certificateInfo.certificateNumber,
+                price: certificateInfo.service.price,
+                validity_days: certificateInfo.duration.value,
+                personal_message: certificateInfo.message || 'Поздравляем с получением сертификата!',
+                service_description: certificateInfo.service.description,
+                service_duration: certificateInfo.service.duration,
+                valid_until: getValidityDate(certificateInfo.duration.value)
+            };
+            
+            await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, templateParams);
+        }
 
         // Трекинг активности для определения ботов
         window.userClicks = 0;
@@ -3369,25 +3723,20 @@
 
         function nextStep() {
             if (validateCurrentStep()) {
-                hapticFeedback('medium');
+                hapticFeedback('medium'); // Вибрация при переходе к следующему шагу
                 
                 if (currentStep < totalSteps) {
                     currentStep++;
                     updateStepProgress();
                     showStep(currentStep);
                     
-                    // Обновляем сводку на 4-м шаге
+                    // Обновляем сводку на последнем шаге
                     if (currentStep === 4) {
                         updateSummary();
                     }
-                    
-                    // Обновляем информацию об оплате на 5-м шаге
-                    if (currentStep === 5) {
-                        updatePaymentInfo();
-                    }
                 }
             } else {
-                hapticFeedback('error');
+                hapticFeedback('error'); // Вибрация при ошибке валидации
             }
         }
 
@@ -3598,384 +3947,6 @@
             document.getElementById('summary-email').textContent = certificateData.email || '—';
         }
 
-        // Функция ожидания загрузки YooCheckout
-        function waitForYooCheckout(maxAttempts = 10) {
-            return new Promise((resolve, reject) => {
-                let attempts = 0;
-                
-                const checkYooCheckout = () => {
-                    attempts++;
-                    
-                    if (window.YooCheckout) {
-                        console.log('YooCheckout загружен');
-                        resolve(window.YooCheckout);
-                    } else if (attempts >= maxAttempts) {
-                        reject(new Error('YooCheckout не удалось загрузить'));
-                    } else {
-                        console.log(`Ожидание YooCheckout, попытка ${attempts}/${maxAttempts}`);
-                        setTimeout(checkYooCheckout, 500);
-                    }
-                };
-                
-                checkYooCheckout();
-            });
-        }
-
-        // Функция инициализации оплаты
-        async function initiatePayment() {
-            const paymentButton = document.getElementById('payment-button');
-            paymentButton.textContent = 'Создаем платеж...';
-            paymentButton.disabled = true;
-
-            try {
-                // Подготавливаем данные для платежа с REDIRECT
-                const paymentData = {
-                    amount: {
-                        value: certificateData.service.price,
-                        currency: "RUB"
-                    },
-                    confirmation: {
-                        type: "redirect",
-                        return_url: window.location.origin + "?payment=success"
-                    },
-                    capture: true,
-                    description: `Подарочный сертификат: ${certificateData.service.name}`,
-                    metadata: {
-                        recipient: certificateData.recipientName,
-                        sender: certificateData.senderName,
-                        service: certificateData.service.name,
-                        email: certificateData.email,
-                        service_price: certificateData.service.price,
-                        service_duration: certificateData.service.duration
-                        // Убрали проблемную строку с btoa
-                    }
-                };
-
-                console.log('Создаем redirect платеж:', paymentData);
-
-                // Создаем платеж через API
-                const payment = await createPayment(paymentData);
-                paymentId = payment.id;
-
-                console.log('Платеж создан:', payment);
-
-                if (payment.confirmation && payment.confirmation.confirmation_url) {
-                    console.log('🔍 Проверяем структуру платежа:', payment);
-                    console.log('🔍 payment.confirmation:', payment.confirmation);
-
-                    if (!payment) {
-                        throw new Error('Платеж не создан - пустой ответ');
-                    }
-
-                    if (!payment.confirmation) {
-                        throw new Error(`Нет объекта confirmation. Полученные поля: ${Object.keys(payment).join(', ')}`);
-                    }
-
-                    if (payment.confirmation.type !== 'redirect') {
-                        throw new Error(`Неверный тип подтверждения: ${payment.confirmation.type}. Ожидался: redirect`);
-                    }
-
-                    if (!payment.confirmation.confirmation_url) {
-                        throw new Error(`Нет confirmation_url. Поля confirmation: ${Object.keys(payment.confirmation).join(', ')}`);
-                    }
-
-                    console.log('✅ URL для оплаты получен:', payment.confirmation.confirmation_url);
-
-                    // Сохраняем данные в localStorage перед переходом
-                    localStorage.setItem('certificateData', JSON.stringify(certificateData));
-                    localStorage.setItem('paymentId', payment.id);
-
-                    paymentWidget.innerHTML = `
-                        <div style="text-align: center; padding: 30px;">
-                            <div style="font-size: 18px; color: #1BA486; margin-bottom: 20px;">
-                                💳 Переход к оплате
-                            </div>
-                            <div style="font-size: 16px; color: #666; margin-bottom: 30px;">
-                                Сейчас вы будете перенаправлены на защищенную страницу ЮKassa для оплаты
-                            </div>
-                            <div style="font-size: 24px; font-weight: bold; color: #0F7A5B; margin-bottom: 30px;">
-                                ${certificateData.service.price} ₽
-                            </div>
-                            <button class="step-button step-button-next" onclick="window.location.href='${payment.confirmation.confirmation_url}'" style="margin-right: 10px;">
-                                🔒 Перейти к оплате
-                            </button>
-                        </div>
-                    `;
-                    
-                    paymentButton.textContent = 'Нажмите кнопку выше для оплаты';
-                    
-                    // Автоматически переходим через 3 секунды
-                    setTimeout(() => {
-                        window.location.href = payment.confirmation.confirmation_url;
-                    }, 3000);
-
-                } else {
-                    throw new Error('Не получен URL для оплаты');
-                }
-
-            } catch (error) {
-                console.error('Ошибка создания платежа:', error);
-                handlePaymentError(error);
-            }
-        }
-
-        // Безопасное кодирование UTF-8 для btoa
-        function utf8ToBase64(str) {
-            try {
-                return btoa(unescape(encodeURIComponent(str)));
-            } catch (e) {
-                // Если btoa не работает, используем encodeURIComponent
-                return encodeURIComponent(str);
-            }
-        }
-
-        // Безопасное декодирование
-        function base64ToUtf8(str) {
-            try {
-                return decodeURIComponent(escape(atob(str)));
-            } catch (e) {
-                // Если atob не работает, используем decodeURIComponent
-                return decodeURIComponent(str);
-            }
-        }
-
-
-        // Проверяем возврат с оплаты при загрузке страницы
-        window.addEventListener('load', function() {
-            // Существующий код загрузки...
-            
-            // Проверяем параметры URL
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('payment') === 'success') {
-                handleReturnFromPayment();
-            }
-        });
-
-        // Функция обработки возврата с оплаты
-        async function handleReturnFromPayment() {
-            try {
-                const savedData = localStorage.getItem('certificateData');
-                const savedPaymentId = localStorage.getItem('paymentId');
-                
-                if (savedData && savedPaymentId) {
-                    // Восстанавливаем данные
-                    certificateData = JSON.parse(savedData);
-                    paymentId = savedPaymentId;
-                    
-                    // Проверяем статус платежа
-                    const response = await fetch(`/api/check-payment?paymentId=${paymentId}`);
-                    const payment = await response.json();
-                    
-                    if (payment.status === 'succeeded') {
-                        // Очищаем localStorage
-                        localStorage.removeItem('certificateData');
-                        localStorage.removeItem('paymentId');
-                        
-                        // Отправляем сертификат
-                        await sendCertificateAfterPayment();
-                        
-                        // Очищаем URL
-                        window.history.replaceState({}, document.title, window.location.pathname);
-                    } else {
-                        showNotification('Платеж не завершен. Попробуйте еще раз.', 'error');
-                    }
-                }
-            } catch (error) {
-                console.error('Ошибка обработки возврата:', error);
-                showNotification('Ошибка проверки платежа', 'error');
-            }
-        }
-
-        let statusCheckInterval = null;
-
-        function startPaymentStatusCheck() {
-            if (statusCheckInterval) {
-                clearInterval(statusCheckInterval);
-            }
-            
-            statusCheckInterval = setInterval(async () => {
-                try {
-                    const response = await fetch(`/api/check-payment?paymentId=${paymentId}`);
-                    const payment = await response.json();
-                    
-                    console.log('Статус платежа:', payment.status);
-                    
-                    if (payment.status === 'succeeded') {
-                        clearInterval(statusCheckInterval);
-                        handleSuccessfulPayment();
-                    } else if (payment.status === 'canceled') {
-                        clearInterval(statusCheckInterval);
-                        handlePaymentError(new Error('Платеж отменен'));
-                    }
-                } catch (error) {
-                    console.error('Ошибка проверки статуса:', error);
-                }
-            }, 3000);
-        }
-
-        // Функции для тестирования
-        function simulateSuccessfulPayment() {
-            console.log('Имитируем успешную оплату');
-            handleSuccessfulPayment();
-        }
-
-        function simulateFailedPayment() {
-            console.log('Имитируем ошибку оплаты');
-            handlePaymentError(new Error('Тестовая ошибка оплаты'));
-        }
-
-        async function createPayment(paymentData) {
-            console.log('🚀 Отправляем запрос на создание платежа:', paymentData);
-            
-            try {
-                const response = await fetch('/api/create-payment', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(paymentData)
-                });
-
-                console.log('📡 Ответ сервера - статус:', response.status);
-                console.log('📡 Ответ сервера - headers:', response.headers);
-
-                const responseText = await response.text();
-                console.log('📡 Сырой ответ сервера:', responseText);
-
-                let result;
-                try {
-                    result = JSON.parse(responseText);
-                } catch (parseError) {
-                    console.error('❌ Ошибка парсинга JSON:', parseError);
-                    throw new Error(`Неверный формат ответа сервера: ${responseText.substring(0, 200)}`);
-                }
-
-                if (!response.ok) {
-                    console.error('❌ Ошибка HTTP:', response.status, result);
-                    throw new Error(result.message || result.error || `HTTP ${response.status}`);
-                }
-
-                console.log('✅ Успешный ответ API:', result);
-                return result;
-
-            } catch (error) {
-                console.error('❌ Ошибка в createPayment:', error);
-                throw error;
-            }
-        }
-
-        // Обработка успешной оплаты
-        function handleSuccessfulPayment() {
-            if (statusCheckInterval) {
-                clearInterval(statusCheckInterval);
-            }
-            
-            hapticFeedback('success');
-            showNotification('💳 Оплата прошла успешно! Отправляем сертификат...', 'success');
-            
-            // Отправляем сертификат после успешной оплаты
-            sendCertificateAfterPayment();
-        }
-
-        // Обработка ошибки оплаты
-        function handlePaymentError(error) {
-            if (statusCheckInterval) {
-                clearInterval(statusCheckInterval);
-            }
-            
-            console.error('Ошибка оплаты:', error);
-            hapticFeedback('error');
-            
-            const paymentWidget = document.getElementById('payment-widget');
-            if (!paymentWidget) {
-                console.error('❌ Элемент payment-widget не найден! Проверьте, что вы на правильном шаге.');
-                throw new Error('Виджет оплаты не найден на странице');
-            }
-
-            console.log('✅ Элемент payment-widget найден');
-
-            paymentWidget.innerHTML = `
-                <div style="text-align: center; padding: 30px;">
-                    <div style="font-size: 18px; color: #1BA486; margin-bottom: 20px;">
-                        💳 Переход к оплате
-                    </div>
-                    <div style="font-size: 16px; color: #666; margin-bottom: 30px;">
-                        Сейчас вы будете перенаправлены на защищенную страницу ЮKassa для оплаты
-                    </div>
-                    <div style="font-size: 24px; font-weight: bold; color: #0F7A5B; margin-bottom: 30px;">
-                        ${certificateData.service.price} ₽
-                    </div>
-                    <button class="step-button step-button-next" onclick="window.location.href='${payment.confirmation.confirmation_url}'" style="margin-right: 10px;">
-                        🔒 Перейти к оплате
-                    </button>
-                </div>
-            `;
-
-            paymentButton.textContent = 'Попробовать снова';
-            paymentButton.disabled = false;
-            paymentButton.onclick = () => {
-                paymentWidget.innerHTML = '<div class="payment-loading">Загрузка виджета оплаты...</div>';
-                initiatePayment();
-            };
-            
-            showNotification('❌ Ошибка при оплате', 'error');
-        }
-
-        // Отправка сертификата после оплаты
-        async function sendCertificateAfterPayment() {
-            // Копируем логику из функции sendCertificate(), но убираем проверки безопасности
-            // так как они уже прошли на шаге оплаты
-            
-            try {
-                const certificateNumber = generateCertificateNumber();
-                
-                const templateParams = {
-                    to_email: certificateData.email,
-                    recipient_name: certificateData.recipientName,
-                    sender_name: certificateData.senderName,
-                    service_name: certificateData.service.name,
-                    certificate_number: certificateNumber,
-                    price: certificateData.service.price,
-                    validity_days: certificateData.duration.value,
-                    personal_message: certificateData.message || 'Поздравляем с получением сертификата!',
-                    service_description: certificateData.service.description,
-                    service_duration: certificateData.service.duration,
-                    valid_until: getValidityDate(certificateData.duration.value),
-                    payment_id: paymentId,
-                    timestamp: new Date().toISOString()
-                };
-
-                await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, templateParams);
-                
-                hapticFeedback('success');
-                document.getElementById('certificate-number').textContent = certificateNumber;
-                document.getElementById('confirmation-modal').style.display = 'flex';
-                
-                showNotification('🎉 Сертификат отправлен на email!', 'success');
-                resetCertificateForm();
-                
-            } catch (error) {
-                console.error('Ошибка отправки сертификата:', error);
-                showNotification('❌ Ошибка отправки сертификата', 'error');
-            }
-        }
-
-        // Обновляем информацию о платеже на 5-м шаге
-        function updatePaymentInfo() {
-            const paymentPrice = document.getElementById('payment-price');
-            const paymentDetails = document.getElementById('payment-details');
-            
-            if (certificateData.service) {
-                paymentPrice.textContent = certificateData.service.price;
-                
-                paymentDetails.innerHTML = `
-                    <strong>${certificateData.service.name}</strong><br>
-                    Получатель: ${certificateData.recipientName}<br>
-                    ${certificateData.selectedVariant ? `Вариант: ${certificateData.selectedVariant.duration}` : ''}
-                `;
-            }
-        }
-
         // ============================================
         // ОТПРАВКА СЕРТИФИКАТА
         // ============================================
@@ -3991,9 +3962,259 @@
         });
         });
 
-        function sendCertificate() {
-            // Переходим к оплате вместо прямой отправки
-            nextStep();
+        async function sendCertificate() {
+            if (!validateCurrentStep()) {
+                return;
+            }
+
+            const sendButton = document.getElementById('send-button');
+            sendButton.textContent = 'Проверяем безопасность...';
+            sendButton.disabled = true;
+
+            try {
+                // 🔒 МАКСИМАЛЬНАЯ ПРОВЕРКА БЕЗОПАСНОСТИ
+                
+                let securityScore = 100;
+                let securityFlags = [];
+                
+                // 1. Honeypot - базовая защита от ботов
+                const honeypot = document.getElementById('honeypot');
+                if (honeypot && honeypot.value !== '') {
+                    console.log('🤖 Бот обнаружен: honeypot');
+                    securityScore = 0;
+                }
+                
+                // 2. Rate limiting - защита от спама
+                const now = Date.now();
+                const lastSubmit = getSecureStorage('lastCertSubmit') || 0;
+                if (now - lastSubmit < 60000) {
+                    console.log('🚨 Слишком частые запросы');
+                    securityScore -= 50;
+                    securityFlags.push('rate_limit');
+                }
+                
+                // 3. Проверка времени на странице
+                const pageLoadTime = window.performance.timeOrigin + window.performance.now();
+                const timeOnPage = now - pageLoadTime;
+                if (timeOnPage < 30000) {
+                    console.log('⚠️ Подозрительно быстрое заполнение');
+                    securityScore -= 30;
+                    securityFlags.push('fast_fill');
+                }
+                
+                // 4. Проверка целостности данных
+                const allData = {
+                    recipientName: certificateData.recipientName,
+                    senderName: certificateData.senderName,
+                    email: certificateData.email,
+                    message: certificateData.message
+                };
+                
+                if (!validateDataIntegrity(allData)) {
+                    console.log('🚨 Обнаружен вредоносный контент');
+                    securityScore = 0;
+                }
+                
+                // 5. Проверка на подозрительные паттерны в именах/email
+                const suspiciousPatterns = [
+                    /test\d+/i, /spam/i, /bot/i, /fake/i, /temp/i,
+                    /qwerty/i, /admin/i, /null/i, /undefined/i
+                ];
+                
+                for (let pattern of suspiciousPatterns) {
+                    if (pattern.test(allData.recipientName) || 
+                        pattern.test(allData.senderName) || 
+                        pattern.test(allData.email)) {
+                        securityScore -= 20;
+                        securityFlags.push('suspicious_pattern');
+                        break;
+                    }
+                }
+                
+                // 6. Проверка User Agent и окружения
+                const userAgent = navigator.userAgent;
+                if (!userAgent || userAgent.includes('bot') || userAgent.includes('crawler')) {
+                    securityScore -= 40;
+                    securityFlags.push('bot_user_agent');
+                }
+                
+                // 7. Проверка размера экрана (боты часто имеют 0x0)
+                if (screen.width === 0 || screen.height === 0) {
+                    securityScore -= 30;
+                    securityFlags.push('invalid_screen');
+                }
+                
+                // 8. Проверка наличия мыши и клавиатуры
+                if (!window.MouseEvent || !window.KeyboardEvent) {
+                    securityScore -= 25;
+                    securityFlags.push('no_input_events');
+                }
+
+                // 9. Проверка JavaScript отпечатков
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                ctx.textBaseline = 'top';
+                ctx.font = '14px Arial';
+                ctx.fillText('Security check', 2, 2);
+                const fingerprint = canvas.toDataURL();
+                
+                if (fingerprint === 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==') {
+                    securityScore -= 35;
+                    securityFlags.push('canvas_fingerprint');
+                }
+                
+                // 10. Проверка активности пользователя
+                let userInteractions = 0;
+                if (window.userClicks) userInteractions += window.userClicks;
+                if (window.userKeystrokes) userInteractions += window.userKeystrokes;
+                if (window.userScrolls) userInteractions += window.userScrolls;
+                
+                if (userInteractions < 5) {
+                    securityScore -= 20;
+                    securityFlags.push('low_interaction');
+                }
+
+                console.log(`🔍 Оценка безопасности: ${securityScore}/100`, securityFlags);
+
+                // БЛОКИРОВКА при низкой оценке безопасности
+                if (securityScore < 30) {
+                    console.log('🚫 БЛОКИРОВКА: Низкая оценка безопасности');
+                    
+                    // Имитируем успешную отправку для ботов
+                    sendButton.textContent = 'Отправляем...';
+                    await new Promise(resolve => setTimeout(resolve, Math.random() * 3000 + 1000));
+                    
+                    const fakeNumber = generateCertificateNumber();
+                    hapticFeedback('success');
+                    document.getElementById('certificate-number').textContent = fakeNumber;
+                    document.getElementById('confirmation-modal').style.display = 'flex';
+                    showNotification('🎉 Сертификат успешно отправлен!', 'success');
+                    resetCertificateForm();
+                    return;
+                }
+
+                sendButton.textContent = 'Отправляем сертификат...';
+                
+                // РЕАЛЬНАЯ ОТПРАВКА для прошедших проверку
+                const certificateNumber = generateCertificateNumber();
+                const sessionToken = generateSessionToken();
+                
+                const cleanServiceName = certificateData.service.name.replace(/[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E0}-\u{1F1FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu, '').trim();
+                
+                const templateParams = {
+                    to_email: certificateData.email,
+                    recipient_name: certificateData.recipientName,
+                    sender_name: certificateData.senderName,
+                    service_name: cleanServiceName,
+                    certificate_number: certificateNumber,
+                    price: certificateData.service.price,
+                    validity_days: certificateData.duration.value,
+                    personal_message: certificateData.message || 'Поздравляем с получением сертификата!',
+                    service_description: certificateData.service.description,
+                    service_duration: certificateData.service.duration,
+                    service_variant: certificateData.selectedVariant ? `${certificateData.selectedVariant.duration} - ${certificateData.selectedVariant.features}` : '',
+                    valid_until: getValidityDate(certificateData.duration.value),
+                    session_token: sessionToken,
+                    security_score: securityScore,
+                    timestamp: new Date().toISOString(),
+                    user_agent: navigator.userAgent.substring(0, 100),
+                    screen_resolution: `${screen.width}x${screen.height}`,
+                    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+                };
+
+                console.log('📤 Отправка ЗАЩИЩЕННОГО сертификата:', {
+                    email: templateParams.to_email,
+                    securityScore: securityScore,
+                    certificateNumber: certificateNumber
+                });
+
+                                const paymentData = {
+                    amount: certificateData.service.price,
+                    return_url: window.location.origin + window.location.pathname + '?payment=success',
+                    description: `Подарочный сертификат: ${cleanServiceName}`,
+                    metadata: {
+                        certificate_number: certificateNumber,
+                        recipient_name: certificateData.recipientName,
+                        sender_name: certificateData.senderName,
+                        email: certificateData.email,
+                        service_name: cleanServiceName,
+                        service_duration: certificateData.service.duration,
+                        session_token: sessionToken
+                    }
+                };
+
+                // Если нужен чек (раскомментируйте для боевого режима)
+                /*
+                paymentData.receipt = {
+                    customer: {
+                        email: certificateData.email
+                    },
+                    items: [{
+                        description: `Подарочный сертификат: ${cleanServiceName}`,
+                        quantity: "1.00",
+                        amount: {
+                            value: certificateData.service.price,
+                            currency: "RUB"
+                        },
+                        vat_code: "1",
+                        payment_mode: "full_prepayment",
+                        payment_subject: "service"
+                    }]
+                };
+                */
+
+                const response = await fetch('/create_payment.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(paymentData)
+                });
+
+                const paymentResult = await response.json();
+
+                if (response.ok && paymentResult.confirmation?.confirmation_url) {
+                    // Сохраняем данные сертификата для обработки после оплаты
+                    sessionStorage.setItem('pendingCertificate', JSON.stringify({
+                        ...certificateData,
+                        certificateNumber,
+                        paymentId: paymentResult.id
+                    }));
+                    
+                    // Перенаправляем на оплату
+                    window.location.href = paymentResult.confirmation.confirmation_url;
+                } else {
+                    throw new Error(paymentResult.error || 'Ошибка создания платежа');
+                }
+                
+                // Сохраняем время последней РЕАЛЬНОЙ отправки
+                secureStorage('lastCertSubmit', now);
+
+                console.log('✅ Сертификат БЕЗОПАСНО отправлен!');
+
+                hapticFeedback('success');
+                document.getElementById('certificate-number').textContent = certificateNumber;
+                document.getElementById('confirmation-modal').style.display = 'flex';
+                
+                showNotification('🎉 Сертификат успешно отправлен!', 'success');
+                resetCertificateForm();
+                
+            } catch (error) {
+                console.error('❌ Ошибка отправки сертификата:', error);
+                hapticFeedback('error');
+                
+                let errorMessage = 'Произошла ошибка при отправке сертификата';
+                if (error.text) {
+                    errorMessage = error.text;
+                } else if (error.message) {
+                    errorMessage = error.message;
+                }
+                
+                showNotification(`❌ ${errorMessage}`, 'error');
+                
+                sendButton.textContent = 'Получить сертификат';
+                sendButton.disabled = false;
+            }
         }
 
         function getValidityDate(days) {
