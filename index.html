@@ -3374,7 +3374,23 @@
                     // Перенаправляем на оплату
                     window.location.href = paymentResult.confirmation.confirmation_url;
                 } else {
-                    throw new Error(paymentResult.error || 'Ошибка создания платежа');
+                    // Улучшенная обработка ошибок
+                    let errorMessage = 'Ошибка создания платежа';
+                    
+                    if (paymentResult) {
+                        if (typeof paymentResult.error === 'string') {
+                            errorMessage = paymentResult.error;
+                        } else if (paymentResult.error && paymentResult.error.description) {
+                            errorMessage = paymentResult.error.description;
+                        } else if (paymentResult.description) {
+                            errorMessage = paymentResult.description;
+                        } else if (typeof paymentResult === 'object') {
+                            errorMessage = JSON.stringify(paymentResult, null, 2);
+                        }
+                    }
+                    
+                    console.error('Детали ошибки:', paymentResult);
+                    throw new Error(errorMessage);
                 }
                 
             } catch (error) {
