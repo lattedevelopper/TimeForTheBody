@@ -2765,7 +2765,7 @@
             
             try {
                 // Проверяем статус платежа
-                const response = await fetch('/check_payment.php', {
+                const response = await fetch('/api/check-payment', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ payment_id: certificateInfo.paymentId })
