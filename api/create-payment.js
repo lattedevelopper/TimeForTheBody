@@ -1,6 +1,4 @@
-// /api/create-payment.js
 export default async function handler(req, res) {
-  // Разрешаем CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -15,28 +13,28 @@ export default async function handler(req, res) {
   }
 
   try {
-    // ВАЖНО: Добавьте эти переменные в Environment Variables в Vercel
     const shopId = process.env.YOOKASSA_SHOP_ID;
     const secretKey = process.env.YOOKASSA_SECRET_KEY;
 
+    console.log('Environment check:', {
+      shopId: !!shopId,
+      secretKey: !!secretKey,
+      shopIdType: typeof shopId,
+      secretKeyType: typeof secretKey
+    });
+
     if (!shopId || !secretKey) {
       return res.status(500).json({ 
-        error: 'YooKassa credentials not configured' 
+        error: 'YooKassa credentials not configured',
+        debug: { shopId: !!shopId, secretKey: !!secretKey }
       });
     }
 
-    const { amount, return_url, description, metadata, receipt } = req.body;
+    const { amount, return_url, description, metadata } = req.body;
 
-    if (!amount || !return_url || !description) {
-      return res.status(400).json({ 
-        error: 'Missing required fields: amount, return_url, description' 
-      });
-    }
-
-    // Подготавливаем данные для ЮKassa
     const paymentData = {
       amount: {
-        value: amount,
+        value: amount.toString(),
         currency: 'RUB'
       },
       confirmation: {
@@ -44,30 +42,33 @@ export default async function handler(req, res) {
         return_url: return_url
       },
       capture: true,
-      description: description
+      description: description || 'Подарочный сертификат'
     };
 
-    if (metadata) paymentData.metadata = metadata;
-    if (receipt) paymentData.receipt = receipt;
+    if (metadata) {
+      paymentData.metadata = metadata;
+    }
 
-    // Создаем уникальный ключ идемпотентности
-    const idempotenceKey = Date.now() + '-' + Math.random().toString(36);
+    const idempotenceKey = Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+    const auth = Buffer.from(`${shopId}:${secretKey}`).toString('base64');
 
-    // Отправляем запрос к ЮKassa
+    console.log('Making request to YooKassa API...');
+
     const response = await fetch('https://api.yookassa.ru/v3/payments', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Idempotence-Key': idempotenceKey,
-        'Authorization': 'Basic ' + Buffer.from(shopId + ':' + secretKey).toString('base64')
+        'Authorization': `Basic ${auth}`
       },
       body: JSON.stringify(paymentData)
     });
 
     const result = await response.json();
+    
+    console.log('YooKassa response:', { status: response.status, result });
 
     if (!response.ok) {
-      console.error('YooKassa error:', result);
       return res.status(response.status).json(result);
     }
 
@@ -76,7 +77,7 @@ export default async function handler(req, res) {
   } catch (error) {
     console.error('Payment creation error:', error);
     res.status(500).json({ 
-      error: 'Internal server error: ' + error.message 
+      error: `Server error: ${error.message}` 
     });
   }
 }
