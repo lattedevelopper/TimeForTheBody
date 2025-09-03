@@ -15,8 +15,7 @@
     <script src="https://www.google.com/recaptcha/api.js?render=ВАШ_SITE_KEY"></script>
 
     <!-- Юкасса -->
-    <script src="https://yookassa.ru/checkout-widget/v1/checkout-widget.js" async></script>
-
+    <script src="https://yookassa.ru/checkout-widget/v1/checkout-widget.js"></script>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="pre  connect" href="https://fonts.gstatic.com" crossorigin>
@@ -3626,40 +3625,126 @@
         // Функция инициализации оплаты
         async function initiatePayment() {
             const paymentButton = document.getElementById('payment-button');
-            paymentButton.textContent = 'Загружаем виджет оплаты...';
+            paymentButton.textContent = 'Создаем платеж...';
             paymentButton.disabled = true;
 
             try {
-                // Ждем загрузки YooCheckout
-                await waitForYooCheckout();
-                
-                paymentButton.textContent = 'Создаем платеж...';
-
-                // Подготавливаем данные для платежа
+                // Подготавливаем данные для платежа с REDIRECT
                 const paymentData = {
                     amount: {
                         value: certificateData.service.price,
                         currency: "RUB"
                     },
                     confirmation: {
-                        type: "embedded"
+                        type: "redirect",
+                        return_url: window.location.origin + "?payment=success"
                     },
+                    capture: true,
                     description: `Подарочный сертификат: ${certificateData.service.name}`,
                     metadata: {
                         recipient: certificateData.recipientName,
                         sender: certificateData.senderName,
                         service: certificateData.service.name,
-                        email: certificateData.email
+                        email: certificateData.email,
+                        certificate_data: btoa(JSON.stringify(certificateData)) // Сохраняем данные
                     }
                 };
 
-                // ... остальной код
+                console.log('Создаем redirect платеж:', paymentData);
+
+                // Создаем платеж через API
+                const payment = await createPayment(paymentData);
+                paymentId = payment.id;
+
+                console.log('Платеж создан:', payment);
+
+                if (payment.confirmation && payment.confirmation.confirmation_url) {
+                    // Сохраняем данные в localStorage перед переходом
+                    localStorage.setItem('certificateData', JSON.stringify(certificateData));
+                    localStorage.setItem('paymentId', paymentId);
+                    
+                    // Показываем информацию пользователю
+                    const paymentWidget = document.getElementById('payment-widget');
+                    paymentWidget.innerHTML = `
+                        <div style="text-align: center; padding: 30px;">
+                            <div style="font-size: 18px; color: #1BA486; margin-bottom: 20px;">
+                                💳 Переход к оплате
+                            </div>
+                            <div style="font-size: 16px; color: #666; margin-bottom: 30px;">
+                                Сейчас вы будете перенаправлены на защищенную страницу ЮKassa для оплаты
+                            </div>
+                            <div style="font-size: 24px; font-weight: bold; color: #0F7A5B; margin-bottom: 30px;">
+                                ${certificateData.service.price} ₽
+                            </div>
+                            <button class="step-button step-button-next" onclick="window.open('${payment.confirmation.confirmation_url}', '_blank')" style="margin-right: 10px;">
+                                🔒 Перейти к оплате
+                            </button>
+                        </div>
+                    `;
+                    
+                    paymentButton.textContent = 'Нажмите кнопку выше для оплаты';
+                    
+                    // Автоматически переходим через 2 секунды
+                    setTimeout(() => {
+                        window.open(payment.confirmation.confirmation_url, '_blank');
+                    }, 2000);
+
+                } else {
+                    throw new Error('Не получен URL для оплаты');
+                }
+
             } catch (error) {
-                console.error('Ошибка инициализации платежа:', error);
+                console.error('Ошибка создания платежа:', error);
                 handlePaymentError(error);
             }
         }
 
+
+        // Проверяем возврат с оплаты при загрузке страницы
+        window.addEventListener('load', function() {
+            // Существующий код загрузки...
+            
+            // Проверяем параметры URL
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('payment') === 'success') {
+                handleReturnFromPayment();
+            }
+        });
+
+        // Функция обработки возврата с оплаты
+        async function handleReturnFromPayment() {
+            try {
+                const savedData = localStorage.getItem('certificateData');
+                const savedPaymentId = localStorage.getItem('paymentId');
+                
+                if (savedData && savedPaymentId) {
+                    // Восстанавливаем данные
+                    certificateData = JSON.parse(savedData);
+                    paymentId = savedPaymentId;
+                    
+                    // Проверяем статус платежа
+                    const response = await fetch(`/api/check-payment?paymentId=${paymentId}`);
+                    const payment = await response.json();
+                    
+                    if (payment.status === 'succeeded') {
+                        // Очищаем localStorage
+                        localStorage.removeItem('certificateData');
+                        localStorage.removeItem('paymentId');
+                        
+                        // Отправляем сертификат
+                        await sendCertificateAfterPayment();
+                        
+                        // Очищаем URL
+                        window.history.replaceState({}, document.title, window.location.pathname);
+                    } else {
+                        showNotification('Платеж не завершен. Попробуйте еще раз.', 'error');
+                    }
+                }
+            } catch (error) {
+                console.error('Ошибка обработки возврата:', error);
+                showNotification('Ошибка проверки платежа', 'error');
+            }
+        }
 
         let statusCheckInterval = null;
 
