@@ -4,44 +4,52 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
 
+// Проверяем что это POST запрос
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
-    exit('Method not allowed');
+    echo json_encode(['error' => 'Method not allowed']);
+    exit;
 }
 
-// Ваши данные из ЮKassa
-$shop_id = '1149605';
-$secret_key = 'live_lCR-0KMSgoyMj9f_VZLKbcQ3tuj20ms7ihckCQ5EMcM';
+// ВАЖНО: Замените на ваши реальные ключи из ЮKassa
+$shop_id = '1149605';      // Например: 123456
+$secret_key = 'live_lCR-0KMSgoyMj9f_VZLKbcQ3tuj20ms7ihckCQ5EMcM'; // Например: live_xxxxx или test_xxxxx
 
 // Получаем данные от клиента
-$input = json_decode(file_get_contents('php://input'), true);
+$input = file_get_contents('php://input');
+$data = json_decode($input, true);
 
-if (!$input) {
+if (!$data) {
     http_response_code(400);
-    exit(json_encode(['error' => 'Invalid JSON']));
+    echo json_encode(['error' => 'Invalid JSON data']);
+    exit;
 }
 
-// Данные платежа
+// Подготавливаем данные для ЮKassa
 $payment_data = [
     'amount' => [
-        'value' => $input['amount'],
+        'value' => $data['amount'],
         'currency' => 'RUB'
     ],
     'confirmation' => [
         'type' => 'redirect',
-        'return_url' => $input['return_url']
+        'return_url' => $data['return_url']
     ],
     'capture' => true,
-    'description' => $input['description'],
-    'metadata' => $input['metadata'] ?? []
+    'description' => $data['description']
 ];
 
-// Если нужен чек (для боевого режима)
-if (isset($input['receipt'])) {
-    $payment_data['receipt'] = $input['receipt'];
+// Добавляем метаданные если есть
+if (isset($data['metadata'])) {
+    $payment_data['metadata'] = $data['metadata'];
 }
 
-// Отправляем запрос к ЮKassa
+// Добавляем чек если есть (для боевого режима)
+if (isset($data['receipt'])) {
+    $payment_data['receipt'] = $data['receipt'];
+}
+
+// Отправляем запрос к ЮKassa API
 $ch = curl_init('https://api.yookassa.ru/v3/payments');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
@@ -54,12 +62,17 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, [
 
 $response = curl_exec($ch);
 $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+$error = curl_error($ch);
 curl_close($ch);
 
-if ($http_code === 200) {
-    echo $response;
-} else {
-    http_response_code($http_code);
-    echo $response;
+// Обработка ошибок cURL
+if ($error) {
+    http_response_code(500);
+    echo json_encode(['error' => 'cURL error: ' . $error]);
+    exit;
 }
+
+// Возвращаем ответ от ЮKassa
+http_response_code($http_code);
+echo $response;
 ?>
