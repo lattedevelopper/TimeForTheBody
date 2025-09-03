@@ -3330,6 +3330,8 @@
                 };
                 */
 
+                console.log('Отправляем запрос на создание платежа:', paymentData);
+                
                 const response = await fetch('/create_payment.php', {
                     method: 'POST',
                     headers: {
@@ -3338,7 +3340,25 @@
                     body: JSON.stringify(paymentData)
                 });
 
-                const paymentResult = await response.json();
+                console.log('Статус ответа:', response.status);
+                
+                // Проверяем что сервер вернул данные
+                const responseText = await response.text();
+                console.log('Ответ сервера (текст):', responseText);
+                
+                if (!responseText) {
+                    throw new Error('Сервер вернул пустой ответ. Проверьте файл create_payment.php');
+                }
+                
+                let paymentResult;
+                try {
+                    paymentResult = JSON.parse(responseText);
+                } catch (parseError) {
+                    console.error('Ошибка парсинга JSON:', parseError);
+                    throw new Error(`Сервер вернул некорректный JSON: ${responseText.substring(0, 200)}`);
+                }
+                
+                console.log('Результат создания платежа:', paymentResult);
 
                 if (response.ok && paymentResult.confirmation?.confirmation_url) {
                     // Сохраняем данные сертификата для обработки после оплаты
