@@ -2579,7 +2579,6 @@
                 this.blockSourceView();
                 this.blockSelection();
                 this.blockRightClick();
-                this.detectDebugBreaks();
                 this.obfuscateErrors();
             },
             
@@ -2707,33 +2706,6 @@
                     this.showFakeError();
                     return false;
                 }, true);
-            },
-            
-            detectDebugBreaks() {
-                // Детекция debugger и точек останова
-                let start = performance.now();
-                
-                const checkDebugger = () => {
-                    const before = performance.now();
-                    debugger; // Это вызовет остановку если открыт отладчик
-                    const after = performance.now();
-                    
-                    if (after - before > 100) {
-                        this.handleDebuggerDetected();
-                    }
-                };
-
-                // Проверяем каждые 1000мс
-                setInterval(checkDebugger, 1000);
-
-                // Дополнительная проверка через eval
-                setInterval(() => {
-                    const start = Date.now();
-                    eval('debugger');
-                    if (Date.now() - start > 100) {
-                        this.handleDebuggerDetected();
-                    }
-                }, 2000);
             },
             
             obfuscateErrors() {
