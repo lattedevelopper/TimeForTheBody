@@ -2593,38 +2593,6 @@
                 };
             }
         };
-
-        // Инициализация всех систем защиты
-        (() => {
-            'use strict';
-            
-            // Проверяем, что не localhost
-            const isProduction = !window.location.hostname.includes('localhost') && 
-                                !window.location.hostname.includes('127.0.0.1');
-            
-            if (isProduction) {
-                console.log('🔒 Initializing security systems...');
-                
-                // Обфускация через некоторое время
-                setTimeout(() => {
-                    HTMLObfuscator.obfuscateClasses();
-                    HTMLObfuscator.addDecoyElements();
-                }, 1000);
-                
-                // Очистка консоли каждые 3 секунды
-                setInterval(() => {
-                    if (console.clear) console.clear();
-                }, 3000);
-                
-                // Ловушки для анализа
-                Object.defineProperty(window, 'console', {
-                    get: () => { location.reload(); },
-                    set: () => { location.reload(); }
-                });
-                
-                console.log('✅ Security systems active');
-            }
-        })();
         
         // ============================================
         // НАСТРОЙКИ EMAILJS
